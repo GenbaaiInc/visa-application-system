@@ -91,6 +91,22 @@ def test_reextraction_preserves_human_edited_passport_identity_fields():
     assert merged["applicant"]["sex"] == "female"
 
 
+def test_reextraction_keeps_existing_engineer_case_profile():
+    existing = {"case": {
+        "application_type": "certificate_of_eligibility",
+        "target_status": "engineer_humanities_international",
+    }}
+    extracted = {"case": {
+        "application_type": "change_of_status",
+        "target_status": "specified_skilled_worker",
+    }, "applicant": {"name_roman": "EXTRACTED"}}
+
+    merged = _merge_extracted_case_data(existing, extracted)
+
+    assert merged["case"] == existing["case"]
+    assert merged["applicant"]["name_roman"] == "EXTRACTED"
+
+
 def test_reextraction_preserves_human_edited_passport_field_metadata_only():
     existing = {
         "applicant.name_roman": {

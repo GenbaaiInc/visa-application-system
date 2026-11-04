@@ -12,7 +12,8 @@ canonical v2 移行後は、Chrome拡張は `case_data`、mapping、`transform`�
 4. 在留申請オンラインシステムの入力ページを開く
    - 対象URL例: `https://www.rasens-immi.moj.go.jp/rasens-u/offer/offerRSS_gotoOffer`
 5. 拡張アイコンを押すと `/cases` から案件一覧を取得します
-6. 案件一覧 `select` から対象案件を選び、「visa-appから読込」を実行
+6. 必要なら「在留資格」で技人国・特定技能に絞り、手続きと在留資格が付いた案件一覧から対象案件を選んで「visa-appから読込」を実行
+   - 絞り込みは表示だけで、案件の種類や保存済みデータは変更しません。
    - 一覧を再取得したい場合は「更新」を押してください。
 7. 「一括入力」を実行
    - RASENSタブが1つだけ開いていれば、そのタブへ接続します。
@@ -48,4 +49,4 @@ python ../../visa-eval/scripts/build_application_data.py \
 
 ファイル添付欄はChromeのセキュリティ制約で自動入力できません。顔写真と添付PDFは手動で選択してください。
 
-`Could not establish connection. Receiving end does not exist.` が出る場合は、対象ページにcontent scriptが入っていない状態です。拡張をリロードした後は対象ページもリロードしてください。この拡張は送信失敗時に `content.js` を再注入して再試行しますが、Chrome内部ページや対象外URLでは実行できません。
+拡張の更新後はRASENSページも再読み込みし、案件データを取得し直してください。入力前に毎回最新の `content.js` を読み込み、古い入力スクリプトが残らないようにします。Chrome内部ページや対象外URLでは実行できません。接続エラー時はページを再読み込みしてください。

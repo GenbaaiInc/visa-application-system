@@ -1,6 +1,8 @@
 import type {
+  ApplicationData,
   CaseDocument,
   CaseSummary,
+  CreateCaseParams,
   DocumentEntry,
   FieldMetadataMap,
   Review,
@@ -314,6 +316,50 @@ const demoCaseSummary: CaseSummary = {
   applicant_name_preview: 'NGUYEN VAN DEMO',
 }
 
+const sswReviewFields: NonNullable<ApplicationData['review_fields']> = [
+  {
+    canonical_path: 'specified_skilled_worker.employment_type',
+    label: '雇用形態',
+    section: '特定技能の条件',
+    input_type: 'select',
+    options: [
+      { value: 'direct', text: '直接雇用' },
+      { value: 'dispatch', text: '派遣' },
+    ],
+    required: true,
+  },
+  {
+    canonical_path: 'specified_skilled_worker.support_method',
+    label: '支援方法',
+    section: '特定技能の条件',
+    input_type: 'select',
+    options: [
+      { value: 'self', text: '自社支援' },
+      { value: 'entrusted', text: '登録支援機関へ委託' },
+    ],
+    required: true,
+    manual_required: true,
+  },
+]
+
+function missingSswRequiredFields(caseData: CaseDocument['case_data']): NonNullable<ApplicationData['missing_required_fields']> {
+  const ssw = caseData.specified_skilled_worker
+  return sswReviewFields
+    .filter((field) => field.required)
+    .filter((field) => {
+      if (field.canonical_path === 'specified_skilled_worker.employment_type') return !ssw?.employment_type
+      if (field.canonical_path === 'specified_skilled_worker.support_method') return !ssw?.support_method
+      return false
+    })
+    .map((field) => ({
+      ...field,
+      reason:
+        field.canonical_path === 'specified_skilled_worker.support_method'
+          ? '1号の場合は支援方法の確認が必要です。'
+          : '特定技能では雇用形態の確認が必要です。',
+    }))
+}
+
 // Public PDF sample for document viewer in demo mode
 const SAMPLE_PDF_URL =
   'https://mozilla.github.io/pdf.js/web/compressed.tracemonkey-pldi-09.pdf'
@@ -332,7 +378,13 @@ export const mockApi = {
     updates: { case_data?: unknown; field_metadata?: unknown; workflow_state?: string },
   ): Promise<CaseDocument> {
     const updated = structuredClone(demoCaseDocument)
+    if (updates.case_data) updated.case_data = updates.case_data as CaseDocument['case_data']
+    if (updates.field_metadata) updated.field_metadata = updates.field_metadata as FieldMetadataMap
     if (updates.workflow_state) updated.workflow_state = updates.workflow_state
+    demoCaseDocument.case_data = structuredClone(updated.case_data)
+    demoCaseDocument.canonical_case_data = structuredClone(updated.case_data)
+    demoCaseDocument.field_metadata = structuredClone(updated.field_metadata)
+    demoCaseDocument.workflow_state = updated.workflow_state
     return Promise.resolve(updated)
   },
 
@@ -354,13 +406,53 @@ export const mockApi = {
     return Promise.resolve({ sheets: [] })
   },
 
-  createCase(_params: {
-    application_type: string
-    target_status: string
-  }): Promise<{ case_id: string; workflow_state: string; created_at: string }> {
+  createCase(params: CreateCaseParams): Promise<{ case_id: string; workflow_state: string; created_at: string }> {
+    demoCaseDocument.workflow_state = 'draft'
+    demoCaseDocument.case_data = {
+      schema_version: '1.0',
+      case: {
+        case_id: DEMO_CASE_ID,
+        application_type: params.application_type,
+        target_status: params.target_status,
+        ...(params.target_status_variant
+          ? { target_status_variant: params.target_status_variant }
+          : {}),
+        workflow_state: 'draft',
+      },
+      applicant: {},
+      entry_plan: {},
+      employer: {},
+      employment: {},
+      ...(params.target_status === 'specified_skilled_worker'
+        ? {
+            specified_skilled_worker: {
+              employment_type: '',
+              support_method: '',
+            },
+          }
+        : {}),
+      proxy: {},
+      receiving_method: {},
+    }
+    demoCaseDocument.canonical_case_data = structuredClone(demoCaseDocument.case_data)
+    demoCaseDocument.field_metadata = {}
+    demoCaseDocument.review = {}
+    demoCaseDocument.applicant_name_preview = ''
+    demoCaseSummary.display_name = DEMO_CASE_ID
+    demoCaseSummary.applicant_name = ''
+    demoCaseSummary.employer_name = ''
+    demoCaseSummary.applicant_name_preview = ''
+    demoCaseSummary.target_status = params.target_status
+    demoCaseSummary.application_type = params.application_type
+    demoCaseSummary.workflow_state = 'draft'
+    if (params.target_status_variant) {
+      demoCaseSummary.target_status_variant = params.target_status_variant
+    } else {
+      delete demoCaseSummary.target_status_variant
+    }
     return Promise.resolve({
       case_id: DEMO_CASE_ID,
-      workflow_state: 'extracted',
+      workflow_state: 'draft',
       created_at: '2026-05-10T09:00:00Z',
     })
   },
@@ -374,10 +466,45 @@ export const mockApi = {
   },
 
   startExtraction(_caseId: string) {
+    demoCaseDocument.workflow_state = 'extracted'
+    demoCaseDocument.case_data.case.workflow_state = 'extracted'
+    demoCaseSummary.workflow_state = 'extracted'
     return Promise.resolve({ session_id: 'demo-session', status: 'completed' as string, error: undefined as string | undefined })
   },
 
   getExtractionStatus(_caseId: string) {
     return Promise.resolve({ status: 'completed', session_id: 'demo-session' as string | undefined })
+  },
+
+  getApplicationData(_caseId: string): Promise<ApplicationData> {
+    const isSsw = demoCaseDocument.case_data.case.target_status === 'specified_skilled_worker'
+    return Promise.resolve({
+      schema_version: '1.0',
+      case_id: demoCaseDocument.case_id,
+      workflow_state: demoCaseDocument.workflow_state,
+      fillable: !isSsw,
+      form_profile: {
+        application_type: demoCaseDocument.case_data.case.application_type,
+        target_status: demoCaseDocument.case_data.case.target_status,
+        title: isSsw ? '特定技能' : '技術・人文知識・国際業務',
+      },
+      review_fields: isSsw ? sswReviewFields : [],
+      missing_required_fields: isSsw ? missingSswRequiredFields(demoCaseDocument.case_data) : [],
+      pending_manual_fields: isSsw
+        ? [
+            {
+              canonical_path: 'specified_skilled_worker.support.plan_final_confirmation',
+              label: '支援計画の最終確認',
+              section: '支援計画・登録支援機関',
+              input_type: 'checkbox',
+              required: true,
+              manual_required: true,
+              reason: '資料から自動判断せず、担当者が確認します。',
+            },
+          ]
+        : [],
+      warnings: isSsw ? ['未確認の必須項目があります'] : [],
+      rows: [],
+    })
   },
 }

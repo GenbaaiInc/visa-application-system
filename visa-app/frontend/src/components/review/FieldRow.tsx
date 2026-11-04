@@ -11,6 +11,10 @@ interface Props {
   meta?: FieldMeta
   onUpdate?: (fieldPath: string, value: string) => void
   readOnly?: boolean
+  required?: boolean
+  manualRequired?: boolean
+  rasensOnly?: boolean
+  issueReason?: string
 }
 
 function normalizeEditorValue(value: string, type: FieldInput['type']): string {
@@ -39,7 +43,19 @@ function truncateText(value: string, maxLength = 40): string {
   return `${value.slice(0, maxLength)}...`
 }
 
-export default function FieldRow({ label, fieldPath, value, input, meta, onUpdate, readOnly = false }: Props) {
+export default function FieldRow({
+  label,
+  fieldPath,
+  value,
+  input,
+  meta,
+  onUpdate,
+  readOnly = false,
+  required = false,
+  manualRequired = false,
+  rasensOnly = false,
+  issueReason,
+}: Props) {
   const alternativesId = useId()
   const [editing, setEditing] = useState(false)
   const [alternativesOpen, setAlternativesOpen] = useState(false)
@@ -153,7 +169,7 @@ export default function FieldRow({ label, fieldPath, value, input, meta, onUpdat
         onKeyDown={handleKeyDown}
         title={hasSource ? 'クリックで根拠を表示' : undefined}
       >
-        <span className="w-44 shrink-0 text-gray-500 truncate text-xs">{label}</span>
+        <span className="w-44 shrink-0 text-gray-500 truncate text-xs" title={label}>{label}</span>
 
         {editing ? (
           <div
@@ -220,6 +236,27 @@ export default function FieldRow({ label, fieldPath, value, input, meta, onUpdat
             固定設定
           </span>
         )}
+        {required && (
+          <span className="shrink-0 text-[10px] px-1.5 py-0.5 rounded-full bg-amber-50 text-amber-700 border border-amber-200">
+            必須
+          </span>
+        )}
+        {manualRequired && (
+          <span
+            className="shrink-0 text-[10px] px-1.5 py-0.5 rounded-full bg-purple-50 text-purple-700 border border-purple-200"
+            title="担当者がレビュー画面またはRASENS上で確認・入力する項目です"
+          >
+            人確認
+          </span>
+        )}
+        {rasensOnly && (
+          <span
+            className="shrink-0 text-[10px] px-1.5 py-0.5 rounded-full bg-indigo-50 text-indigo-700 border border-indigo-200"
+            title="アプリでは完了扱いにせず、RASENS画面で対応する項目です"
+          >
+            RASENSで対応
+          </span>
+        )}
         {hasAlternatives && (
           <button
             type="button"
@@ -241,6 +278,12 @@ export default function FieldRow({ label, fieldPath, value, input, meta, onUpdat
           </span>
         )}
       </div>
+
+      {issueReason && (
+        <div className="px-3 pb-2 pl-[188px] text-xs text-amber-700">
+          {issueReason}
+        </div>
+      )}
 
       {alternativesOpen && hasAlternatives && (
         <div

@@ -129,7 +129,7 @@ gcloud run services update visa-app \
 
 取次者5項目と通知送信用メールアドレスは企業（`org_id`）単位で Firestore `org_settings/{org_id}` に保存する。案件書類やGemini抽出から生成せず、案件データからも上書きしない。`GET /org-settings` は組織メンバーが参照でき、`PATCH /org-settings` はadminだけが変更できる。受領方法は `メール Email` 固定で、通知メール再入力欄にも同じ設定値を投入する。
 
-`chuo-business` については、現在 Firestore に保存されている `org_settings/chuo-business` が正本であり、変更はadminがvisa-appの「組織設定」画面から行う。以前に大阪の公開情報を基に検討した値は旧前提なので、取次者設定へコピーしたり現行値の上書きに使ったりしない。下の保守用CLI例にある奈良県の住所は誤記ではないが、この文書の記載ではなく Firestore の現在値を優先する。
+組織設定の正本は現在 Firestore に保存されている `org_settings/{org_id}` であり、変更はadminがvisa-appの「組織設定」画面から行う。過去に検討した値やこの文書の例を現行値としてコピーしない。
 
 | Firestoreフィールド | 用途 |
 |---|---|
@@ -145,11 +145,11 @@ gcloud run services update visa-app \
 ```bash
 # 管理画面を使えない場合の保守用CLI（実行するとFirestoreへ書き込む）
 .venv/bin/python scripts/manage_users.py org-settings set \
-  --org chuo-business --name '<取次者氏名>' --postal-code '<半角数字>' \
-  --address '奈良県奈良市宝来4丁目13番7号' --organization '<所属機関>' \
-  --phone '<半角数字>' --notification-email 'promot1@gold.ocn.ne.jp'
+  --org '<組織ID>' --name '<取次者氏名>' --postal-code '<半角数字>' \
+  --address '<住所>' --organization '<所属機関>' \
+  --phone '<半角数字>' --notification-email '<通知先メールアドレス>'
 
-.venv/bin/python scripts/manage_users.py org-settings list --org chuo-business
+.venv/bin/python scripts/manage_users.py org-settings list --org '<組織ID>'
 ```
 
 ## GCPリソース

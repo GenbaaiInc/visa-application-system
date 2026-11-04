@@ -1,4 +1,4 @@
-import type { CaseData } from '../types/caseData'
+import type { ApplicationReviewField, CaseData } from '../types/caseData'
 
 /** Flatten a nested CaseData into dot-path entries. */
 export function flattenCaseData(
@@ -61,6 +61,8 @@ export const REVIEW_FIELD_PATHS = [
   'settings.receiving_method.notification_email_confirmation',
 ] as const
 
+export const SYSTEM_REVIEW_FIELD_PREFIXES = ['case.', 'settings.'] as const
+
 const sectionRules: [RegExp, string][] = [
   [/^case\./, '申請概要'],
   [/^applicant\.has_employment_history$/, '申請人に関する情報等'],
@@ -69,6 +71,12 @@ const sectionRules: [RegExp, string][] = [
   [/^entry_plan\./, '入国計画'],
   [/^employer\./, '所属機関'],
   [/^employment\./, '雇用・活動内容'],
+  [/^specified_skilled_worker\.(employment_type|support_method)$/, '特定技能の条件'],
+  [/^specified_skilled_worker\.eligibility\./, '技能・日本語要件'],
+  [/^specified_skilled_worker\.contract\./, '特定技能雇用契約'],
+  [/^specified_skilled_worker\.organization\./, '所属機関の確認'],
+  [/^specified_skilled_worker\.support\./, '支援計画・登録支援機関'],
+  [/^specified_skilled_worker\./, '特定技能'],
   [/^(proxy|receiving_method)\./, '代理人・受領方法'],
   [/^settings\.intermediary\./, '取次者'],
   [/^settings\.receiving_method\./, '受領方法等'],
@@ -83,6 +91,12 @@ export const SECTION_ORDER = [
   '申請人に関する情報等',
   '所属機関',
   '雇用・活動内容',
+  '特定技能の条件',
+  '技能・日本語要件',
+  '特定技能雇用契約',
+  '所属機関の確認',
+  '支援計画・登録支援機関',
+  '特定技能',
   '代理人・受領方法',
   '取次者',
   '受領方法等',
@@ -99,6 +113,7 @@ const labelOverrides: Record<string, string> = {
   'case.case_id': '案件ID',
   'case.application_type': '申請種別',
   'case.target_status': '対象在留資格',
+  'case.target_status_variant': '特定技能区分',
   'case.workflow_state': 'ワークフロー状態',
   'case.intake_channel': '受付経路',
   'case.source_organization': '送出機関',
@@ -316,6 +331,12 @@ const valueLabels: Record<string, string> = {
   highly_skilled_professional: '高度専門職',
   skilled_labor: '技能',
   specified_skilled_worker: '特定技能',
+  ssw_1: '1号',
+  ssw_2: '2号',
+  direct: '直接雇用',
+  dispatch: '派遣',
+  self: '自社支援',
+  entrusted: '登録支援機関へ委託',
   student: '留学',
   dependent: '家族滞在',
   spouse_of_japanese: '日本人の配偶者等',
@@ -401,6 +422,16 @@ export function getDisplayValue(value: unknown): string {
   return valueLabels[str] ?? valueLabels[str.toLowerCase()] ?? str
 }
 
+export function getTargetStatusDisplayValue(
+  targetStatus: string,
+  targetStatusVariant?: string,
+): string {
+  if (targetStatus === 'specified_skilled_worker' && targetStatusVariant) {
+    return `特定技能${getDisplayValue(targetStatusVariant)}`
+  }
+  return getDisplayValue(targetStatus)
+}
+
 export type FieldInputType = 'text' | 'select' | 'number' | 'date' | 'month'
 
 export interface FieldInput {
@@ -414,6 +445,11 @@ const applicationTypeOptions = [
   { value: 'extension_of_stay', label: '在留期間更新許可申請' },
 ]
 
+const targetStatusVariantOptions = [
+  { value: 'ssw_1', label: '1号' },
+  { value: 'ssw_2', label: '2号' },
+]
+
 const targetStatusOptions = [
   { value: 'engineer_humanities_international', label: '技術・人文知識・国際業務' },
   { value: 'highly_skilled_professional', label: '高度専門職' },
@@ -424,6 +460,16 @@ const targetStatusOptions = [
   { value: 'dependent', label: '家族滞在' },
   { value: 'spouse_of_japanese', label: '日本人の配偶者等' },
   { value: 'business_manager', label: '経営・管理' },
+]
+
+const specifiedSkilledWorkerEmploymentTypeOptions = [
+  { value: 'direct', label: '直接雇用' },
+  { value: 'dispatch', label: '派遣' },
+]
+
+const specifiedSkilledWorkerSupportMethodOptions = [
+  { value: 'self', label: '自社支援' },
+  { value: 'entrusted', label: '登録支援機関へ委託' },
 ]
 
 const booleanOptions = [
@@ -544,6 +590,13 @@ export function getFieldInput(path: string): FieldInput {
   const stripped = stripIndices(path)
   if (stripped === 'case.application_type') return { type: 'select', options: applicationTypeOptions }
   if (stripped === 'case.target_status') return { type: 'select', options: targetStatusOptions }
+  if (stripped === 'case.target_status_variant') return { type: 'select', options: targetStatusVariantOptions }
+  if (stripped === 'specified_skilled_worker.employment_type') {
+    return { type: 'select', options: specifiedSkilledWorkerEmploymentTypeOptions }
+  }
+  if (stripped === 'specified_skilled_worker.support_method') {
+    return { type: 'select', options: specifiedSkilledWorkerSupportMethodOptions }
+  }
   if (booleanPaths.has(stripped)) return { type: 'select', options: booleanOptions }
   if (stripped === 'applicant.sex') return { type: 'select', options: sexOptions }
   if (stripped === 'applicant.marital_status') return { type: 'select', options: maritalStatusOptions }
@@ -557,6 +610,29 @@ export function getFieldInput(path: string): FieldInput {
   if (datePaths.has(stripped)) return { type: 'date' }
   if (monthPaths.has(stripped)) return { type: 'month' }
   return { type: 'text' }
+}
+
+export function getReviewFieldInput(field: ApplicationReviewField): FieldInput {
+  const options = field.options
+    ?.map((option) => ({
+      value: String(option.value),
+      label: option.label ?? option.text ?? String(option.value),
+    }))
+    .filter((option) => option.value)
+
+  if (options?.length) {
+    return { type: 'select', options }
+  }
+
+  const inputType = field.input_type?.toLowerCase()
+  if (inputType === 'number') return { type: 'number' }
+  if (inputType === 'date') return { type: 'date' }
+  if (inputType === 'month') return { type: 'month' }
+  if (inputType === 'select' || inputType === 'radio' || inputType === 'checkbox') {
+    return { type: 'select' }
+  }
+
+  return getFieldInput(field.canonical_path)
 }
 
 /** Get a nested value from an object using dot-path. */

@@ -1,5 +1,22 @@
 /** Matches the canonical case_data v2 shape documented under visa-app/docs. */
 
+export type ApplicationType =
+  | 'certificate_of_eligibility'
+  | 'change_of_status'
+  | 'extension_of_stay'
+
+export type TargetStatus =
+  | 'engineer_humanities_international'
+  | 'specified_skilled_worker'
+
+export type TargetStatusVariant = 'ssw_1' | 'ssw_2'
+
+export interface CreateCaseParams {
+  application_type: ApplicationType
+  target_status: TargetStatus
+  target_status_variant?: TargetStatusVariant
+}
+
 export interface CaseData {
   schema_version: string
   case: CaseMeta
@@ -13,6 +30,7 @@ export interface CaseData {
   settings?: Settings
   supporting_documents?: SupportingDocument[]
   assessments?: Assessment[]
+  specified_skilled_worker?: SpecifiedSkilledWorker
 }
 
 export interface CaseMeta {
@@ -21,6 +39,7 @@ export interface CaseMeta {
   source_organization?: string
   application_type: string
   target_status: string
+  target_status_variant?: TargetStatusVariant
   workflow_state: string
   routed_to_human_reason?: string[]
 }
@@ -190,6 +209,15 @@ export interface Employment {
   job_category_primary?: string
   activity_details?: string
   work_location?: string
+}
+
+export interface SpecifiedSkilledWorker {
+  employment_type?: '' | 'direct' | 'dispatch'
+  support_method?: '' | 'self' | 'entrusted'
+  eligibility?: Record<string, unknown>
+  contract?: Record<string, unknown>
+  organization?: Record<string, unknown>
+  support?: Record<string, unknown>
 }
 
 export interface Proxy {
@@ -382,9 +410,49 @@ export interface CaseSummary {
   applicant_name?: string
   employer_name?: string
   target_status?: string
+  target_status_variant?: TargetStatusVariant
   application_type?: string
   workflow_state: string
   created_at: string
   updated_at?: string
   applicant_name_preview?: string
+}
+
+export interface ApplicationFormProfile {
+  application_type?: ApplicationType | string
+  target_status?: TargetStatus | string
+  title?: string
+}
+
+export interface ApplicationFieldOption {
+  value: string
+  text?: string
+  label?: string
+}
+
+export interface ApplicationReviewField {
+  canonical_path: string
+  label: string
+  section?: string
+  input_type?: string
+  options?: ApplicationFieldOption[]
+  required?: boolean
+  manual_required?: boolean
+}
+
+export interface MissingRequiredField extends ApplicationReviewField {
+  reason?: string
+}
+
+export interface ApplicationData {
+  schema_version?: string
+  case_id?: string
+  workflow_state?: string
+  fillable: boolean
+  form_profile?: ApplicationFormProfile
+  missing_required_fields?: MissingRequiredField[]
+  pending_manual_fields?: MissingRequiredField[]
+  review_fields?: ApplicationReviewField[]
+  warnings?: string[]
+  rows?: unknown[]
 }

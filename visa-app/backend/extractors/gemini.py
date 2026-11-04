@@ -18,6 +18,7 @@ from google.genai import types
 logger = logging.getLogger(__name__)
 
 from .prompt_template import build_extraction_prompt, build_scoped_prompt
+from .ssw_profile import SSW_REVIEW_SCHEMA, ssw_extraction_scopes, ssw_scope_schema
 from .types import ExtractionResult, OcrResult
 
 # schema.py がまだ完成していない場合はコメントを外す
@@ -1385,11 +1386,17 @@ def extract_scoped(
     Returns:
         Parsed JSON dict from Gemini response for this scope.
     """
-    schema_key = _SCOPE_KEY_MAP.get(scope)
-    if not schema_key or schema_key not in SCOPE_SCHEMAS:
-        raise ValueError(f"Unknown or unavailable scope: {scope!r}")
-
-    schema = SCOPE_SCHEMAS[schema_key]
+    ssw = case_meta.get("target_status") == "specified_skilled_worker"
+    if ssw:
+        try:
+            schema = ssw_scope_schema(scope, case_meta)
+        except KeyError as exc:
+            raise ValueError(f"Unknown or unavailable scope: {scope!r}") from exc
+    else:
+        schema_key = _SCOPE_KEY_MAP.get(scope)
+        if not schema_key or schema_key not in SCOPE_SCHEMAS:
+            raise ValueError(f"Unknown or unavailable scope: {scope!r}")
+        schema = SCOPE_SCHEMAS[schema_key]
     prompt = build_scoped_prompt(scope, case_meta, documents)
 
     started_at = time.monotonic()
@@ -1452,7 +1459,8 @@ def extract_all_scopes(
     merged value-only data as context.
     Then review (S6) — sequential, using merged results as context.
     """
-    extraction_scopes = EXTRACTION_SCOPES
+    ssw = case_meta.get("target_status") == "specified_skilled_worker"
+    extraction_scopes = ssw_extraction_scopes(case_meta) if ssw else EXTRACTION_SCOPES
 
     def all_failed_message(failures: dict[str, str]) -> str:
         first_error = next(iter(failures.values()), "")
@@ -1541,8 +1549,9 @@ def extract_all_scopes(
     # Phase 3: Review (S6) — sequential, with value-only merged data as context
     review: dict = {}
     try:
-        review_schema_key = _SCOPE_KEY_MAP["review"]
-        review_schema = SCOPE_SCHEMAS.get(review_schema_key)
+        review_schema = (
+            SSW_REVIEW_SCHEMA if ssw else SCOPE_SCHEMAS.get(_SCOPE_KEY_MAP["review"])
+        )
         review_context = _extract_display_values(
             _unflatten_field_values(copy.deepcopy(merged_case_data))
         )

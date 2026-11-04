@@ -4,6 +4,7 @@ from datetime import datetime
 from zoneinfo import ZoneInfo
 
 from rasens_definitions import select_option_texts_for_canonical_id
+from .ssw_profile import build_ssw_scoped_prompt
 
 JOB_CATEGORY_PRIMARY_PATH = "employment.job_category_primary"
 
@@ -470,6 +471,9 @@ def build_scoped_prompt(
     Returns:
         Formatted prompt string.
     """
+    if case_meta.get("target_status") == "specified_skilled_worker":
+        return build_ssw_scoped_prompt(scope, case_meta, documents, extra_context)
+
     if scope not in _SCOPE_INSTRUCTIONS:
         raise ValueError(f"Unknown scope: {scope!r}. Must be one of {list(_SCOPE_INSTRUCTIONS)}")
 

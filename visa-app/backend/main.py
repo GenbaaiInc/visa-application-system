@@ -43,6 +43,13 @@ from application_data import (
     load_default_form_definitions,
     load_default_mapping,
 )
+from application_profiles import (
+    SUPPORTED_APPLICATION_PROFILE_ID,
+    application_form_profile,
+    resolve_application_profile,
+    with_legacy_case_profile,
+)
+from rasens_definitions import load_profile_definitions
 
 logger = logging.getLogger(__name__)
 
@@ -132,6 +139,17 @@ class PromptRequest(BaseModel):
 class CreateCaseRequest(BaseModel):
     application_type: str = "certificate_of_eligibility"
     target_status: str = "engineer_humanities_international"
+    target_status_variant: str | None = None
+
+    def model_post_init(self, __context) -> None:
+        if self.target_status == "specified_skilled_worker" and self.target_status_variant not in {
+            "ssw_1",
+            "ssw_2",
+        }:
+            raise ValueError("特定技能の場合は1号または2号を選択してください。")
+        if self.target_status != "specified_skilled_worker" and self.target_status_variant is not None:
+            raise ValueError("特定技能以外では特定技能区分を指定できません。")
+        resolve_application_profile({"case": self.model_dump()})
 
 
 class UpdateCaseRequest(BaseModel):
@@ -165,6 +183,7 @@ class OrgSettingsRequest(BaseModel):
 
 
 def _case_summary(data: dict) -> dict:
+    data = with_legacy_case_profile(data)
     case_data = data.get("case_data") or {}
     applicant = case_data.get("applicant") if isinstance(case_data, dict) else {}
     employer = case_data.get("employer") if isinstance(case_data, dict) else {}
@@ -179,7 +198,7 @@ def _case_summary(data: dict) -> dict:
     employer_name = (employer or {}).get("name") or ""
     display_parts = [part for part in (applicant_name, employer_name) if part]
     display_name = " / ".join(display_parts) or data.get("case_id") or case_meta.get("case_id", "")
-    return {
+    summary = {
         "case_id": data.get("case_id") or case_meta.get("case_id"),
         "display_name": display_name,
         "applicant_name": applicant_name,
@@ -191,6 +210,9 @@ def _case_summary(data: dict) -> dict:
         "updated_at": data.get("updated_at") or "",
         "applicant_name_preview": applicant_name,
     }
+    if "target_status_variant" in case_meta:
+        summary["target_status_variant"] = case_meta["target_status_variant"]
+    return summary
 
 
 def _deep_merge_dict(base: dict, updates: dict) -> dict:
@@ -202,25 +224,42 @@ def _deep_merge_dict(base: dict, updates: dict) -> dict:
     return base
 
 
+def _resolve_application_profile_or_409(case_data: dict) -> str:
+    try:
+        return resolve_application_profile(case_data)
+    except ValueError as exc:
+        raise HTTPException(status_code=409, detail=str(exc)) from exc
+
+
 def _value_at_path(data: dict, path: str):
     current = data
     for part in path.split("."):
-        if not isinstance(current, dict) or part not in current:
+        if isinstance(current, list) and part.isdigit() and int(part) < len(current):
+            current = current[int(part)]
+        elif isinstance(current, dict) and part in current:
+            current = current[part]
+        else:
             return None, False
-        current = current[part]
     return copy.deepcopy(current), True
 
 
 def _set_value_at_path(data: dict, path: str, value) -> None:
     current = data
     parts = path.split(".")
-    for part in parts[:-1]:
-        child = current.get(part)
-        if not isinstance(child, dict):
-            child = {}
-            current[part] = child
+    for index, part in enumerate(parts):
+        key = int(part) if isinstance(current, list) else part
+        if isinstance(current, list):
+            while len(current) <= key:
+                current.append(None)
+        if index == len(parts) - 1:
+            current[key] = copy.deepcopy(value)
+            return
+        child = current[key] if isinstance(current, list) else current.get(key)
+        expected_type = list if parts[index + 1].isdigit() else dict
+        if not isinstance(child, expected_type):
+            child = expected_type()
+            current[key] = child
         current = child
-    current[parts[-1]] = copy.deepcopy(value)
 
 
 def _require_admin(user: AuthUser) -> None:
@@ -321,8 +360,12 @@ def _merge_extracted_case_data(
 ) -> dict:
     merged = copy.deepcopy(existing_case_data or {})
     _deep_merge_dict(merged, copy.deepcopy(extracted_case_data or {}))
+    if isinstance((existing_case_data or {}).get("case"), dict):
+        # Procedure and status are case choices, never AI extraction results.
+        merged["case"] = copy.deepcopy(existing_case_data["case"])
     metadata = existing_field_metadata if isinstance(existing_field_metadata, dict) else {}
-    for path in PASSPORT_HUMAN_EDITED_PATHS:
+    protected_paths = metadata if (existing_case_data or {}).get("case", {}).get("target_status") == "specified_skilled_worker" else PASSPORT_HUMAN_EDITED_PATHS
+    for path in protected_paths:
         meta = metadata.get(path)
         if not isinstance(meta, dict) or meta.get("human_edited") is not True:
             continue
@@ -335,10 +378,12 @@ def _merge_extracted_case_data(
 def _merge_extracted_field_metadata(
     existing_field_metadata: dict | None,
     extracted_field_metadata: dict | None,
+    existing_case_data: dict | None = None,
 ) -> dict:
     merged = copy.deepcopy(extracted_field_metadata or {})
     existing = existing_field_metadata if isinstance(existing_field_metadata, dict) else {}
-    for path in PASSPORT_HUMAN_EDITED_PATHS:
+    protected_paths = existing if (existing_case_data or {}).get("case", {}).get("target_status") == "specified_skilled_worker" else PASSPORT_HUMAN_EDITED_PATHS
+    for path in protected_paths:
         meta = existing.get(path)
         if isinstance(meta, dict) and meta.get("human_edited") is True:
             merged[path] = copy.deepcopy(meta)
@@ -407,7 +452,7 @@ def _get_case(case_id: str, user: AuthUser) -> dict:
     data = doc.to_dict() if doc.exists else None
     if data is None or data.get("org_id") != user.org_id:
         raise HTTPException(status_code=404, detail="Case not found")
-    return data
+    return with_legacy_case_profile(data)
 
 
 def _get_session(session_id: str, user: AuthUser) -> dict:
@@ -641,14 +686,18 @@ def create_case(body: CreateCaseRequest, user: AuthUser = Depends(require_user))
     case_id = f"case_{uuid.uuid4().hex[:12]}"
     now = _now_iso()
 
+    case_meta = {
+        "case_id": case_id,
+        "application_type": body.application_type,
+        "target_status": body.target_status,
+        "workflow_state": "draft",
+    }
+    if body.target_status_variant is not None:
+        case_meta["target_status_variant"] = body.target_status_variant
+
     case_data = {
         "schema_version": "1.0",
-        "case": {
-            "case_id": case_id,
-            "application_type": body.application_type,
-            "target_status": body.target_status,
-            "workflow_state": "draft",
-        },
+        "case": case_meta,
         "applicant": {},
         "entry_plan": {},
         "employer": {},
@@ -733,7 +782,7 @@ def update_case(case_id: str, body: UpdateCaseRequest, user: AuthUser = Depends(
 
     ref.update(updates)
 
-    return ref.get().to_dict()
+    return with_legacy_case_profile(ref.get().to_dict())
 
 
 @api.post("/cases/{case_id}/documents")
@@ -1005,6 +1054,7 @@ def _extract_with_gemini(
         "case_id": case_info.get("case_id", case_doc.get("case_id", "")),
         "application_type": case_info.get("application_type", ""),
         "target_status": case_info.get("target_status", ""),
+        "target_status_variant": case_info.get("target_status_variant"),
     }
 
     logger.info(
@@ -1136,6 +1186,8 @@ def start_extraction_stream(
 ):
     """SSE streaming extraction endpoint."""
     data = _get_case(case_id, user)
+    _resolve_application_profile_or_409(data.get("case_data") or {})
+    _validate_extraction_mode(data, body)
     ref = db.collection("cases").document(case_id)
     data.setdefault("case_id", case_id)
     if not data.get("document_manifest", {}).get("documents"):
@@ -1196,6 +1248,7 @@ def start_extraction_stream(
             merged_field_metadata = _merge_extracted_field_metadata(
                 data.get("field_metadata"),
                 result.field_metadata,
+                data.get("case_data"),
             )
 
             ref.update({
@@ -1280,6 +1333,12 @@ def start_extraction_stream(
     )
 
 
+def _validate_extraction_mode(data: dict, body: ExtractRequest) -> None:
+    if data.get("case_data", {}).get("case", {}).get("target_status") == "specified_skilled_worker":
+        if body.backend != "gemini" or not body.scoped:
+            raise HTTPException(status_code=409, detail="特定技能の抽出はGeminiの項目別抽出を選択してください。")
+
+
 @api.post("/cases/{case_id}/extract")
 def start_extraction(
     case_id: str,
@@ -1287,6 +1346,8 @@ def start_extraction(
     user: AuthUser = Depends(require_user),
 ):
     data = _get_case(case_id, user)
+    _resolve_application_profile_or_409(data.get("case_data") or {})
+    _validate_extraction_mode(data, body)
     ref = db.collection("cases").document(case_id)
     manifest = data.get("document_manifest", {})
     documents = manifest.get("documents", [])
@@ -1328,6 +1389,7 @@ def _start_gemini_extraction(
         merged_field_metadata = _merge_extracted_field_metadata(
             case_doc.get("field_metadata"),
             result.field_metadata,
+            case_doc.get("case_data"),
         )
 
         case_ref.update(
@@ -1542,13 +1604,24 @@ def get_application_data(case_id: str, user: AuthUser = Depends(require_user)):
     if not data.get("case_data"):
         raise HTTPException(status_code=400, detail="case_data not found in case document")
 
+    form_profile_id = _resolve_application_profile_or_409(data["case_data"])
+
     try:
-        return build_application_data_response(
+        if form_profile_id == SUPPORTED_APPLICATION_PROFILE_ID:
+            mapping = load_default_mapping()
+            form_definitions = load_default_form_definitions()
+        else:
+            mapping, form_definitions = load_profile_definitions(form_profile_id)
+        response = build_application_data_response(
             data,
-            load_default_mapping(),
-            load_default_form_definitions(),
+            mapping,
+            form_definitions,
             _load_org_application_settings(user),
         )
+        response["form_profile_id"] = form_profile_id
+        response["form_profile"] = application_form_profile(data["case_data"])
+        response["form_definition_version"] = form_definitions.get("schema_version", "")
+        return response
     except ValueError as exc:
         raise HTTPException(status_code=500, detail=str(exc)) from exc
 
@@ -1599,7 +1672,7 @@ def _harvest_extraction_results(
                 except (json.JSONDecodeError, OSError):
                     pass
 
-        current_doc = case_ref.get().to_dict() or {}
+        current_doc = with_legacy_case_profile(case_ref.get().to_dict() or {})
         if extracted_case_data is not None:
             updates["case_data"] = _merge_extracted_case_data(
                 current_doc.get("case_data"),
@@ -1610,6 +1683,7 @@ def _harvest_extraction_results(
             updates["field_metadata"] = _merge_extracted_field_metadata(
                 current_doc.get("field_metadata"),
                 updates["field_metadata"],
+                current_doc.get("case_data"),
             )
 
         case_ref.update(updates)
