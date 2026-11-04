@@ -112,13 +112,19 @@ def load_documents(work_dir: Path, documents: list[dict[str, Any]]) -> list[Load
 
 
 def case_meta(scenario: dict[str, Any], manifest: dict[str, Any]) -> dict[str, str]:
-    return {
+    meta = {
         "case_id": scenario.get("case_id") or manifest.get("case_id", ""),
         "application_type": scenario.get("application_type")
         or manifest.get("application_type", ""),
         "target_status": scenario.get("target_status")
         or manifest.get("target_status", ""),
     }
+    target_status_variant = scenario.get("target_status_variant") or manifest.get(
+        "target_status_variant"
+    )
+    if target_status_variant:
+        meta["target_status_variant"] = target_status_variant
+    return meta
 
 
 def default_output_dir(

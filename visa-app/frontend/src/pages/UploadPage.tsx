@@ -6,12 +6,14 @@ import DropZone from '../components/upload/DropZone'
 import FileList from '../components/upload/FileList'
 import ExtractionProgress from '../components/upload/ExtractionProgress'
 import type { PhaseInfo } from '../components/upload/ExtractionProgress'
-import type { DocumentEntry } from '../types/caseData'
+import { getDisplayValue, getTargetStatusDisplayValue } from '../lib/fieldPaths'
+import type { CaseMeta, DocumentEntry } from '../types/caseData'
 
 export default function UploadPage() {
   const { caseId } = useParams<{ caseId: string }>()
   const navigate = useNavigate()
   const [documents, setDocuments] = useState<DocumentEntry[]>([])
+  const [caseMeta, setCaseMeta] = useState<CaseMeta | null>(null)
   const [uploading, setUploading] = useState(false)
   const [extracting, setExtracting] = useState(false)
   const [extractionStatus, setExtractionStatus] = useState<string | null>(null)
@@ -23,8 +25,23 @@ export default function UploadPage() {
 
   useEffect(() => {
     if (!caseId) return
-    apiClient.listDocuments(caseId).then((docs) => setDocuments(docs))
+    Promise.all([apiClient.getCase(caseId), apiClient.listDocuments(caseId)]).then(
+      ([caseDocument, docs]) => {
+        setCaseMeta(caseDocument.case_data.case)
+        setDocuments(docs)
+      },
+    )
   }, [caseId])
+
+  const isGijinkokuCoe =
+    caseMeta?.application_type === 'certificate_of_eligibility' &&
+    caseMeta.target_status === 'engineer_humanities_international'
+  const isSpecifiedSkilledWorker = caseMeta?.target_status === 'specified_skilled_worker'
+  const extractionSupported = isGijinkokuCoe || isSpecifiedSkilledWorker
+
+  useEffect(() => {
+    if (isSpecifiedSkilledWorker) setBackend('gemini')
+  }, [isSpecifiedSkilledWorker])
 
   const handleFilesSelected = useCallback(
     async (files: File[]) => {
@@ -50,7 +67,7 @@ export default function UploadPage() {
   }, [])
 
   const handleExtract = async () => {
-    if (!caseId || documents.length === 0) return
+    if (!caseId || documents.length === 0 || !extractionSupported) return
     setExtracting(true)
     setExtractionStatus('starting')
     setExtractionError(null)
@@ -131,7 +148,35 @@ export default function UploadPage() {
             feedbackClassName="text-xs"
           />
         )}
+        {caseMeta && (
+          <>
+            <span className="ml-3">
+              手続き: {getDisplayValue(caseMeta.application_type)}
+            </span>
+            <span className="ml-3">
+              対象の在留資格: {getTargetStatusDisplayValue(caseMeta.target_status, caseMeta.target_status_variant)}
+            </span>
+          </>
+        )}
       </div>
+
+      {caseMeta && !extractionSupported && (
+        <div
+          id="extraction-unavailable"
+          className="mb-5 flex flex-wrap items-center justify-between gap-3 rounded-lg bg-amber-50 p-4 text-sm text-amber-800"
+        >
+          <p>
+            この案件種別のAI抽出・RASENS連携はまだ未対応です。資料のアップロードと確認は利用できます。
+          </p>
+          <button
+            type="button"
+            onClick={() => navigate(`/cases/${caseId}/review`)}
+            className="rounded-lg border border-amber-300 bg-white px-3 py-1.5 font-medium text-amber-800 hover:bg-amber-100"
+          >
+            資料を確認
+          </button>
+        </div>
+      )}
 
       <DropZone onFilesSelected={handleFilesSelected} disabled={uploading || extracting} />
 
@@ -147,19 +192,24 @@ export default function UploadPage() {
           <select
             value={backend}
             onChange={(e) => setBackend(e.target.value)}
-            disabled={extracting}
+            disabled={extracting || !extractionSupported}
             className="border border-gray-300 rounded px-2 py-1.5 text-sm"
           >
             <option value="gemini">Gemini</option>
-            <option value="codex">Codex</option>
+            <option value="codex" disabled={isSpecifiedSkilledWorker}>Codex</option>
           </select>
         </label>
+        {isSpecifiedSkilledWorker && (
+          <span className="text-xs text-gray-500">
+            特定技能はGeminiで抽出します
+          </span>
+        )}
         <label className="flex items-center gap-2 text-sm text-gray-700">
           抽出方式
           <select
             value={pattern}
             onChange={(e) => setPattern(e.target.value)}
-            disabled={extracting}
+            disabled={extracting || !extractionSupported}
             className="border border-gray-300 rounded px-2 py-1.5 text-sm"
           >
             <option value="auto">自動</option>
@@ -170,7 +220,8 @@ export default function UploadPage() {
         </label>
         <button
           onClick={handleExtract}
-          disabled={extracting || documents.length === 0}
+          disabled={extracting || documents.length === 0 || !extractionSupported}
+          aria-describedby={caseMeta && !extractionSupported ? 'extraction-unavailable' : undefined}
           className="px-5 py-2.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:bg-gray-300 disabled:cursor-not-allowed text-sm font-medium"
         >
           {extracting ? '抽出中...' : '抽出開始'}

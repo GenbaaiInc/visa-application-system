@@ -16,6 +16,7 @@ from .gemini import (
     extract_text_only,
     extract_with_images,
 )
+from .ssw_profile import ssw_extraction_scopes
 from .types import ExtractionResult
 from .vision import ocr_document
 
@@ -166,9 +167,15 @@ def extract_documents(
 ) -> ExtractionResult:
     case_id = case_id or case_meta.get("case_id", "")
 
+    if case_meta.get("target_status") == "specified_skilled_worker" and not scoped:
+        raise ValueError("特定技能のAI抽出はscope抽出のみ対応しています。")
+
     if scoped:
         client = _get_client()
-        scoped_names = [*EXTRACTION_SCOPES, "review"]
+        scoped_names = [
+            *(ssw_extraction_scopes(case_meta) if case_meta.get("target_status") == "specified_skilled_worker" else EXTRACTION_SCOPES),
+            "review",
+        ]
         enriched_documents = _enrich_manifest_documents(
             manifest_documents,
             prepared,

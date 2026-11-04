@@ -105,11 +105,185 @@ def test_create_case_records_org_and_owner(client, fake_db):
     assert stored["owner_uid"] == "user_a"
 
 
+@pytest.mark.parametrize("legacy_case_data", [
+    {key: {} for key in ("applicant", "employer", "employment", "entry_plan")},
+    {"case": {"application_type": "coe", "target_status": "engineer_humanities_international"},
+     "applicant": {}, "employer": {}, "employment": {}, "entry_plan": {}},
+])
+def test_legacy_engineer_case_is_consistent_across_read_extract_and_application_data(
+    client, fake_db, legacy_case_data,
+):
+    login_as(ORG_A)
+    case_id = "case_legacy"
+    fake_db.collections["cases"][case_id] = {
+        "case_id": case_id,
+        "org_id": "org_a",
+        "owner_uid": "user_a",
+        "created_at": "2026-05-20T00:00:00+00:00",
+        "workflow_state": "extracted",
+        "case_data": copy.deepcopy(legacy_case_data),
+        "field_metadata": {},
+        "document_manifest": {"documents": []},
+    }
+    stored_before = copy.deepcopy(fake_db.collections["cases"][case_id])
+
+    summary = client.get("/cases").json()[0]
+    detail = client.get(f"/cases/{case_id}").json()
+    application_data = client.get(f"/cases/{case_id}/application-data")
+    extraction = client.post(f"/cases/{case_id}/extract", json={"backend": "gemini"})
+    extraction_stream = client.post(f"/cases/{case_id}/extract-stream", json={"backend": "gemini"})
+
+    assert summary["application_type"] == "certificate_of_eligibility"
+    assert summary["target_status"] == "engineer_humanities_international"
+    assert detail["canonical_case_data"]["case"]["application_type"] == "certificate_of_eligibility"
+    assert detail["case_data"]["case"]["target_status"] == "engineer_humanities_international"
+    assert application_data.status_code == 200
+    assert application_data.json()["form_profile_id"] == "coe_engineer_humanities_international"
+    assert extraction.status_code == 400  # profile accepted; source documents not uploaded
+    assert extraction_stream.status_code == 400
+    assert fake_db.collections["cases"][case_id] == stored_before
+
+
+def test_incomplete_new_case_does_not_fall_back_to_engineer_profile(client, fake_db):
+    login_as(ORG_A)
+    fake_db.collections["cases"]["case_unknown"] = {
+        "case_id": "case_unknown", "org_id": "org_a", "created_at": "2026-09-01T00:00:00+00:00",
+        "case_data": {key: {} for key in ("applicant", "employer", "employment", "entry_plan")},
+        "document_manifest": {"documents": []},
+    }
+
+    assert client.get("/cases/case_unknown/application-data").status_code == 409
+    assert client.post("/cases/case_unknown/extract", json={"backend": "gemini"}).status_code == 409
+
+
+def test_incomplete_ssw_case_is_never_interpreted_as_legacy_engineer(client, fake_db):
+    login_as(ORG_A)
+    fake_db.collections["cases"]["case_incomplete_ssw"] = {
+        "case_id": "case_incomplete_ssw", "org_id": "org_a",
+        "created_at": "2026-05-20T00:00:00+00:00",
+        "case_data": {"case": {
+            "application_type": "certificate_of_eligibility",
+            "target_status": "specified_skilled_worker",
+        }},
+        "document_manifest": {"documents": []},
+    }
+
+    assert client.get("/cases").json()[0]["target_status"] == "specified_skilled_worker"
+    assert client.get("/cases/case_incomplete_ssw/application-data").status_code == 409
+    for endpoint in ("extract", "extract-stream"):
+        assert client.post(f"/cases/case_incomplete_ssw/{endpoint}", json={"backend": "gemini"}).status_code == 409
+
+
+def test_create_specified_skilled_worker_case_preserves_variant(client, fake_db):
+    login_as(ORG_A)
+    response = client.post(
+        "/cases",
+        json={
+            "application_type": "certificate_of_eligibility",
+            "target_status": "specified_skilled_worker",
+            "target_status_variant": "ssw_1",
+        },
+    )
+
+    assert response.status_code == 200
+    case_id = response.json()["case_id"]
+    case_meta = fake_db.collections["cases"][case_id]["case_data"]["case"]
+    assert case_meta["target_status"] == "specified_skilled_worker"
+    assert case_meta["target_status_variant"] == "ssw_1"
+    assert client.get("/cases").json()[0]["target_status_variant"] == "ssw_1"
+
+
+@pytest.mark.parametrize(
+    "payload",
+    [
+        {
+            "application_type": "certificate_of_eligibility",
+            "target_status": "specified_skilled_worker",
+        },
+        {
+            "application_type": "certificate_of_eligibility",
+            "target_status": "specified_skilled_worker",
+            "target_status_variant": "ssw_3",
+        },
+        {
+            "application_type": "certificate_of_eligibility",
+            "target_status": "engineer_humanities_international",
+            "target_status_variant": "ssw_2",
+        },
+    ],
+)
+def test_create_case_rejects_inconsistent_specified_skilled_worker_variant(
+    client,
+    fake_db,
+    payload,
+):
+    login_as(ORG_A)
+
+    assert client.post("/cases", json=payload).status_code == 422
+
+
+def test_specified_skilled_worker_does_not_fall_back_to_gijinkoku_processing(
+    client,
+    fake_db,
+):
+    login_as(ORG_A)
+    case_id = client.post(
+        "/cases",
+        json={
+            "application_type": "certificate_of_eligibility",
+            "target_status": "specified_skilled_worker",
+            "target_status_variant": "ssw_2",
+        },
+    ).json()["case_id"]
+
+    application_data = client.get(f"/cases/{case_id}/application-data")
+    extraction = client.post(f"/cases/{case_id}/extract", json={"backend": "gemini"})
+    extraction_stream = client.post(
+        f"/cases/{case_id}/extract-stream",
+        json={"backend": "gemini"},
+    )
+
+    assert application_data.status_code == 200
+    assert application_data.json()["form_profile_id"] == "coe_specified_skilled_worker"
+    assert application_data.json()["fillable"] is False
+    assert application_data.json()["missing_required_fields"]
+    # Supported profile, but no source documents have been uploaded.
+    assert extraction.status_code == 400
+    assert extraction_stream.status_code == 400
+    unsupported_backend = client.post(f"/cases/{case_id}/extract", json={"backend": "codex"})
+    assert unsupported_backend.status_code == 409
+    for endpoint in ("extract", "extract-stream"):
+        for body in ({"backend": "codex"}, {"backend": "gemini", "scoped": False}):
+            assert client.post(f"/cases/{case_id}/{endpoint}", json=body).status_code == 409
+
+
+def test_ssw_reextraction_preserves_human_values_and_case_selection():
+    existing = {
+        "case": {"application_type": "extension_of_stay", "target_status": "specified_skilled_worker", "target_status_variant": "ssw_2"},
+        "specified_skilled_worker": {"employment_type": "dispatch"},
+        "employer": {"name": "HUMAN CONFIRMED"},
+    }
+    metadata = {path: {"human_edited": True} for path in ["specified_skilled_worker.employment_type", "employer.name"]}
+    extracted = {"case": {"application_type": "certificate_of_eligibility"}, "specified_skilled_worker": {"employment_type": "direct"}, "employer": {"name": "AI VALUE"}}
+    assert main._merge_extracted_case_data(existing, extracted, metadata) == existing
+    assert main._merge_extracted_field_metadata(metadata, {}, existing) == metadata
+
+
+def test_ssw_reextraction_preserves_human_values_in_repeated_fields():
+    existing = {"case": {"target_status": "specified_skilled_worker"}, "specified_skilled_worker": {"eligibility": {"skill_tests": [{"name": "CONFIRMED"}]}}}
+    metadata = {"specified_skilled_worker.eligibility.skill_tests.0.name": {"human_edited": True}}
+    extracted = {"specified_skilled_worker": {"eligibility": {"skill_tests": []}}}
+    merged = main._merge_extracted_case_data(existing, extracted, metadata)
+    assert merged["specified_skilled_worker"]["eligibility"]["skill_tests"] == [{"name": "CONFIRMED"}]
+
+
 def test_list_cases_returns_only_own_org(client, fake_db):
     login_as(ORG_A)
     case_id = client.post("/cases", json={}).json()["case_id"]
 
-    assert [c["case_id"] for c in client.get("/cases").json()] == [case_id]
+    own_cases = client.get("/cases").json()
+    assert [c["case_id"] for c in own_cases] == [case_id]
+    assert "target_status_variant" not in own_cases[0]
 
     login_as(ORG_B)
     assert client.get("/cases").json() == []
@@ -240,6 +414,8 @@ def test_case_and_application_data_receive_org_settings(client, fake_db):
     assert rows["settings.receiving_method.notification_email"] == "notice@example.com"
     assert rows["settings.receiving_method.notification_email_confirmation"] == "notice@example.com"
     assert application_payload["fillable"] is True
+    assert application_payload["form_profile_id"] == "coe_engineer_humanities_international"
+    assert application_payload["form_definition_version"] == "0.1.0"
 
 
 @pytest.mark.parametrize(

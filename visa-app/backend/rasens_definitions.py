@@ -50,6 +50,23 @@ def load_default_form_definitions() -> dict[str, Any]:
     return load_json(path)
 
 
+def load_profile_definitions(profile_id: str) -> tuple[dict[str, Any], dict[str, Any]]:
+    """Read the mapping and inventory belonging to one supported form."""
+    from application_profiles import SUPPORTED_APPLICATION_PROFILE_ID, SSW_PROFILES
+
+    if profile_id == SUPPORTED_APPLICATION_PROFILE_ID:
+        return load_default_mapping(), load_default_form_definitions()
+    if profile_id not in SSW_PROFILES.values():
+        raise ValueError("Unsupported application profile")
+    assets = []
+    for folder in ("mappings", "form_definitions"):
+        relative = Path(folder) / f"{profile_id}.json"
+        workspace_path = WORKSPACE_DIR / "rasens-autofill/data" / relative
+        path = workspace_path if workspace_path.exists() else BACKEND_DIR / "data" / relative
+        assets.append(load_json(path))
+    return assets[0], assets[1]
+
+
 def select_option_texts_for_canonical_id(
     canonical_id: str,
     mapping: dict[str, Any] | None = None,

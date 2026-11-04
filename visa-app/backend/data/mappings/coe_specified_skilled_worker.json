@@ -1,0 +1,5183 @@
+{
+  "schema_version": "1.0.0",
+  "form_definition": "coe_specified_skilled_worker.json",
+  "description": "Specified Skilled Worker coe_specified_skilled_worker; human-confirmed values only. No inferred defaults.",
+  "mappings": [
+    {
+      "canonical_id": "applicant.nationality_region",
+      "value_path": "applicant.nationality_region",
+      "form_order": 2,
+      "display_no": "1",
+      "section": "申請人・その他",
+      "label": "１　国籍・地域",
+      "field_name": "item[5].selectData",
+      "field_id": "select_320052",
+      "input_type": "select",
+      "required": true,
+      "transform": "nationality_region"
+    },
+    {
+      "canonical_id": "applicant.birth_date",
+      "value_path": "applicant.birth_date",
+      "form_order": 3,
+      "display_no": "2",
+      "section": "申請人・その他",
+      "label": "２　生年月日",
+      "field_name": "",
+      "field_id": "textData1_320059",
+      "input_type": "text",
+      "required": true,
+      "transform": "date_yyyymmdd"
+    },
+    {
+      "canonical_id": "applicant.name_roman",
+      "value_path": "applicant.name_roman",
+      "form_order": 4,
+      "display_no": "3",
+      "section": "申請人・その他",
+      "label": "３　氏名",
+      "field_name": "item[7].textData",
+      "field_id": "applicant_lastName",
+      "input_type": "text",
+      "required": true
+    },
+    {
+      "canonical_id": "applicant.sex",
+      "value_path": "applicant.sex",
+      "form_order": 5,
+      "display_no": "4",
+      "section": "申請人・その他",
+      "label": "４　性別",
+      "field_name": "item[8].selectData",
+      "field_id": "sexRadioList_320062_1",
+      "input_type": "radio",
+      "required": true,
+      "transform": "sex_ja"
+    },
+    {
+      "canonical_id": "applicant.birth_place",
+      "value_path": "applicant.birth_place",
+      "form_order": 6,
+      "display_no": "5",
+      "section": "申請人・その他",
+      "label": "５　出生地",
+      "field_name": "item[9].textData",
+      "field_id": "switch_320063",
+      "input_type": "text",
+      "required": true
+    },
+    {
+      "canonical_id": "applicant.marital_status",
+      "value_path": "applicant.marital_status",
+      "form_order": 7,
+      "display_no": "6",
+      "section": "申請人・その他",
+      "label": "６　配偶者の有無",
+      "field_name": "item[10].selectData",
+      "field_id": "radioList_320064_1",
+      "input_type": "radio",
+      "required": true,
+      "value_map": {
+        "married": "有 Married",
+        "single": "無 Single",
+        "unmarried": "無 Single"
+      }
+    },
+    {
+      "canonical_id": "applicant.occupation",
+      "value_path": "applicant.occupation",
+      "form_order": 8,
+      "display_no": "7",
+      "section": "申請人・その他",
+      "label": "７　職業",
+      "field_name": "item[11].textData",
+      "field_id": "switch_320067",
+      "input_type": "text",
+      "required": true
+    },
+    {
+      "canonical_id": "applicant.home_country_address",
+      "value_path": "applicant.home_country_address",
+      "form_order": 9,
+      "display_no": "8",
+      "section": "申請人・その他",
+      "label": "８　本国における居住地",
+      "field_name": "item[12].textData",
+      "field_id": "switch_320068",
+      "input_type": "text",
+      "required": true
+    },
+    {
+      "canonical_id": "applicant.japan_contact.postal_code",
+      "value_path": "applicant.japan_contact.postal_code",
+      "form_order": 10,
+      "display_no": "9.1",
+      "section": "申請人・その他",
+      "label": "９.１　日本における連絡先　郵便番号",
+      "field_name": "item[13].textData",
+      "field_id": "item_13_textData",
+      "input_type": "text",
+      "required": true
+    },
+    {
+      "canonical_id": "applicant.japan_contact.address",
+      "value_path": "applicant.japan_contact.address",
+      "form_order": 11,
+      "display_no": "9.2",
+      "section": "申請人・その他",
+      "label": "９.２　日本における連絡先　居住地",
+      "field_name": "item[14].textData",
+      "field_id": "address_320073",
+      "input_type": "text",
+      "required": true
+    },
+    {
+      "canonical_id": "applicant.japan_contact.phone",
+      "value_path": "applicant.japan_contact.phone",
+      "form_order": 12,
+      "display_no": "9.3",
+      "section": "申請人・その他",
+      "label": "９.３　日本における連絡先　電話番号",
+      "field_name": "item[15].textData",
+      "field_id": "switch_320075",
+      "input_type": "text",
+      "required": false
+    },
+    {
+      "canonical_id": "applicant.japan_contact.mobile",
+      "value_path": "applicant.japan_contact.mobile",
+      "form_order": 13,
+      "display_no": "9.4",
+      "section": "申請人・その他",
+      "label": "９.４　日本における連絡先　携帯電話番号",
+      "field_name": "item[16].textData",
+      "field_id": "switch_320077",
+      "input_type": "text",
+      "required": false
+    },
+    {
+      "canonical_id": "applicant.passport.number",
+      "value_path": "applicant.passport.number",
+      "form_order": 16,
+      "display_no": "10.1",
+      "section": "申請人・その他",
+      "label": "１０.１　旅券　(1)番号",
+      "field_name": "item[19].textData",
+      "field_id": "switch_320082",
+      "input_type": "text",
+      "required": false
+    },
+    {
+      "canonical_id": "applicant.passport.expiry_date",
+      "value_path": "applicant.passport.expiry_date",
+      "form_order": 17,
+      "display_no": "10.2",
+      "section": "申請人・その他",
+      "label": "１０.２　旅券　(2)有効期限",
+      "field_name": "item[20].textData",
+      "field_id": "switch_320085",
+      "input_type": "text",
+      "required": false,
+      "transform": "date_yyyymmdd"
+    },
+    {
+      "canonical_id": "case.target_status_variant",
+      "value_path": "case.target_status_variant",
+      "form_order": 18,
+      "display_no": "11",
+      "section": "申請人・その他",
+      "label": "１１　入国目的",
+      "field_name": "item[21].selectData",
+      "field_id": "select_320086",
+      "input_type": "select",
+      "required": true,
+      "value_map": {
+        "ssw_1": "特定技能（１号） Specified Skilled Worker ( i )",
+        "ssw_2": "特定技能（２号） Specified Skilled Worker ( ii )"
+      }
+    },
+    {
+      "canonical_id": "entry_plan.planned_entry_date",
+      "value_path": "entry_plan.planned_entry_date",
+      "form_order": 19,
+      "display_no": "12",
+      "section": "申請人・その他",
+      "label": "１２　入国予定年月日",
+      "field_name": "item[22].textData",
+      "field_id": "switch_320089",
+      "input_type": "text",
+      "required": true
+    },
+    {
+      "canonical_id": "entry_plan.planned_port",
+      "value_path": "entry_plan.planned_port",
+      "form_order": 20,
+      "display_no": "13.1",
+      "section": "申請人・その他",
+      "label": "１３.１　上陸予定港",
+      "field_name": "item[23].selectData",
+      "field_id": "select_320090",
+      "input_type": "select",
+      "required": true
+    },
+    {
+      "canonical_id": "entry_plan.planned_port_other",
+      "value_path": "entry_plan.planned_port_other",
+      "form_order": 21,
+      "display_no": "13.2",
+      "section": "申請人・その他",
+      "label": "１３.２　上陸予定港　その他",
+      "field_name": "item[24].textData",
+      "field_id": "switch_320091",
+      "input_type": "text",
+      "required": true,
+      "visible_when": [
+        {
+          "path": "entry_plan.planned_port",
+          "value": "その他 Others"
+        }
+      ]
+    },
+    {
+      "canonical_id": "entry_plan.planned_period_years",
+      "value_path": "entry_plan.planned_period_years",
+      "form_order": 22,
+      "display_no": "14.1",
+      "section": "申請人・その他",
+      "label": "１４.１　滞在予定期間(年数)",
+      "field_name": "item[25].selectData",
+      "field_id": "select_320093",
+      "input_type": "select",
+      "required": true
+    },
+    {
+      "canonical_id": "entry_plan.planned_period_months",
+      "value_path": "entry_plan.planned_period_months",
+      "form_order": 23,
+      "display_no": "14.2",
+      "section": "申請人・その他",
+      "label": "１４.２　滞在予定期間(月数)",
+      "field_name": "item[26].selectData",
+      "field_id": "select_320094",
+      "input_type": "select",
+      "required": true
+    },
+    {
+      "canonical_id": "applicant.family.has_accompanying_members",
+      "value_path": "applicant.family.has_accompanying_members",
+      "form_order": 24,
+      "display_no": "15",
+      "section": "申請人・その他",
+      "label": "１５　同伴者の有無",
+      "field_name": "item[27].selectData",
+      "field_id": "radioList_320095_1",
+      "input_type": "radio",
+      "required": true,
+      "value_map": {
+        "true": "有 Yes",
+        "false": "無 No"
+      }
+    },
+    {
+      "canonical_id": "entry_plan.visa_application_location",
+      "value_path": "entry_plan.visa_application_location",
+      "form_order": 25,
+      "display_no": "16",
+      "section": "申請人・その他",
+      "label": "１６　査証申請予定地",
+      "field_name": "item[28].textData",
+      "field_id": "switch_320097",
+      "input_type": "text",
+      "required": true
+    },
+    {
+      "canonical_id": "applicant.immigration_history.has_entries",
+      "value_path": "applicant.immigration_history.has_entries",
+      "form_order": 26,
+      "display_no": "17.1",
+      "section": "申請人・その他",
+      "label": "１７.１　過去の出入国歴　有無",
+      "field_name": "item[29].selectData",
+      "field_id": "radioList_320098_1",
+      "input_type": "radio",
+      "required": true,
+      "value_map": {
+        "true": "有 Yes",
+        "false": "無 No"
+      }
+    },
+    {
+      "canonical_id": "applicant.immigration_history.entries_count",
+      "value_path": "applicant.immigration_history.entries_count",
+      "form_order": 27,
+      "display_no": "17.2",
+      "section": "申請人・その他",
+      "label": "１７.２　過去の出入国歴　回数",
+      "field_name": "item[30].selectData",
+      "field_id": "select_320099",
+      "input_type": "select",
+      "required": true,
+      "visible_when": [
+        {
+          "path": "applicant.immigration_history.has_entries",
+          "value": true
+        }
+      ]
+    },
+    {
+      "canonical_id": "applicant.immigration_history.latest_entry.start_date",
+      "value_path": "applicant.immigration_history.latest_entry.start_date",
+      "form_order": 28,
+      "display_no": "17.3",
+      "section": "申請人・その他",
+      "label": "１７.３　直近の出入国歴(始期)",
+      "field_name": "item[31].textData",
+      "field_id": "switch_320102",
+      "input_type": "text",
+      "required": true,
+      "transform": "date_yyyymmdd",
+      "visible_when": [
+        {
+          "path": "applicant.immigration_history.has_entries",
+          "value": true
+        }
+      ]
+    },
+    {
+      "canonical_id": "applicant.immigration_history.latest_entry.end_date",
+      "value_path": "applicant.immigration_history.latest_entry.end_date",
+      "form_order": 29,
+      "display_no": "17.4",
+      "section": "申請人・その他",
+      "label": "１７.４　直近の出入国歴(終期)",
+      "field_name": "item[32].textData",
+      "field_id": "switch_320104",
+      "input_type": "text",
+      "required": true,
+      "transform": "date_yyyymmdd",
+      "visible_when": [
+        {
+          "path": "applicant.immigration_history.has_entries",
+          "value": true
+        }
+      ]
+    },
+    {
+      "canonical_id": "applicant.immigration_history.prior_coe_applications.has_history",
+      "value_path": "applicant.immigration_history.prior_coe_applications.has_history",
+      "form_order": 30,
+      "display_no": "18.1",
+      "section": "申請人・その他",
+      "label": "１８.１　過去の在留資格認定証明書交付申請歴　有無",
+      "field_name": "item[33].selectData",
+      "field_id": "radioList_320105_1",
+      "input_type": "radio",
+      "required": true,
+      "value_map": {
+        "true": "有 Yes",
+        "false": "無 No"
+      }
+    },
+    {
+      "canonical_id": "applicant.immigration_history.prior_coe_applications.count",
+      "value_path": "applicant.immigration_history.prior_coe_applications.count",
+      "form_order": 31,
+      "display_no": "18.2",
+      "section": "申請人・その他",
+      "label": "１８.２　過去の在留資格認定証明書交付申請歴　回数",
+      "field_name": "item[34].selectData",
+      "field_id": "select_320107",
+      "input_type": "select",
+      "required": true,
+      "visible_when": [
+        {
+          "path": "applicant.immigration_history.prior_coe_applications.has_history",
+          "value": true
+        }
+      ]
+    },
+    {
+      "canonical_id": "applicant.immigration_history.prior_coe_applications.denial_count",
+      "value_path": "applicant.immigration_history.prior_coe_applications.denial_count",
+      "form_order": 32,
+      "display_no": "18.3",
+      "section": "申請人・その他",
+      "label": "１８.３　過去の在留資格認定証明書交付申請歴　うち不交付となった回数",
+      "field_name": "item[35].selectData",
+      "field_id": "select_320112",
+      "input_type": "select",
+      "required": true,
+      "visible_when": [
+        {
+          "path": "applicant.immigration_history.prior_coe_applications.has_history",
+          "value": true
+        }
+      ]
+    },
+    {
+      "canonical_id": "applicant.immigration_history.criminal_record",
+      "value_path": "applicant.immigration_history.criminal_record",
+      "form_order": 33,
+      "display_no": "19",
+      "section": "申請人・その他",
+      "label": "１９　犯罪を理由とする処分を受けたことの有無",
+      "field_name": "item[36].selectData",
+      "field_id": "radioList_320117_1",
+      "input_type": "radio",
+      "required": true,
+      "value_map": {
+        "true": "有 Yes",
+        "false": "無 No"
+      }
+    },
+    {
+      "canonical_id": "applicant.immigration_history.deportation_or_departure_order",
+      "value_path": "applicant.immigration_history.deportation_or_departure_order",
+      "form_order": 34,
+      "display_no": "20.1",
+      "section": "申請人・その他",
+      "label": "２０.１　退去強制又は出国命令による出国の有無",
+      "field_name": "item[37].selectData",
+      "field_id": "radioList_320120_1",
+      "input_type": "radio",
+      "required": true,
+      "value_map": {
+        "true": "有 Yes",
+        "false": "無 No"
+      }
+    },
+    {
+      "canonical_id": "applicant.immigration_history.deportation_count",
+      "value_path": "applicant.immigration_history.deportation_count",
+      "form_order": 35,
+      "display_no": "20.2",
+      "section": "申請人・その他",
+      "label": "２０.２　退去強制又は出国命令による出国の有無　回数",
+      "field_name": "item[38].selectData",
+      "field_id": "select_320121",
+      "input_type": "select",
+      "required": true,
+      "visible_when": [
+        {
+          "path": "applicant.immigration_history.deportation_or_departure_order",
+          "value": true
+        }
+      ]
+    },
+    {
+      "canonical_id": "applicant.immigration_history.deportation_latest",
+      "value_path": "applicant.immigration_history.deportation_latest",
+      "form_order": 36,
+      "display_no": "20.3",
+      "section": "申請人・その他",
+      "label": "２０.３　退去強制又は出国命令による出国の有無　直近の送還歴",
+      "field_name": "item[39].textData",
+      "field_id": "switch_320126",
+      "input_type": "text",
+      "required": true,
+      "visible_when": [
+        {
+          "path": "applicant.immigration_history.deportation_or_departure_order",
+          "value": true
+        }
+      ]
+    },
+    {
+      "canonical_id": "applicant.family.has_japan_relatives_or_cohabitants",
+      "value_path": "applicant.family.has_japan_relatives_or_cohabitants",
+      "form_order": 37,
+      "display_no": "21.1",
+      "section": "申請人・その他",
+      "label": "２１.１　在日親族及び同居者　有無",
+      "field_name": "item[40].selectData",
+      "field_id": "radioList_320129_1",
+      "input_type": "radio",
+      "required": true,
+      "value_map": {
+        "true": "有 Yes",
+        "false": "無 No"
+      }
+    },
+    {
+      "canonical_id": "applicant.family.japan_relatives_or_cohabitants.0.relationship",
+      "value_path": "applicant.family.japan_relatives_or_cohabitants.0.relationship",
+      "form_order": 38,
+      "display_no": "21.2",
+      "section": "申請人・その他",
+      "label": "２１.２　在日親族及び同居者　続柄01",
+      "field_name": "item[42].selectData",
+      "field_id": "select_320133",
+      "input_type": "select",
+      "required": true,
+      "visible_when": [
+        {
+          "path": "applicant.family.has_japan_relatives_or_cohabitants",
+          "value": true
+        }
+      ]
+    },
+    {
+      "canonical_id": "applicant.family.japan_relatives_or_cohabitants.0.name",
+      "value_path": "applicant.family.japan_relatives_or_cohabitants.0.name",
+      "form_order": 39,
+      "display_no": "21.3",
+      "section": "申請人・その他",
+      "label": "２１.３　在日親族及び同居者　氏名01",
+      "field_name": "item[43].textData",
+      "field_id": "switch_320136",
+      "input_type": "text",
+      "required": true,
+      "visible_when": [
+        {
+          "path": "applicant.family.has_japan_relatives_or_cohabitants",
+          "value": true
+        }
+      ]
+    },
+    {
+      "canonical_id": "applicant.family.japan_relatives_or_cohabitants.0.birth_date",
+      "value_path": "applicant.family.japan_relatives_or_cohabitants.0.birth_date",
+      "form_order": 40,
+      "display_no": "21.4",
+      "section": "申請人・その他",
+      "label": "２１.４　在日親族及び同居者　生年月日01",
+      "field_name": "",
+      "field_id": "textData1_320137",
+      "input_type": "text",
+      "required": true,
+      "transform": "date_yyyymmdd",
+      "visible_when": [
+        {
+          "path": "applicant.family.has_japan_relatives_or_cohabitants",
+          "value": true
+        }
+      ]
+    },
+    {
+      "canonical_id": "applicant.family.japan_relatives_or_cohabitants.0.nationality_region",
+      "value_path": "applicant.family.japan_relatives_or_cohabitants.0.nationality_region",
+      "form_order": 41,
+      "display_no": "21.5",
+      "section": "申請人・その他",
+      "label": "２１.５　在日親族及び同居者　国籍・地域01",
+      "field_name": "item[45].selectData",
+      "field_id": "select_320139",
+      "input_type": "select",
+      "required": true,
+      "visible_when": [
+        {
+          "path": "applicant.family.has_japan_relatives_or_cohabitants",
+          "value": true
+        }
+      ]
+    },
+    {
+      "canonical_id": "applicant.family.japan_relatives_or_cohabitants.0.will_cohabit",
+      "value_path": "applicant.family.japan_relatives_or_cohabitants.0.will_cohabit",
+      "form_order": 42,
+      "display_no": "21.6",
+      "section": "申請人・その他",
+      "label": "２１.６　在日親族及び同居者　同居予定の有無01",
+      "field_name": "item[46].selectData",
+      "field_id": "radioList_320143_1",
+      "input_type": "radio",
+      "required": true,
+      "visible_when": [
+        {
+          "path": "applicant.family.has_japan_relatives_or_cohabitants",
+          "value": true
+        }
+      ],
+      "value_map": {
+        "true": "有 Yes",
+        "false": "無 No"
+      }
+    },
+    {
+      "canonical_id": "applicant.family.japan_relatives_or_cohabitants.0.workplace_or_school_name",
+      "value_path": "applicant.family.japan_relatives_or_cohabitants.0.workplace_or_school_name",
+      "form_order": 43,
+      "display_no": "21.7",
+      "section": "申請人・その他",
+      "label": "２１.７　在日親族及び同居者　勤務先名称・通学先名称01",
+      "field_name": "item[47].textData",
+      "field_id": "switch_320145",
+      "input_type": "text",
+      "required": true,
+      "visible_when": [
+        {
+          "path": "applicant.family.has_japan_relatives_or_cohabitants",
+          "value": true
+        }
+      ]
+    },
+    {
+      "canonical_id": "applicant.family.japan_relatives_or_cohabitants.0.residence_card_or_certificate_number",
+      "value_path": "applicant.family.japan_relatives_or_cohabitants.0.residence_card_or_certificate_number",
+      "form_order": 44,
+      "display_no": "21.8",
+      "section": "申請人・その他",
+      "label": "２１.８　在日親族及び同居者　在留カード番号　特別永住者証明書番号01",
+      "field_name": "item[48].textData",
+      "field_id": "switch_320147",
+      "input_type": "text",
+      "required": false,
+      "visible_when": [
+        {
+          "path": "applicant.family.has_japan_relatives_or_cohabitants",
+          "value": true
+        }
+      ]
+    },
+    {
+      "canonical_id": "applicant.family.japan_relatives_or_cohabitants.1.relationship",
+      "value_path": "applicant.family.japan_relatives_or_cohabitants.1.relationship",
+      "form_order": 45,
+      "display_no": "21.2",
+      "section": "申請人・その他",
+      "label": "２１.２　在日親族及び同居者　続柄02",
+      "field_name": "item[49].selectData",
+      "field_id": "select_320148",
+      "input_type": "select",
+      "required": false,
+      "visible_when": [
+        {
+          "path": "applicant.family.has_japan_relatives_or_cohabitants",
+          "value": true
+        }
+      ]
+    },
+    {
+      "canonical_id": "applicant.family.japan_relatives_or_cohabitants.1.name",
+      "value_path": "applicant.family.japan_relatives_or_cohabitants.1.name",
+      "form_order": 46,
+      "display_no": "21.3",
+      "section": "申請人・その他",
+      "label": "２１.３　在日親族及び同居者　氏名02",
+      "field_name": "item[50].textData",
+      "field_id": "switch_320150",
+      "input_type": "text",
+      "required": false,
+      "visible_when": [
+        {
+          "path": "applicant.family.has_japan_relatives_or_cohabitants",
+          "value": true
+        }
+      ]
+    },
+    {
+      "canonical_id": "applicant.family.japan_relatives_or_cohabitants.1.birth_date",
+      "value_path": "applicant.family.japan_relatives_or_cohabitants.1.birth_date",
+      "form_order": 47,
+      "display_no": "21.4",
+      "section": "申請人・その他",
+      "label": "２１.４　在日親族及び同居者　生年月日02",
+      "field_name": "",
+      "field_id": "textData1_320152",
+      "input_type": "text",
+      "required": false,
+      "transform": "date_yyyymmdd",
+      "visible_when": [
+        {
+          "path": "applicant.family.has_japan_relatives_or_cohabitants",
+          "value": true
+        }
+      ]
+    },
+    {
+      "canonical_id": "applicant.family.japan_relatives_or_cohabitants.1.nationality_region",
+      "value_path": "applicant.family.japan_relatives_or_cohabitants.1.nationality_region",
+      "form_order": 48,
+      "display_no": "21.5",
+      "section": "申請人・その他",
+      "label": "２１.５　在日親族及び同居者　国籍・地域02",
+      "field_name": "item[52].selectData",
+      "field_id": "select_320153",
+      "input_type": "select",
+      "required": false,
+      "visible_when": [
+        {
+          "path": "applicant.family.has_japan_relatives_or_cohabitants",
+          "value": true
+        }
+      ]
+    },
+    {
+      "canonical_id": "applicant.family.japan_relatives_or_cohabitants.1.will_cohabit",
+      "value_path": "applicant.family.japan_relatives_or_cohabitants.1.will_cohabit",
+      "form_order": 49,
+      "display_no": "21.6",
+      "section": "申請人・その他",
+      "label": "２１.６　在日親族及び同居者　同居予定の有無02",
+      "field_name": "item[53].selectData",
+      "field_id": "radioList_320158_1",
+      "input_type": "radio",
+      "required": false,
+      "visible_when": [
+        {
+          "path": "applicant.family.has_japan_relatives_or_cohabitants",
+          "value": true
+        }
+      ],
+      "value_map": {
+        "true": "有 Yes",
+        "false": "無 No"
+      }
+    },
+    {
+      "canonical_id": "applicant.family.japan_relatives_or_cohabitants.1.workplace_or_school_name",
+      "value_path": "applicant.family.japan_relatives_or_cohabitants.1.workplace_or_school_name",
+      "form_order": 50,
+      "display_no": "21.7",
+      "section": "申請人・その他",
+      "label": "２１.７　在日親族及び同居者　勤務先名称・通学先名称02",
+      "field_name": "item[54].textData",
+      "field_id": "switch_320159",
+      "input_type": "text",
+      "required": false,
+      "visible_when": [
+        {
+          "path": "applicant.family.has_japan_relatives_or_cohabitants",
+          "value": true
+        }
+      ]
+    },
+    {
+      "canonical_id": "applicant.family.japan_relatives_or_cohabitants.1.residence_card_or_certificate_number",
+      "value_path": "applicant.family.japan_relatives_or_cohabitants.1.residence_card_or_certificate_number",
+      "form_order": 51,
+      "display_no": "21.8",
+      "section": "申請人・その他",
+      "label": "２１.８　在日親族及び同居者　在留カード番号　特別永住者証明書番号02",
+      "field_name": "item[55].textData",
+      "field_id": "switch_320160",
+      "input_type": "text",
+      "required": false,
+      "visible_when": [
+        {
+          "path": "applicant.family.has_japan_relatives_or_cohabitants",
+          "value": true
+        }
+      ]
+    },
+    {
+      "canonical_id": "applicant.family.japan_relatives_or_cohabitants.2.relationship",
+      "value_path": "applicant.family.japan_relatives_or_cohabitants.2.relationship",
+      "form_order": 52,
+      "display_no": "21.2",
+      "section": "申請人・その他",
+      "label": "２１.２　在日親族及び同居者　続柄03",
+      "field_name": "item[56].selectData",
+      "field_id": "select_320161",
+      "input_type": "select",
+      "required": false,
+      "visible_when": [
+        {
+          "path": "applicant.family.has_japan_relatives_or_cohabitants",
+          "value": true
+        }
+      ]
+    },
+    {
+      "canonical_id": "applicant.family.japan_relatives_or_cohabitants.2.name",
+      "value_path": "applicant.family.japan_relatives_or_cohabitants.2.name",
+      "form_order": 53,
+      "display_no": "21.3",
+      "section": "申請人・その他",
+      "label": "２１.３　在日親族及び同居者　氏名03",
+      "field_name": "item[57].textData",
+      "field_id": "switch_320162",
+      "input_type": "text",
+      "required": false,
+      "visible_when": [
+        {
+          "path": "applicant.family.has_japan_relatives_or_cohabitants",
+          "value": true
+        }
+      ]
+    },
+    {
+      "canonical_id": "applicant.family.japan_relatives_or_cohabitants.2.birth_date",
+      "value_path": "applicant.family.japan_relatives_or_cohabitants.2.birth_date",
+      "form_order": 54,
+      "display_no": "21.4",
+      "section": "申請人・その他",
+      "label": "２１.４　在日親族及び同居者　生年月日03",
+      "field_name": "",
+      "field_id": "textData1_320163",
+      "input_type": "text",
+      "required": false,
+      "transform": "date_yyyymmdd",
+      "visible_when": [
+        {
+          "path": "applicant.family.has_japan_relatives_or_cohabitants",
+          "value": true
+        }
+      ]
+    },
+    {
+      "canonical_id": "applicant.family.japan_relatives_or_cohabitants.2.nationality_region",
+      "value_path": "applicant.family.japan_relatives_or_cohabitants.2.nationality_region",
+      "form_order": 55,
+      "display_no": "21.5",
+      "section": "申請人・その他",
+      "label": "２１.５　在日親族及び同居者　国籍・地域03",
+      "field_name": "item[59].selectData",
+      "field_id": "select_320164",
+      "input_type": "select",
+      "required": false,
+      "visible_when": [
+        {
+          "path": "applicant.family.has_japan_relatives_or_cohabitants",
+          "value": true
+        }
+      ]
+    },
+    {
+      "canonical_id": "applicant.family.japan_relatives_or_cohabitants.2.will_cohabit",
+      "value_path": "applicant.family.japan_relatives_or_cohabitants.2.will_cohabit",
+      "form_order": 56,
+      "display_no": "21.6",
+      "section": "申請人・その他",
+      "label": "２１.６　在日親族及び同居者　同居予定の有無03",
+      "field_name": "item[60].selectData",
+      "field_id": "radioList_320167_1",
+      "input_type": "radio",
+      "required": false,
+      "visible_when": [
+        {
+          "path": "applicant.family.has_japan_relatives_or_cohabitants",
+          "value": true
+        }
+      ],
+      "value_map": {
+        "true": "有 Yes",
+        "false": "無 No"
+      }
+    },
+    {
+      "canonical_id": "applicant.family.japan_relatives_or_cohabitants.2.workplace_or_school_name",
+      "value_path": "applicant.family.japan_relatives_or_cohabitants.2.workplace_or_school_name",
+      "form_order": 57,
+      "display_no": "21.7",
+      "section": "申請人・その他",
+      "label": "２１.７　在日親族及び同居者　勤務先名称・通学先名称03",
+      "field_name": "item[61].textData",
+      "field_id": "switch_320168",
+      "input_type": "text",
+      "required": false,
+      "visible_when": [
+        {
+          "path": "applicant.family.has_japan_relatives_or_cohabitants",
+          "value": true
+        }
+      ]
+    },
+    {
+      "canonical_id": "applicant.family.japan_relatives_or_cohabitants.2.residence_card_or_certificate_number",
+      "value_path": "applicant.family.japan_relatives_or_cohabitants.2.residence_card_or_certificate_number",
+      "form_order": 58,
+      "display_no": "21.8",
+      "section": "申請人・その他",
+      "label": "２１.８　在日親族及び同居者　在留カード番号　特別永住者証明書番号03",
+      "field_name": "item[62].textData",
+      "field_id": "switch_320169",
+      "input_type": "text",
+      "required": false,
+      "visible_when": [
+        {
+          "path": "applicant.family.has_japan_relatives_or_cohabitants",
+          "value": true
+        }
+      ]
+    },
+    {
+      "canonical_id": "applicant.family.japan_relatives_or_cohabitants.3.relationship",
+      "value_path": "applicant.family.japan_relatives_or_cohabitants.3.relationship",
+      "form_order": 59,
+      "display_no": "21.2",
+      "section": "申請人・その他",
+      "label": "２１.２　在日親族及び同居者　続柄04",
+      "field_name": "item[63].selectData",
+      "field_id": "select_320171",
+      "input_type": "select",
+      "required": false,
+      "visible_when": [
+        {
+          "path": "applicant.family.has_japan_relatives_or_cohabitants",
+          "value": true
+        }
+      ]
+    },
+    {
+      "canonical_id": "applicant.family.japan_relatives_or_cohabitants.3.name",
+      "value_path": "applicant.family.japan_relatives_or_cohabitants.3.name",
+      "form_order": 60,
+      "display_no": "21.3",
+      "section": "申請人・その他",
+      "label": "２１.３　在日親族及び同居者　氏名04",
+      "field_name": "item[64].textData",
+      "field_id": "switch_320172",
+      "input_type": "text",
+      "required": false,
+      "visible_when": [
+        {
+          "path": "applicant.family.has_japan_relatives_or_cohabitants",
+          "value": true
+        }
+      ]
+    },
+    {
+      "canonical_id": "applicant.family.japan_relatives_or_cohabitants.3.birth_date",
+      "value_path": "applicant.family.japan_relatives_or_cohabitants.3.birth_date",
+      "form_order": 61,
+      "display_no": "21.4",
+      "section": "申請人・その他",
+      "label": "２１.４　在日親族及び同居者　生年月日04",
+      "field_name": "",
+      "field_id": "textData1_320173",
+      "input_type": "text",
+      "required": false,
+      "transform": "date_yyyymmdd",
+      "visible_when": [
+        {
+          "path": "applicant.family.has_japan_relatives_or_cohabitants",
+          "value": true
+        }
+      ]
+    },
+    {
+      "canonical_id": "applicant.family.japan_relatives_or_cohabitants.3.nationality_region",
+      "value_path": "applicant.family.japan_relatives_or_cohabitants.3.nationality_region",
+      "form_order": 62,
+      "display_no": "21.5",
+      "section": "申請人・その他",
+      "label": "２１.５　在日親族及び同居者　国籍・地域04",
+      "field_name": "item[66].selectData",
+      "field_id": "select_320175",
+      "input_type": "select",
+      "required": false,
+      "visible_when": [
+        {
+          "path": "applicant.family.has_japan_relatives_or_cohabitants",
+          "value": true
+        }
+      ]
+    },
+    {
+      "canonical_id": "applicant.family.japan_relatives_or_cohabitants.3.will_cohabit",
+      "value_path": "applicant.family.japan_relatives_or_cohabitants.3.will_cohabit",
+      "form_order": 63,
+      "display_no": "21.6",
+      "section": "申請人・その他",
+      "label": "２１.６　在日親族及び同居者　同居予定の有無04",
+      "field_name": "item[67].selectData",
+      "field_id": "radioList_320176_1",
+      "input_type": "radio",
+      "required": false,
+      "visible_when": [
+        {
+          "path": "applicant.family.has_japan_relatives_or_cohabitants",
+          "value": true
+        }
+      ],
+      "value_map": {
+        "true": "有 Yes",
+        "false": "無 No"
+      }
+    },
+    {
+      "canonical_id": "applicant.family.japan_relatives_or_cohabitants.3.workplace_or_school_name",
+      "value_path": "applicant.family.japan_relatives_or_cohabitants.3.workplace_or_school_name",
+      "form_order": 64,
+      "display_no": "21.7",
+      "section": "申請人・その他",
+      "label": "２１.７　在日親族及び同居者　勤務先名称・通学先名称04",
+      "field_name": "item[68].textData",
+      "field_id": "switch_320177",
+      "input_type": "text",
+      "required": false,
+      "visible_when": [
+        {
+          "path": "applicant.family.has_japan_relatives_or_cohabitants",
+          "value": true
+        }
+      ]
+    },
+    {
+      "canonical_id": "applicant.family.japan_relatives_or_cohabitants.3.residence_card_or_certificate_number",
+      "value_path": "applicant.family.japan_relatives_or_cohabitants.3.residence_card_or_certificate_number",
+      "form_order": 65,
+      "display_no": "21.8",
+      "section": "申請人・その他",
+      "label": "２１.８　在日親族及び同居者　在留カード番号　特別永住者証明書番号04",
+      "field_name": "item[69].textData",
+      "field_id": "switch_320178",
+      "input_type": "text",
+      "required": false,
+      "visible_when": [
+        {
+          "path": "applicant.family.has_japan_relatives_or_cohabitants",
+          "value": true
+        }
+      ]
+    },
+    {
+      "canonical_id": "applicant.family.japan_relatives_or_cohabitants.4.relationship",
+      "value_path": "applicant.family.japan_relatives_or_cohabitants.4.relationship",
+      "form_order": 66,
+      "display_no": "21.2",
+      "section": "申請人・その他",
+      "label": "２１.２　在日親族及び同居者　続柄05",
+      "field_name": "item[70].selectData",
+      "field_id": "select_320179",
+      "input_type": "select",
+      "required": false,
+      "visible_when": [
+        {
+          "path": "applicant.family.has_japan_relatives_or_cohabitants",
+          "value": true
+        }
+      ]
+    },
+    {
+      "canonical_id": "applicant.family.japan_relatives_or_cohabitants.4.name",
+      "value_path": "applicant.family.japan_relatives_or_cohabitants.4.name",
+      "form_order": 67,
+      "display_no": "21.3",
+      "section": "申請人・その他",
+      "label": "２１.３　在日親族及び同居者　氏名05",
+      "field_name": "item[71].textData",
+      "field_id": "switch_320180",
+      "input_type": "text",
+      "required": false,
+      "visible_when": [
+        {
+          "path": "applicant.family.has_japan_relatives_or_cohabitants",
+          "value": true
+        }
+      ]
+    },
+    {
+      "canonical_id": "applicant.family.japan_relatives_or_cohabitants.4.birth_date",
+      "value_path": "applicant.family.japan_relatives_or_cohabitants.4.birth_date",
+      "form_order": 68,
+      "display_no": "21.4",
+      "section": "申請人・その他",
+      "label": "２１.４　在日親族及び同居者　生年月日05",
+      "field_name": "",
+      "field_id": "textData1_320182",
+      "input_type": "text",
+      "required": false,
+      "transform": "date_yyyymmdd",
+      "visible_when": [
+        {
+          "path": "applicant.family.has_japan_relatives_or_cohabitants",
+          "value": true
+        }
+      ]
+    },
+    {
+      "canonical_id": "applicant.family.japan_relatives_or_cohabitants.4.nationality_region",
+      "value_path": "applicant.family.japan_relatives_or_cohabitants.4.nationality_region",
+      "form_order": 69,
+      "display_no": "21.5",
+      "section": "申請人・その他",
+      "label": "２１.５　在日親族及び同居者　国籍・地域05",
+      "field_name": "item[73].selectData",
+      "field_id": "select_320184",
+      "input_type": "select",
+      "required": false,
+      "visible_when": [
+        {
+          "path": "applicant.family.has_japan_relatives_or_cohabitants",
+          "value": true
+        }
+      ]
+    },
+    {
+      "canonical_id": "applicant.family.japan_relatives_or_cohabitants.4.will_cohabit",
+      "value_path": "applicant.family.japan_relatives_or_cohabitants.4.will_cohabit",
+      "form_order": 70,
+      "display_no": "21.6",
+      "section": "申請人・その他",
+      "label": "２１.６　在日親族及び同居者　同居予定の有無05",
+      "field_name": "item[74].selectData",
+      "field_id": "radioList_320189_1",
+      "input_type": "radio",
+      "required": false,
+      "visible_when": [
+        {
+          "path": "applicant.family.has_japan_relatives_or_cohabitants",
+          "value": true
+        }
+      ],
+      "value_map": {
+        "true": "有 Yes",
+        "false": "無 No"
+      }
+    },
+    {
+      "canonical_id": "applicant.family.japan_relatives_or_cohabitants.4.workplace_or_school_name",
+      "value_path": "applicant.family.japan_relatives_or_cohabitants.4.workplace_or_school_name",
+      "form_order": 71,
+      "display_no": "21.7",
+      "section": "申請人・その他",
+      "label": "２１.７　在日親族及び同居者　勤務先名称・通学先名称05",
+      "field_name": "item[75].textData",
+      "field_id": "switch_320191",
+      "input_type": "text",
+      "required": false,
+      "visible_when": [
+        {
+          "path": "applicant.family.has_japan_relatives_or_cohabitants",
+          "value": true
+        }
+      ]
+    },
+    {
+      "canonical_id": "applicant.family.japan_relatives_or_cohabitants.4.residence_card_or_certificate_number",
+      "value_path": "applicant.family.japan_relatives_or_cohabitants.4.residence_card_or_certificate_number",
+      "form_order": 72,
+      "display_no": "21.8",
+      "section": "申請人・その他",
+      "label": "２１.８　在日親族及び同居者　在留カード番号　特別永住者証明書番号05",
+      "field_name": "item[76].textData",
+      "field_id": "switch_320193",
+      "input_type": "text",
+      "required": false,
+      "visible_when": [
+        {
+          "path": "applicant.family.has_japan_relatives_or_cohabitants",
+          "value": true
+        }
+      ]
+    },
+    {
+      "canonical_id": "applicant.family.japan_relatives_or_cohabitants.5.relationship",
+      "value_path": "applicant.family.japan_relatives_or_cohabitants.5.relationship",
+      "form_order": 73,
+      "display_no": "21.2",
+      "section": "申請人・その他",
+      "label": "２１.２　在日親族及び同居者　続柄06",
+      "field_name": "item[77].selectData",
+      "field_id": "select_320195",
+      "input_type": "select",
+      "required": false,
+      "visible_when": [
+        {
+          "path": "applicant.family.has_japan_relatives_or_cohabitants",
+          "value": true
+        }
+      ]
+    },
+    {
+      "canonical_id": "applicant.family.japan_relatives_or_cohabitants.5.name",
+      "value_path": "applicant.family.japan_relatives_or_cohabitants.5.name",
+      "form_order": 74,
+      "display_no": "21.3",
+      "section": "申請人・その他",
+      "label": "２１.３　在日親族及び同居者　氏名06",
+      "field_name": "item[78].textData",
+      "field_id": "switch_320197",
+      "input_type": "text",
+      "required": false,
+      "visible_when": [
+        {
+          "path": "applicant.family.has_japan_relatives_or_cohabitants",
+          "value": true
+        }
+      ]
+    },
+    {
+      "canonical_id": "applicant.family.japan_relatives_or_cohabitants.5.birth_date",
+      "value_path": "applicant.family.japan_relatives_or_cohabitants.5.birth_date",
+      "form_order": 75,
+      "display_no": "21.4",
+      "section": "申請人・その他",
+      "label": "２１.４　在日親族及び同居者　生年月日06",
+      "field_name": "",
+      "field_id": "textData1_320199",
+      "input_type": "text",
+      "required": false,
+      "transform": "date_yyyymmdd",
+      "visible_when": [
+        {
+          "path": "applicant.family.has_japan_relatives_or_cohabitants",
+          "value": true
+        }
+      ]
+    },
+    {
+      "canonical_id": "applicant.family.japan_relatives_or_cohabitants.5.nationality_region",
+      "value_path": "applicant.family.japan_relatives_or_cohabitants.5.nationality_region",
+      "form_order": 76,
+      "display_no": "21.5",
+      "section": "申請人・その他",
+      "label": "２１.５　在日親族及び同居者　国籍・地域06",
+      "field_name": "item[80].selectData",
+      "field_id": "select_320201",
+      "input_type": "select",
+      "required": false,
+      "visible_when": [
+        {
+          "path": "applicant.family.has_japan_relatives_or_cohabitants",
+          "value": true
+        }
+      ]
+    },
+    {
+      "canonical_id": "applicant.family.japan_relatives_or_cohabitants.5.will_cohabit",
+      "value_path": "applicant.family.japan_relatives_or_cohabitants.5.will_cohabit",
+      "form_order": 77,
+      "display_no": "21.6",
+      "section": "申請人・その他",
+      "label": "２１.６　在日親族及び同居者　同居予定の有無06",
+      "field_name": "item[81].selectData",
+      "field_id": "radioList_320209_1",
+      "input_type": "radio",
+      "required": false,
+      "visible_when": [
+        {
+          "path": "applicant.family.has_japan_relatives_or_cohabitants",
+          "value": true
+        }
+      ],
+      "value_map": {
+        "true": "有 Yes",
+        "false": "無 No"
+      }
+    },
+    {
+      "canonical_id": "applicant.family.japan_relatives_or_cohabitants.5.workplace_or_school_name",
+      "value_path": "applicant.family.japan_relatives_or_cohabitants.5.workplace_or_school_name",
+      "form_order": 78,
+      "display_no": "21.7",
+      "section": "申請人・その他",
+      "label": "２１.７　在日親族及び同居者　勤務先名称・通学先名称06",
+      "field_name": "item[82].textData",
+      "field_id": "switch_320211",
+      "input_type": "text",
+      "required": false,
+      "visible_when": [
+        {
+          "path": "applicant.family.has_japan_relatives_or_cohabitants",
+          "value": true
+        }
+      ]
+    },
+    {
+      "canonical_id": "applicant.family.japan_relatives_or_cohabitants.5.residence_card_or_certificate_number",
+      "value_path": "applicant.family.japan_relatives_or_cohabitants.5.residence_card_or_certificate_number",
+      "form_order": 79,
+      "display_no": "21.8",
+      "section": "申請人・その他",
+      "label": "２１.８　在日親族及び同居者　在留カード番号　特別永住者証明書番号06",
+      "field_name": "item[83].textData",
+      "field_id": "switch_320213",
+      "input_type": "text",
+      "required": false,
+      "visible_when": [
+        {
+          "path": "applicant.family.has_japan_relatives_or_cohabitants",
+          "value": true
+        }
+      ]
+    },
+    {
+      "canonical_id": "specified_skilled_worker.eligibility.skill_level_assessment",
+      "value_path": "specified_skilled_worker.eligibility.skill_level_assessment",
+      "form_order": 80,
+      "display_no": "23.1",
+      "section": "申請人・その他",
+      "label": "２３.１　技能水準　評価区分",
+      "field_name": "item[87].selectData",
+      "field_id": "select_320221",
+      "input_type": "select",
+      "required": true
+    },
+    {
+      "canonical_id": "specified_skilled_worker.eligibility.skill_tests.0.name",
+      "value_path": "specified_skilled_worker.eligibility.skill_tests.0.name",
+      "form_order": 81,
+      "display_no": "23.2",
+      "section": "申請人・その他",
+      "label": "２３.２　技能水準　合格した試験名",
+      "field_name": "item[88].selectData",
+      "field_id": "select_320223",
+      "input_type": "select",
+      "required": false,
+      "manual_only": true
+    },
+    {
+      "canonical_id": "specified_skilled_worker.eligibility.skill_tests.0.test_location",
+      "value_path": "specified_skilled_worker.eligibility.skill_tests.0.test_location",
+      "form_order": 82,
+      "display_no": "23.3",
+      "section": "申請人・その他",
+      "label": "２３.３　技能水準　受験地",
+      "field_name": "item[89].selectData",
+      "field_id": "select_320227",
+      "input_type": "select",
+      "required": true,
+      "manual_only": true
+    },
+    {
+      "canonical_id": "specified_skilled_worker.eligibility.skill_tests.1.name",
+      "value_path": "specified_skilled_worker.eligibility.skill_tests.1.name",
+      "form_order": 83,
+      "display_no": "23.4",
+      "section": "申請人・その他",
+      "label": "２３.４　技能水準　合格した試験名",
+      "field_name": "item[90].selectData",
+      "field_id": "select_320235",
+      "input_type": "select",
+      "required": false,
+      "visible_when": [
+        {
+          "path": "specified_skilled_worker.eligibility.skill_tests.1.name",
+          "operator": "!=",
+          "value": ""
+        }
+      ],
+      "manual_only": true
+    },
+    {
+      "canonical_id": "specified_skilled_worker.eligibility.skill_tests.1.test_location",
+      "value_path": "specified_skilled_worker.eligibility.skill_tests.1.test_location",
+      "form_order": 84,
+      "display_no": "23.5",
+      "section": "申請人・その他",
+      "label": "２３.５　技能水準　受験地",
+      "field_name": "item[91].selectData",
+      "field_id": "select_320238",
+      "input_type": "select",
+      "required": true,
+      "visible_when": [
+        {
+          "path": "specified_skilled_worker.eligibility.skill_tests.1.name",
+          "operator": "!=",
+          "value": ""
+        }
+      ],
+      "manual_only": true
+    },
+    {
+      "canonical_id": "specified_skilled_worker.eligibility.skill_tests.2.name",
+      "value_path": "specified_skilled_worker.eligibility.skill_tests.2.name",
+      "form_order": 85,
+      "display_no": "23.6",
+      "section": "申請人・その他",
+      "label": "２３.６　技能水準　合格した試験名",
+      "field_name": "item[92].selectData",
+      "field_id": "select_320243",
+      "input_type": "select",
+      "required": false,
+      "visible_when": [
+        {
+          "path": "specified_skilled_worker.eligibility.skill_tests.2.name",
+          "operator": "!=",
+          "value": ""
+        }
+      ],
+      "manual_only": true
+    },
+    {
+      "canonical_id": "specified_skilled_worker.eligibility.skill_tests.2.test_location",
+      "value_path": "specified_skilled_worker.eligibility.skill_tests.2.test_location",
+      "form_order": 86,
+      "display_no": "23.7",
+      "section": "申請人・その他",
+      "label": "２３.７　技能水準　受験地",
+      "field_name": "item[93].selectData",
+      "field_id": "select_320246",
+      "input_type": "select",
+      "required": true,
+      "visible_when": [
+        {
+          "path": "specified_skilled_worker.eligibility.skill_tests.2.name",
+          "operator": "!=",
+          "value": ""
+        }
+      ],
+      "manual_only": true
+    },
+    {
+      "canonical_id": "specified_skilled_worker.eligibility.skill_other_evidence",
+      "value_path": "specified_skilled_worker.eligibility.skill_other_evidence",
+      "form_order": 87,
+      "display_no": "23.8",
+      "section": "申請人・その他",
+      "label": "２３.８　技能水準　その他の評価方法による証明",
+      "field_name": "item[94].textData",
+      "field_id": "switch_320256",
+      "input_type": "text",
+      "required": false,
+      "manual_only": true
+    },
+    {
+      "canonical_id": "specified_skilled_worker.eligibility.japanese_level_assessment",
+      "value_path": "specified_skilled_worker.eligibility.japanese_level_assessment",
+      "form_order": 88,
+      "display_no": "24.1",
+      "section": "申請人・その他",
+      "label": "２４.１　日本語能力　評価区分",
+      "field_name": "item[95].selectData",
+      "field_id": "select_320258",
+      "input_type": "select",
+      "required": false
+    },
+    {
+      "canonical_id": "specified_skilled_worker.eligibility.japanese_tests.0.name",
+      "value_path": "specified_skilled_worker.eligibility.japanese_tests.0.name",
+      "form_order": 89,
+      "display_no": "24.2",
+      "section": "申請人・その他",
+      "label": "２４.２　日本語能力　合格した試験名",
+      "field_name": "item[96].selectData",
+      "field_id": "select_320260",
+      "input_type": "select",
+      "required": false,
+      "manual_only": true
+    },
+    {
+      "canonical_id": "specified_skilled_worker.eligibility.japanese_tests.0.test_location",
+      "value_path": "specified_skilled_worker.eligibility.japanese_tests.0.test_location",
+      "form_order": 90,
+      "display_no": "24.3",
+      "section": "申請人・その他",
+      "label": "２４.３　日本語能力　受験地",
+      "field_name": "item[97].selectData",
+      "field_id": "select_320261",
+      "input_type": "select",
+      "required": true,
+      "manual_only": true
+    },
+    {
+      "canonical_id": "specified_skilled_worker.eligibility.japanese_tests.1.name",
+      "value_path": "specified_skilled_worker.eligibility.japanese_tests.1.name",
+      "form_order": 91,
+      "display_no": "24.4",
+      "section": "申請人・その他",
+      "label": "２４.４　日本語能力　合格した試験名",
+      "field_name": "item[98].selectData",
+      "field_id": "select_320266",
+      "input_type": "select",
+      "required": false,
+      "visible_when": [
+        {
+          "path": "specified_skilled_worker.eligibility.japanese_tests.1.name",
+          "operator": "!=",
+          "value": ""
+        }
+      ],
+      "manual_only": true
+    },
+    {
+      "canonical_id": "specified_skilled_worker.eligibility.japanese_tests.1.test_location",
+      "value_path": "specified_skilled_worker.eligibility.japanese_tests.1.test_location",
+      "form_order": 92,
+      "display_no": "24.5",
+      "section": "申請人・その他",
+      "label": "２４.５　日本語能力　受験地",
+      "field_name": "item[99].selectData",
+      "field_id": "select_320268",
+      "input_type": "select",
+      "required": true,
+      "visible_when": [
+        {
+          "path": "specified_skilled_worker.eligibility.japanese_tests.1.name",
+          "operator": "!=",
+          "value": ""
+        }
+      ],
+      "manual_only": true
+    },
+    {
+      "canonical_id": "specified_skilled_worker.eligibility.japanese_tests.2.name",
+      "value_path": "specified_skilled_worker.eligibility.japanese_tests.2.name",
+      "form_order": 93,
+      "display_no": "24.6",
+      "section": "申請人・その他",
+      "label": "２４.６　日本語能力　合格した試験名",
+      "field_name": "item[100].selectData",
+      "field_id": "select_320273",
+      "input_type": "select",
+      "required": false,
+      "visible_when": [
+        {
+          "path": "specified_skilled_worker.eligibility.japanese_tests.2.name",
+          "operator": "!=",
+          "value": ""
+        }
+      ],
+      "manual_only": true
+    },
+    {
+      "canonical_id": "specified_skilled_worker.eligibility.japanese_tests.2.test_location",
+      "value_path": "specified_skilled_worker.eligibility.japanese_tests.2.test_location",
+      "form_order": 94,
+      "display_no": "24.7",
+      "section": "申請人・その他",
+      "label": "２４.７　日本語能力　受験地",
+      "field_name": "item[101].selectData",
+      "field_id": "select_320275",
+      "input_type": "select",
+      "required": true,
+      "visible_when": [
+        {
+          "path": "specified_skilled_worker.eligibility.japanese_tests.2.name",
+          "operator": "!=",
+          "value": ""
+        }
+      ],
+      "manual_only": true
+    },
+    {
+      "canonical_id": "specified_skilled_worker.eligibility.japanese_other_evidence",
+      "value_path": "specified_skilled_worker.eligibility.japanese_other_evidence",
+      "form_order": 95,
+      "display_no": "24.8",
+      "section": "申請人・その他",
+      "label": "２４.８　日本語能力　その他の評価方法による証明",
+      "field_name": "item[102].textData",
+      "field_id": "switch_320283",
+      "input_type": "text",
+      "required": false,
+      "manual_only": true
+    },
+    {
+      "canonical_id": "specified_skilled_worker.cumulative_ssw_1_stay_years",
+      "value_path": "specified_skilled_worker.cumulative_ssw_1_stay_years",
+      "form_order": 102,
+      "display_no": "26.1",
+      "section": "申請人・その他",
+      "label": "２６.１　申請時における特定技能1号での通算在留期間(年数)",
+      "field_name": "item[110].selectData",
+      "field_id": "select_320317",
+      "input_type": "select",
+      "required": false
+    },
+    {
+      "canonical_id": "specified_skilled_worker.cumulative_ssw_1_stay_months",
+      "value_path": "specified_skilled_worker.cumulative_ssw_1_stay_months",
+      "form_order": 103,
+      "display_no": "26.2",
+      "section": "申請人・その他",
+      "label": "２６.２　申請時における特定技能1号での通算在留期間(月数)",
+      "field_name": "item[111].selectData",
+      "field_id": "select_320318",
+      "input_type": "select",
+      "required": false
+    },
+    {
+      "canonical_id": "specified_skilled_worker.eligibility.guarantee_deposit_exists",
+      "value_path": "specified_skilled_worker.eligibility.guarantee_deposit_exists",
+      "form_order": 104,
+      "display_no": "27.1",
+      "section": "申請人・その他",
+      "label": "２７.１　特定技能雇用契約に係る保証金の徴収その他財産管理又は違約金等の支払契約の有無",
+      "field_name": "item[112].selectData",
+      "field_id": "radioList_320321_1",
+      "input_type": "radio",
+      "required": true,
+      "value_map": {
+        "true": "有 Yes",
+        "false": "無 No"
+      },
+      "manual_required": true
+    },
+    {
+      "canonical_id": "specified_skilled_worker.eligibility.guarantee_collecting_organization",
+      "value_path": "specified_skilled_worker.eligibility.guarantee_collecting_organization",
+      "form_order": 105,
+      "display_no": "27.2",
+      "section": "申請人・その他",
+      "label": "２７.２　徴収・管理機関名",
+      "field_name": "item[113].textData",
+      "field_id": "switch_320322",
+      "input_type": "text",
+      "required": true,
+      "visible_when": [
+        {
+          "path": "specified_skilled_worker.eligibility.guarantee_deposit_exists",
+          "value": true
+        }
+      ]
+    },
+    {
+      "canonical_id": "specified_skilled_worker.eligibility.guarantee_amount",
+      "value_path": "specified_skilled_worker.eligibility.guarantee_amount",
+      "form_order": 106,
+      "display_no": "27.3",
+      "section": "申請人・その他",
+      "label": "２７.３　徴収金額・管理財産",
+      "field_name": "item[114].textData",
+      "field_id": "switch_320323",
+      "input_type": "text",
+      "required": true,
+      "visible_when": [
+        {
+          "path": "specified_skilled_worker.eligibility.guarantee_deposit_exists",
+          "value": true
+        }
+      ]
+    },
+    {
+      "canonical_id": "applicant.has_employment_history",
+      "value_path": "applicant.has_employment_history",
+      "form_order": 114,
+      "display_no": "",
+      "section": "申請人・その他",
+      "label": "職歴の有無",
+      "field_name": "item[122].selectData",
+      "field_id": "radioList_320336_1",
+      "input_type": "radio",
+      "required": true,
+      "value_map": {
+        "true": "有 Yes",
+        "false": "無 No"
+      }
+    },
+    {
+      "canonical_id": "applicant.employment_history.0.start_date",
+      "value_path": "applicant.employment_history.0.start_date",
+      "form_order": 115,
+      "display_no": "33.1",
+      "section": "申請人・その他",
+      "label": "３３.１　職歴　入社　年月01",
+      "field_name": "item[124].textData",
+      "field_id": "yearMonthAD_320339",
+      "input_type": "text",
+      "required": true,
+      "transform": "date_yyyymmdd",
+      "visible_when": [
+        {
+          "path": "applicant.has_employment_history",
+          "value": true
+        }
+      ]
+    },
+    {
+      "canonical_id": "applicant.employment_history.0.end_date",
+      "value_path": "applicant.employment_history.0.end_date",
+      "form_order": 116,
+      "display_no": "33.2",
+      "section": "申請人・その他",
+      "label": "３３.２　職歴　退社　年月01",
+      "field_name": "item[125].textData",
+      "field_id": "yearMonthAD_320341",
+      "input_type": "text",
+      "required": false,
+      "transform": "date_yyyymmdd",
+      "visible_when": [
+        {
+          "path": "applicant.has_employment_history",
+          "value": true
+        }
+      ]
+    },
+    {
+      "canonical_id": "applicant.employment_history.0.company_name_local",
+      "value_path": "applicant.employment_history.0.company_name_local",
+      "form_order": 117,
+      "display_no": "33.3",
+      "section": "申請人・その他",
+      "label": "３３.３　職歴　勤務先　名称01",
+      "field_name": "item[126].textData",
+      "field_id": "switch_320342",
+      "input_type": "text",
+      "required": true,
+      "visible_when": [
+        {
+          "path": "applicant.has_employment_history",
+          "value": true
+        }
+      ]
+    },
+    {
+      "canonical_id": "applicant.employment_history.1.start_date",
+      "value_path": "applicant.employment_history.1.start_date",
+      "form_order": 118,
+      "display_no": "33.1",
+      "section": "申請人・その他",
+      "label": "３３.１　職歴　入社　年月02",
+      "field_name": "item[127].textData",
+      "field_id": "yearMonthAD_320344",
+      "input_type": "text",
+      "required": false,
+      "transform": "date_yyyymmdd",
+      "visible_when": [
+        {
+          "path": "applicant.has_employment_history",
+          "value": true
+        }
+      ]
+    },
+    {
+      "canonical_id": "applicant.employment_history.1.end_date",
+      "value_path": "applicant.employment_history.1.end_date",
+      "form_order": 119,
+      "display_no": "33.2",
+      "section": "申請人・その他",
+      "label": "３３.２　職歴　退社　年月02",
+      "field_name": "item[128].textData",
+      "field_id": "yearMonthAD_320345",
+      "input_type": "text",
+      "required": false,
+      "transform": "date_yyyymmdd",
+      "visible_when": [
+        {
+          "path": "applicant.has_employment_history",
+          "value": true
+        }
+      ]
+    },
+    {
+      "canonical_id": "applicant.employment_history.1.company_name_local",
+      "value_path": "applicant.employment_history.1.company_name_local",
+      "form_order": 120,
+      "display_no": "33.3",
+      "section": "申請人・その他",
+      "label": "３３.３　職歴　勤務先　名称02",
+      "field_name": "item[129].textData",
+      "field_id": "switch_320347",
+      "input_type": "text",
+      "required": false,
+      "visible_when": [
+        {
+          "path": "applicant.has_employment_history",
+          "value": true
+        }
+      ]
+    },
+    {
+      "canonical_id": "applicant.employment_history.2.start_date",
+      "value_path": "applicant.employment_history.2.start_date",
+      "form_order": 121,
+      "display_no": "33.1",
+      "section": "申請人・その他",
+      "label": "３３.１　職歴　入社　年月03",
+      "field_name": "item[130].textData",
+      "field_id": "yearMonthAD_320348",
+      "input_type": "text",
+      "required": false,
+      "transform": "date_yyyymmdd",
+      "visible_when": [
+        {
+          "path": "applicant.has_employment_history",
+          "value": true
+        }
+      ]
+    },
+    {
+      "canonical_id": "applicant.employment_history.2.end_date",
+      "value_path": "applicant.employment_history.2.end_date",
+      "form_order": 122,
+      "display_no": "33.2",
+      "section": "申請人・その他",
+      "label": "３３.２　職歴　退社　年月03",
+      "field_name": "item[131].textData",
+      "field_id": "yearMonthAD_320350",
+      "input_type": "text",
+      "required": false,
+      "transform": "date_yyyymmdd",
+      "visible_when": [
+        {
+          "path": "applicant.has_employment_history",
+          "value": true
+        }
+      ]
+    },
+    {
+      "canonical_id": "applicant.employment_history.2.company_name_local",
+      "value_path": "applicant.employment_history.2.company_name_local",
+      "form_order": 123,
+      "display_no": "33.3",
+      "section": "申請人・その他",
+      "label": "３３.３　職歴　勤務先　名称03",
+      "field_name": "item[132].textData",
+      "field_id": "switch_320351",
+      "input_type": "text",
+      "required": false,
+      "visible_when": [
+        {
+          "path": "applicant.has_employment_history",
+          "value": true
+        }
+      ]
+    },
+    {
+      "canonical_id": "applicant.employment_history.3.start_date",
+      "value_path": "applicant.employment_history.3.start_date",
+      "form_order": 124,
+      "display_no": "33.1",
+      "section": "申請人・その他",
+      "label": "３３.１　職歴　入社　年月04",
+      "field_name": "item[133].textData",
+      "field_id": "yearMonthAD_320353",
+      "input_type": "text",
+      "required": false,
+      "transform": "date_yyyymmdd",
+      "visible_when": [
+        {
+          "path": "applicant.has_employment_history",
+          "value": true
+        }
+      ]
+    },
+    {
+      "canonical_id": "applicant.employment_history.3.end_date",
+      "value_path": "applicant.employment_history.3.end_date",
+      "form_order": 125,
+      "display_no": "33.2",
+      "section": "申請人・その他",
+      "label": "３３.２　職歴　退社　年月04",
+      "field_name": "item[134].textData",
+      "field_id": "yearMonthAD_320355",
+      "input_type": "text",
+      "required": false,
+      "transform": "date_yyyymmdd",
+      "visible_when": [
+        {
+          "path": "applicant.has_employment_history",
+          "value": true
+        }
+      ]
+    },
+    {
+      "canonical_id": "applicant.employment_history.3.company_name_local",
+      "value_path": "applicant.employment_history.3.company_name_local",
+      "form_order": 126,
+      "display_no": "33.3",
+      "section": "申請人・その他",
+      "label": "３３.３　職歴　勤務先　名称04",
+      "field_name": "item[135].textData",
+      "field_id": "switch_320356",
+      "input_type": "text",
+      "required": false,
+      "visible_when": [
+        {
+          "path": "applicant.has_employment_history",
+          "value": true
+        }
+      ]
+    },
+    {
+      "canonical_id": "applicant.employment_history.4.start_date",
+      "value_path": "applicant.employment_history.4.start_date",
+      "form_order": 127,
+      "display_no": "33.1",
+      "section": "申請人・その他",
+      "label": "３３.１　職歴　入社　年月05",
+      "field_name": "item[136].textData",
+      "field_id": "yearMonthAD_320358",
+      "input_type": "text",
+      "required": false,
+      "transform": "date_yyyymmdd",
+      "visible_when": [
+        {
+          "path": "applicant.has_employment_history",
+          "value": true
+        }
+      ]
+    },
+    {
+      "canonical_id": "applicant.employment_history.4.end_date",
+      "value_path": "applicant.employment_history.4.end_date",
+      "form_order": 128,
+      "display_no": "33.2",
+      "section": "申請人・その他",
+      "label": "３３.２　職歴　退社　年月05",
+      "field_name": "item[137].textData",
+      "field_id": "yearMonthAD_320360",
+      "input_type": "text",
+      "required": false,
+      "transform": "date_yyyymmdd",
+      "visible_when": [
+        {
+          "path": "applicant.has_employment_history",
+          "value": true
+        }
+      ]
+    },
+    {
+      "canonical_id": "applicant.employment_history.4.company_name_local",
+      "value_path": "applicant.employment_history.4.company_name_local",
+      "form_order": 129,
+      "display_no": "33.3",
+      "section": "申請人・その他",
+      "label": "３３.３　職歴　勤務先　名称05",
+      "field_name": "item[138].textData",
+      "field_id": "switch_320361",
+      "input_type": "text",
+      "required": false,
+      "visible_when": [
+        {
+          "path": "applicant.has_employment_history",
+          "value": true
+        }
+      ]
+    },
+    {
+      "canonical_id": "applicant.employment_history.5.start_date",
+      "value_path": "applicant.employment_history.5.start_date",
+      "form_order": 130,
+      "display_no": "33.1",
+      "section": "申請人・その他",
+      "label": "３３.１　職歴　入社　年月06",
+      "field_name": "item[139].textData",
+      "field_id": "yearMonthAD_320363",
+      "input_type": "text",
+      "required": false,
+      "transform": "date_yyyymmdd",
+      "visible_when": [
+        {
+          "path": "applicant.has_employment_history",
+          "value": true
+        }
+      ]
+    },
+    {
+      "canonical_id": "applicant.employment_history.5.end_date",
+      "value_path": "applicant.employment_history.5.end_date",
+      "form_order": 131,
+      "display_no": "33.2",
+      "section": "申請人・その他",
+      "label": "３３.２　職歴　退社　年月06",
+      "field_name": "item[140].textData",
+      "field_id": "yearMonthAD_320364",
+      "input_type": "text",
+      "required": false,
+      "transform": "date_yyyymmdd",
+      "visible_when": [
+        {
+          "path": "applicant.has_employment_history",
+          "value": true
+        }
+      ]
+    },
+    {
+      "canonical_id": "applicant.employment_history.5.company_name_local",
+      "value_path": "applicant.employment_history.5.company_name_local",
+      "form_order": 132,
+      "display_no": "33.3",
+      "section": "申請人・その他",
+      "label": "３３.３　職歴　勤務先　名称06",
+      "field_name": "item[141].textData",
+      "field_id": "switch_320366",
+      "input_type": "text",
+      "required": false,
+      "visible_when": [
+        {
+          "path": "applicant.has_employment_history",
+          "value": true
+        }
+      ]
+    },
+    {
+      "canonical_id": "applicant.employment_history.6.start_date",
+      "value_path": "applicant.employment_history.6.start_date",
+      "form_order": 133,
+      "display_no": "33.1",
+      "section": "申請人・その他",
+      "label": "３３.１　職歴　入社　年月07",
+      "field_name": "item[142].textData",
+      "field_id": "yearMonthAD_320369",
+      "input_type": "text",
+      "required": false,
+      "transform": "date_yyyymmdd",
+      "visible_when": [
+        {
+          "path": "applicant.has_employment_history",
+          "value": true
+        }
+      ]
+    },
+    {
+      "canonical_id": "applicant.employment_history.6.end_date",
+      "value_path": "applicant.employment_history.6.end_date",
+      "form_order": 134,
+      "display_no": "33.2",
+      "section": "申請人・その他",
+      "label": "３３.２　職歴　退社　年月07",
+      "field_name": "item[143].textData",
+      "field_id": "yearMonthAD_320370",
+      "input_type": "text",
+      "required": false,
+      "transform": "date_yyyymmdd",
+      "visible_when": [
+        {
+          "path": "applicant.has_employment_history",
+          "value": true
+        }
+      ]
+    },
+    {
+      "canonical_id": "applicant.employment_history.6.company_name_local",
+      "value_path": "applicant.employment_history.6.company_name_local",
+      "form_order": 135,
+      "display_no": "33.3",
+      "section": "申請人・その他",
+      "label": "３３.３　職歴　勤務先　名称07",
+      "field_name": "item[144].textData",
+      "field_id": "switch_320373",
+      "input_type": "text",
+      "required": false,
+      "visible_when": [
+        {
+          "path": "applicant.has_employment_history",
+          "value": true
+        }
+      ]
+    },
+    {
+      "canonical_id": "applicant.employment_history.7.start_date",
+      "value_path": "applicant.employment_history.7.start_date",
+      "form_order": 136,
+      "display_no": "33.1",
+      "section": "申請人・その他",
+      "label": "３３.１　職歴　入社　年月08",
+      "field_name": "item[145].textData",
+      "field_id": "yearMonthAD_320374",
+      "input_type": "text",
+      "required": false,
+      "transform": "date_yyyymmdd",
+      "visible_when": [
+        {
+          "path": "applicant.has_employment_history",
+          "value": true
+        }
+      ]
+    },
+    {
+      "canonical_id": "applicant.employment_history.7.end_date",
+      "value_path": "applicant.employment_history.7.end_date",
+      "form_order": 137,
+      "display_no": "33.2",
+      "section": "申請人・その他",
+      "label": "３３.２　職歴　退社　年月08",
+      "field_name": "item[146].textData",
+      "field_id": "yearMonthAD_320377",
+      "input_type": "text",
+      "required": false,
+      "transform": "date_yyyymmdd",
+      "visible_when": [
+        {
+          "path": "applicant.has_employment_history",
+          "value": true
+        }
+      ]
+    },
+    {
+      "canonical_id": "applicant.employment_history.7.company_name_local",
+      "value_path": "applicant.employment_history.7.company_name_local",
+      "form_order": 138,
+      "display_no": "33.3",
+      "section": "申請人・その他",
+      "label": "３３.３　職歴　勤務先　名称08",
+      "field_name": "item[147].textData",
+      "field_id": "switch_320378",
+      "input_type": "text",
+      "required": false,
+      "visible_when": [
+        {
+          "path": "applicant.has_employment_history",
+          "value": true
+        }
+      ]
+    },
+    {
+      "canonical_id": "applicant.employment_history.8.start_date",
+      "value_path": "applicant.employment_history.8.start_date",
+      "form_order": 139,
+      "display_no": "33.1",
+      "section": "申請人・その他",
+      "label": "３３.１　職歴　入社　年月09",
+      "field_name": "item[148].textData",
+      "field_id": "yearMonthAD_320381",
+      "input_type": "text",
+      "required": false,
+      "transform": "date_yyyymmdd",
+      "visible_when": [
+        {
+          "path": "applicant.has_employment_history",
+          "value": true
+        }
+      ]
+    },
+    {
+      "canonical_id": "applicant.employment_history.8.end_date",
+      "value_path": "applicant.employment_history.8.end_date",
+      "form_order": 140,
+      "display_no": "33.2",
+      "section": "申請人・その他",
+      "label": "３３.２　職歴　退社　年月09",
+      "field_name": "item[149].textData",
+      "field_id": "yearMonthAD_320383",
+      "input_type": "text",
+      "required": false,
+      "transform": "date_yyyymmdd",
+      "visible_when": [
+        {
+          "path": "applicant.has_employment_history",
+          "value": true
+        }
+      ]
+    },
+    {
+      "canonical_id": "applicant.employment_history.8.company_name_local",
+      "value_path": "applicant.employment_history.8.company_name_local",
+      "form_order": 141,
+      "display_no": "33.3",
+      "section": "申請人・その他",
+      "label": "３３.３　職歴　勤務先　名称09",
+      "field_name": "item[150].textData",
+      "field_id": "switch_320385",
+      "input_type": "text",
+      "required": false,
+      "visible_when": [
+        {
+          "path": "applicant.has_employment_history",
+          "value": true
+        }
+      ]
+    },
+    {
+      "canonical_id": "applicant.employment_history.9.start_date",
+      "value_path": "applicant.employment_history.9.start_date",
+      "form_order": 142,
+      "display_no": "33.1",
+      "section": "申請人・その他",
+      "label": "３３.１　職歴　入社　年月10",
+      "field_name": "item[151].textData",
+      "field_id": "yearMonthAD_320386",
+      "input_type": "text",
+      "required": false,
+      "transform": "date_yyyymmdd",
+      "visible_when": [
+        {
+          "path": "applicant.has_employment_history",
+          "value": true
+        }
+      ]
+    },
+    {
+      "canonical_id": "applicant.employment_history.9.end_date",
+      "value_path": "applicant.employment_history.9.end_date",
+      "form_order": 143,
+      "display_no": "33.2",
+      "section": "申請人・その他",
+      "label": "３３.２　職歴　退社　年月10",
+      "field_name": "item[152].textData",
+      "field_id": "yearMonthAD_320388",
+      "input_type": "text",
+      "required": false,
+      "transform": "date_yyyymmdd",
+      "visible_when": [
+        {
+          "path": "applicant.has_employment_history",
+          "value": true
+        }
+      ]
+    },
+    {
+      "canonical_id": "applicant.employment_history.9.company_name_local",
+      "value_path": "applicant.employment_history.9.company_name_local",
+      "form_order": 144,
+      "display_no": "33.3",
+      "section": "申請人・その他",
+      "label": "３３.３　職歴　勤務先　名称10",
+      "field_name": "item[153].textData",
+      "field_id": "switch_320390",
+      "input_type": "text",
+      "required": false,
+      "visible_when": [
+        {
+          "path": "applicant.has_employment_history",
+          "value": true
+        }
+      ]
+    },
+    {
+      "canonical_id": "proxy.name",
+      "value_path": "proxy.name",
+      "form_order": 145,
+      "display_no": "34.1",
+      "section": "申請人・その他",
+      "label": "３４.１　申請人、法定代理人、法第７条の２第２項に規定する代理人　(1)氏名",
+      "field_name": "item[156].textData",
+      "field_id": "switch_320396",
+      "input_type": "text",
+      "required": true
+    },
+    {
+      "canonical_id": "proxy.relationship",
+      "value_path": "proxy.relationship",
+      "form_order": 146,
+      "display_no": "34.2",
+      "section": "申請人・その他",
+      "label": "３４.２　申請人、法定代理人、法第７条の２第２項に規定する代理人（2）本人との関係",
+      "field_name": "item[157].textData",
+      "field_id": "switch_320398",
+      "input_type": "text",
+      "required": true
+    },
+    {
+      "canonical_id": "proxy.postal_code",
+      "value_path": "proxy.postal_code",
+      "form_order": 147,
+      "display_no": "34.3",
+      "section": "申請人・その他",
+      "label": "３４.３　申請人、法定代理人、法第７条の２第２項に規定する代理人　（3）郵便番号",
+      "field_name": "item[158].textData",
+      "field_id": "item_158_textData",
+      "input_type": "text",
+      "required": true
+    },
+    {
+      "canonical_id": "proxy.address",
+      "value_path": "proxy.address",
+      "form_order": 148,
+      "display_no": "34.4",
+      "section": "申請人・その他",
+      "label": "３４.４　申請人、法定代理人、法第７条の２第２項に規定する代理人　（3）住所",
+      "field_name": "item[159].textData",
+      "field_id": "address_320402",
+      "input_type": "text",
+      "required": true
+    },
+    {
+      "canonical_id": "proxy.phone",
+      "value_path": "proxy.phone",
+      "form_order": 149,
+      "display_no": "34.5",
+      "section": "申請人・その他",
+      "label": "３４.５　申請人、法定代理人、法第７条の２第２項に規定する代理人　(3)電話番号",
+      "field_name": "item[160].textData",
+      "field_id": "switch_320403",
+      "input_type": "text",
+      "required": false
+    },
+    {
+      "canonical_id": "proxy.mobile",
+      "value_path": "proxy.mobile",
+      "form_order": 150,
+      "display_no": "34.6",
+      "section": "申請人・その他",
+      "label": "３４.６　申請人、法定代理人、法第７条の２第２項に規定する代理人　(3)携帯電話番号",
+      "field_name": "item[161].textData",
+      "field_id": "switch_320405",
+      "input_type": "text",
+      "required": false
+    },
+    {
+      "canonical_id": "settings.intermediary.name",
+      "value_path": "settings.intermediary.name",
+      "form_order": 151,
+      "display_no": "",
+      "section": "取次者",
+      "label": "取次者(オンラインシステム利用者)　(1)氏名",
+      "field_name": "item[164].textData",
+      "field_id": "switch_320410",
+      "input_type": "text",
+      "required": true
+    },
+    {
+      "canonical_id": "settings.intermediary.postal_code",
+      "value_path": "settings.intermediary.postal_code",
+      "form_order": 152,
+      "display_no": "",
+      "section": "取次者",
+      "label": "取次者　(2)郵便番号",
+      "field_name": "item[165].textData",
+      "field_id": "item_165_textData",
+      "input_type": "text",
+      "required": true
+    },
+    {
+      "canonical_id": "settings.intermediary.address",
+      "value_path": "settings.intermediary.address",
+      "form_order": 153,
+      "display_no": "",
+      "section": "取次者",
+      "label": "取次者　(2)住所",
+      "field_name": "item[166].textData",
+      "field_id": "address_320414",
+      "input_type": "text",
+      "required": true
+    },
+    {
+      "canonical_id": "settings.intermediary.organization",
+      "value_path": "settings.intermediary.organization",
+      "form_order": 154,
+      "display_no": "",
+      "section": "取次者",
+      "label": "取次者　(3)所属機関等",
+      "field_name": "item[167].textData",
+      "field_id": "switch_320417",
+      "input_type": "text",
+      "required": true
+    },
+    {
+      "canonical_id": "settings.intermediary.phone",
+      "value_path": "settings.intermediary.phone",
+      "form_order": 155,
+      "display_no": "",
+      "section": "取次者",
+      "label": "取次者　(3)電話番号",
+      "field_name": "item[168].textData",
+      "field_id": "switch_320418",
+      "input_type": "text",
+      "required": true
+    },
+    {
+      "canonical_id": "specified_skilled_worker.contract.start_date",
+      "value_path": "specified_skilled_worker.contract.start_date",
+      "form_order": 156,
+      "display_no": "2.1",
+      "section": "特定技能雇用契約",
+      "label": "２.１　特定技能雇用契約　(1)雇用契約期間(始期)",
+      "field_name": "item[171].textData",
+      "field_id": "switch_320424",
+      "input_type": "text",
+      "required": true,
+      "transform": "date_yyyymmdd"
+    },
+    {
+      "canonical_id": "specified_skilled_worker.contract.end_date",
+      "value_path": "specified_skilled_worker.contract.end_date",
+      "form_order": 157,
+      "display_no": "2.2",
+      "section": "特定技能雇用契約",
+      "label": "２.２　特定技能雇用契約　(1)雇用契約期間(終期)",
+      "field_name": "item[172].textData",
+      "field_id": "switch_320426",
+      "input_type": "text",
+      "required": true,
+      "transform": "date_yyyymmdd"
+    },
+    {
+      "canonical_id": "specified_skilled_worker.contract.industry.0",
+      "value_path": "specified_skilled_worker.contract.industry.0",
+      "form_order": 158,
+      "display_no": "2.3",
+      "section": "特定技能雇用契約",
+      "label": "２.３　特定技能雇用契約　(2)従事すべき業務の内容　特定産業分野01",
+      "field_name": "item[174].selectData",
+      "field_id": "select_320430",
+      "input_type": "select",
+      "required": true,
+      "value_map": {
+        "介護分野 Long-term care": "介護分野 Long-term care",
+        "ビルクリーニング分野 Building cleaning management": "ビルクリーニング分野 Building cleaning management",
+        "リネンサプライ分野 Linen supply": "リネンサプライ分野 Linen supply",
+        "工業製品製造業分野 Industrial product manufacturing": "工業製品製造業分野 Industrial product manufacturing",
+        "建設分野 Construction industry": "建設分野 Construction industry",
+        "造船・舶用工業分野 Shipbuilding and ship machinery industries": "造船・舶用工業分野 Shipbuilding and ship machinery industries",
+        "自動車整備分野 Automobile repair and maintenance": "自動車整備分野 Automobile repair and maintenance",
+        "航空分野 Aviation industry": "航空分野 Aviation industry",
+        "宿泊分野 Accommodation industry": "宿泊分野 Accommodation industry",
+        "自動車運送業分野 Automobile transportation business": "自動車運送業分野 Automobile transportation business",
+        "鉄道分野 Railway": "鉄道分野 Railway",
+        "物流倉庫分野 Warehousing industry": "物流倉庫分野 Warehousing industry",
+        "農業分野 Agriculture": "農業分野 Agriculture",
+        "漁業分野 Fishery": "漁業分野 Fishery",
+        "飲食料品製造業分野 Manufacture of food and beverages": "飲食料品製造業分野 Manufacture of food and beverages",
+        "外食業分野 Food service industry": "外食業分野 Food service industry",
+        "林業分野 Forestry": "林業分野 Forestry",
+        "木材産業分野 Wood industry": "木材産業分野 Wood industry",
+        "資源循環分野 Resource circulation industry": "資源循環分野 Resource circulation industry",
+        "農業分野": "農業分野 Agriculture"
+      }
+    },
+    {
+      "canonical_id": "specified_skilled_worker.contract.business_category.0",
+      "value_path": "specified_skilled_worker.contract.business_category.0",
+      "form_order": 159,
+      "display_no": "2.4",
+      "section": "特定技能雇用契約",
+      "label": "２.４　特定技能雇用契約　(2)従事すべき業務の内容　業務区分01",
+      "field_name": "item[175].selectData",
+      "field_id": "select_320432",
+      "input_type": "select",
+      "required": true,
+      "value_map": {
+        "介護（介護分野） Long-term care（Long-term care）": "介護（介護分野） Long-term care（Long-term care）",
+        "ビルクリーニング（ビルクリーニング分野） Building cleaning management（Building cleaning management）": "ビルクリーニング（ビルクリーニング分野） Building cleaning management（Building cleaning management）",
+        "リネンサプライ（リネンサプライ分野） Linen supply（Linen supply）": "リネンサプライ（リネンサプライ分野） Linen supply（Linen supply）",
+        "機械金属加工（工業製品製造業分野） Machining and metal processing（Industrial product manufacturing）": "機械金属加工（工業製品製造業分野） Machining and metal processing（Industrial product manufacturing）",
+        "電気電子機器組立て（工業製品製造業分野） Electric and electronic equipment assembly（Industrial product manufacturing）": "電気電子機器組立て（工業製品製造業分野） Electric and electronic equipment assembly（Industrial product manufacturing）",
+        "金属表面処理（工業製品製造業分野） Metal surface treatment（Industrial product manufacturing）": "金属表面処理（工業製品製造業分野） Metal surface treatment（Industrial product manufacturing）",
+        "紙器・段ボール箱製造工業製品製造業分野 Carton box and corrugated card board box making Industrial product manufacturing": "紙器・段ボール箱製造工業製品製造業分野 Carton box and corrugated card board box making Industrial product manufacturing",
+        "コンクリート製品製造（工業製品製造業分野） Precast concrete product manufacturing（Industrial product manufacturing）": "コンクリート製品製造（工業製品製造業分野） Precast concrete product manufacturing（Industrial product manufacturing）",
+        "ＲＰＦ製造工業製品製造業分野 Refuse derived Paper & Plastics densified Fuel makingIndustrial product manufacturing": "ＲＰＦ製造工業製品製造業分野 Refuse derived Paper & Plastics densified Fuel makingIndustrial product manufacturing",
+        "陶磁器製品製造（工業製品製造業分野） Industrial manufacturing of pottery（Industrial product manufacturing）": "陶磁器製品製造（工業製品製造業分野） Industrial manufacturing of pottery（Industrial product manufacturing）",
+        "印刷・製本（工業製品製造業分野） Printing / Bookbinding（Industrial product manufacturing）": "印刷・製本（工業製品製造業分野） Printing / Bookbinding（Industrial product manufacturing）",
+        "紡織製品製造（工業製品製造業分野） Textiles manufacturing（Industrial product manufacturing）": "紡織製品製造（工業製品製造業分野） Textiles manufacturing（Industrial product manufacturing）",
+        "縫製（工業製品製造業分野） Sewing（Industrial product manufacturing）": "縫製（工業製品製造業分野） Sewing（Industrial product manufacturing）",
+        "電線・ケーブル製造（工業製品製造業分野） Electric wire and cable manufacturing（Industrial product manufacturing）": "電線・ケーブル製造（工業製品製造業分野） Electric wire and cable manufacturing（Industrial product manufacturing）",
+        "プレハブ住宅製品製造（工業製品製造業分野） Prefabricated housing product manufacturing（Industrial product manufacturing）": "プレハブ住宅製品製造（工業製品製造業分野） Prefabricated housing product manufacturing（Industrial product manufacturing）",
+        "家具製造（工業製品製造業分野） Furniture manufacturing（Industrial product manufacturing）": "家具製造（工業製品製造業分野） Furniture manufacturing（Industrial product manufacturing）",
+        "定形・不定形耐火物製造（工業製品製造業分野） Shaped and Monolithic Refractories（Industrial product manufacturing）": "定形・不定形耐火物製造（工業製品製造業分野） Shaped and Monolithic Refractories（Industrial product manufacturing）",
+        "生コンクリート製造（工業製品製造業分野） Ready-mixed concrete manufacturing（Industrial product manufacturing）": "生コンクリート製造（工業製品製造業分野） Ready-mixed concrete manufacturing（Industrial product manufacturing）",
+        "ゴム製品製造（工業製品製造業分野） Rubber product manufacturing（Industrial product manufacturing）": "ゴム製品製造（工業製品製造業分野） Rubber product manufacturing（Industrial product manufacturing）",
+        "かばん製造（工業製品製造業分野） Bag and Luggage Manufacturing（Industrial product manufacturing）": "かばん製造（工業製品製造業分野） Bag and Luggage Manufacturing（Industrial product manufacturing）",
+        "土木（建設分野） Civil engineering(Construction industry)": "土木（建設分野） Civil engineering(Construction industry)",
+        "建築（建設分野） Building(Construction industry)": "建築（建設分野） Building(Construction industry)",
+        "ライフライン・設備（建設分野） Infrastructure facilities & equipment(Construction industry)": "ライフライン・設備（建設分野） Infrastructure facilities & equipment(Construction industry)",
+        "造船（造船・舶用工業分野） Shipbuilding（Shipbuilding and ship machinery industries）": "造船（造船・舶用工業分野） Shipbuilding（Shipbuilding and ship machinery industries）",
+        "舶用機械（造船・舶用工業分野） Ship machinery（Shipbuilding and ship machinery industries）": "舶用機械（造船・舶用工業分野） Ship machinery（Shipbuilding and ship machinery industries）",
+        "舶用電気電子機器造船・舶用工業分野 Ship electrical and electronic equipmentShipbuilding and ship machinery industries": "舶用電気電子機器造船・舶用工業分野 Ship electrical and electronic equipmentShipbuilding and ship machinery industries",
+        "自動車の整備等（自動車整備分野） Automobile repair and maintenance(Automobile repair and maintenance)": "自動車の整備等（自動車整備分野） Automobile repair and maintenance(Automobile repair and maintenance)",
+        "空港グランドハンドリング（航空分野） Airport ground handling（Aviation industry）": "空港グランドハンドリング（航空分野） Airport ground handling（Aviation industry）",
+        "航空機整備（航空分野） Aircraft maintenance（Aviation industry）": "航空機整備（航空分野） Aircraft maintenance（Aviation industry）",
+        "宿泊（宿泊分野） Accommodation industry（Accommodation industry）": "宿泊（宿泊分野） Accommodation industry（Accommodation industry）",
+        "トラック運転者（自動車運送業分野） Motor truck drivers（Automobile transportation business）": "トラック運転者（自動車運送業分野） Motor truck drivers（Automobile transportation business）",
+        "タクシー運転者（自動車運送業分野） Taxi drivers（Automobile transportation business）": "タクシー運転者（自動車運送業分野） Taxi drivers（Automobile transportation business）",
+        "バス運転者（自動車運送業分野） Bus drivers（Automobile transportation business）": "バス運転者（自動車運送業分野） Bus drivers（Automobile transportation business）",
+        "軌道整備（鉄道分野） Track construction and maintenance（Railway）": "軌道整備（鉄道分野） Track construction and maintenance（Railway）",
+        "電気設備整備（鉄道分野） Electric facilities construction and maintenance（Railway）": "電気設備整備（鉄道分野） Electric facilities construction and maintenance（Railway）",
+        "車両整備（鉄道分野） Rolling stock maintenance（Railway）": "車両整備（鉄道分野） Rolling stock maintenance（Railway）",
+        "車両製造（鉄道分野） Rolling stock manufacturing（Railway）": "車両製造（鉄道分野） Rolling stock manufacturing（Railway）",
+        "運輸係員（鉄道分野） Train operation works （Railway）": "運輸係員（鉄道分野） Train operation works （Railway）",
+        "駅・車両清掃（鉄道分野） Station and rolling stock cleaning（Railway）": "駅・車両清掃（鉄道分野） Station and rolling stock cleaning（Railway）",
+        "物流倉庫（物流倉庫分野） Warehousing industry（Werehousing industry）": "物流倉庫（物流倉庫分野） Warehousing industry（Werehousing industry）",
+        "耕種農業（農業分野） General crop farming（Agriculture）": "耕種農業（農業分野） General crop farming（Agriculture）",
+        "畜産農業（農業分野） General livestock farming（Agriculture）": "畜産農業（農業分野） General livestock farming（Agriculture）",
+        "漁業（漁業分野） Fishery（Fishery）": "漁業（漁業分野） Fishery（Fishery）",
+        "養殖業（漁業分野） Aquaculture industry（Fishery）": "養殖業（漁業分野） Aquaculture industry（Fishery）",
+        "飲食料品製造業全般（飲食料品製造業分野） General food and beverage manufacturing（Manufacture of food and beverages）": "飲食料品製造業全般（飲食料品製造業分野） General food and beverage manufacturing（Manufacture of food and beverages）",
+        "外食業（外食業分野） General restaurant industry（Food service industry）": "外食業（外食業分野） General restaurant industry（Food service industry）",
+        "林業（林業分野） Forestry（Forestry）": "林業（林業分野） Forestry（Forestry）",
+        "木材産業（木材産業分野） Wood industry（Wood industry）": "木材産業（木材産業分野） Wood industry（Wood industry）",
+        "廃棄物処分業（資源循環分野） Waste treatment（Resource circulation industry）": "廃棄物処分業（資源循環分野） Waste treatment（Resource circulation industry）",
+        "耕種農業全般": "耕種農業（農業分野） General crop farming（Agriculture）"
+      }
+    },
+    {
+      "canonical_id": "specified_skilled_worker.contract.industry.1",
+      "value_path": "specified_skilled_worker.contract.industry.1",
+      "form_order": 160,
+      "display_no": "2.3",
+      "section": "特定技能雇用契約",
+      "label": "２.３　特定技能雇用契約　(2)従事すべき業務の内容　特定産業分野02",
+      "field_name": "item[176].selectData",
+      "field_id": "select_320437",
+      "input_type": "select",
+      "required": false,
+      "value_map": {
+        "介護分野 Long-term care": "介護分野 Long-term care",
+        "ビルクリーニング分野 Building cleaning management": "ビルクリーニング分野 Building cleaning management",
+        "リネンサプライ分野 Linen supply": "リネンサプライ分野 Linen supply",
+        "工業製品製造業分野 Industrial product manufacturing": "工業製品製造業分野 Industrial product manufacturing",
+        "建設分野 Construction industry": "建設分野 Construction industry",
+        "造船・舶用工業分野 Shipbuilding and ship machinery industries": "造船・舶用工業分野 Shipbuilding and ship machinery industries",
+        "自動車整備分野 Automobile repair and maintenance": "自動車整備分野 Automobile repair and maintenance",
+        "航空分野 Aviation industry": "航空分野 Aviation industry",
+        "宿泊分野 Accommodation industry": "宿泊分野 Accommodation industry",
+        "自動車運送業分野 Automobile transportation business": "自動車運送業分野 Automobile transportation business",
+        "鉄道分野 Railway": "鉄道分野 Railway",
+        "物流倉庫分野 Warehousing industry": "物流倉庫分野 Warehousing industry",
+        "農業分野 Agriculture": "農業分野 Agriculture",
+        "漁業分野 Fishery": "漁業分野 Fishery",
+        "飲食料品製造業分野 Manufacture of food and beverages": "飲食料品製造業分野 Manufacture of food and beverages",
+        "外食業分野 Food service industry": "外食業分野 Food service industry",
+        "林業分野 Forestry": "林業分野 Forestry",
+        "木材産業分野 Wood industry": "木材産業分野 Wood industry",
+        "資源循環分野 Resource circulation industry": "資源循環分野 Resource circulation industry",
+        "農業分野": "農業分野 Agriculture"
+      }
+    },
+    {
+      "canonical_id": "specified_skilled_worker.contract.business_category.1",
+      "value_path": "specified_skilled_worker.contract.business_category.1",
+      "form_order": 161,
+      "display_no": "2.4",
+      "section": "特定技能雇用契約",
+      "label": "２.４　特定技能雇用契約　(2)従事すべき業務の内容　業務区分02",
+      "field_name": "item[177].selectData",
+      "field_id": "select_320438",
+      "input_type": "select",
+      "required": false,
+      "value_map": {
+        "介護（介護分野） Long-term care（Long-term care）": "介護（介護分野） Long-term care（Long-term care）",
+        "ビルクリーニング（ビルクリーニング分野） Building cleaning management（Building cleaning management）": "ビルクリーニング（ビルクリーニング分野） Building cleaning management（Building cleaning management）",
+        "リネンサプライ（リネンサプライ分野） Linen supply（Linen supply）": "リネンサプライ（リネンサプライ分野） Linen supply（Linen supply）",
+        "機械金属加工（工業製品製造業分野） Machining and metal processing（Industrial product manufacturing）": "機械金属加工（工業製品製造業分野） Machining and metal processing（Industrial product manufacturing）",
+        "電気電子機器組立て（工業製品製造業分野） Electric and electronic equipment assembly（Industrial product manufacturing）": "電気電子機器組立て（工業製品製造業分野） Electric and electronic equipment assembly（Industrial product manufacturing）",
+        "金属表面処理（工業製品製造業分野） Metal surface treatment（Industrial product manufacturing）": "金属表面処理（工業製品製造業分野） Metal surface treatment（Industrial product manufacturing）",
+        "紙器・段ボール箱製造工業製品製造業分野 Carton box and corrugated card board box making Industrial product manufacturing": "紙器・段ボール箱製造工業製品製造業分野 Carton box and corrugated card board box making Industrial product manufacturing",
+        "コンクリート製品製造（工業製品製造業分野） Precast concrete product manufacturing（Industrial product manufacturing）": "コンクリート製品製造（工業製品製造業分野） Precast concrete product manufacturing（Industrial product manufacturing）",
+        "ＲＰＦ製造工業製品製造業分野 Refuse derived Paper & Plastics densified Fuel makingIndustrial product manufacturing": "ＲＰＦ製造工業製品製造業分野 Refuse derived Paper & Plastics densified Fuel makingIndustrial product manufacturing",
+        "陶磁器製品製造（工業製品製造業分野） Industrial manufacturing of pottery（Industrial product manufacturing）": "陶磁器製品製造（工業製品製造業分野） Industrial manufacturing of pottery（Industrial product manufacturing）",
+        "印刷・製本（工業製品製造業分野） Printing / Bookbinding（Industrial product manufacturing）": "印刷・製本（工業製品製造業分野） Printing / Bookbinding（Industrial product manufacturing）",
+        "紡織製品製造（工業製品製造業分野） Textiles manufacturing（Industrial product manufacturing）": "紡織製品製造（工業製品製造業分野） Textiles manufacturing（Industrial product manufacturing）",
+        "縫製（工業製品製造業分野） Sewing（Industrial product manufacturing）": "縫製（工業製品製造業分野） Sewing（Industrial product manufacturing）",
+        "電線・ケーブル製造（工業製品製造業分野） Electric wire and cable manufacturing（Industrial product manufacturing）": "電線・ケーブル製造（工業製品製造業分野） Electric wire and cable manufacturing（Industrial product manufacturing）",
+        "プレハブ住宅製品製造（工業製品製造業分野） Prefabricated housing product manufacturing（Industrial product manufacturing）": "プレハブ住宅製品製造（工業製品製造業分野） Prefabricated housing product manufacturing（Industrial product manufacturing）",
+        "家具製造（工業製品製造業分野） Furniture manufacturing（Industrial product manufacturing）": "家具製造（工業製品製造業分野） Furniture manufacturing（Industrial product manufacturing）",
+        "定形・不定形耐火物製造（工業製品製造業分野） Shaped and Monolithic Refractories（Industrial product manufacturing）": "定形・不定形耐火物製造（工業製品製造業分野） Shaped and Monolithic Refractories（Industrial product manufacturing）",
+        "生コンクリート製造（工業製品製造業分野） Ready-mixed concrete manufacturing（Industrial product manufacturing）": "生コンクリート製造（工業製品製造業分野） Ready-mixed concrete manufacturing（Industrial product manufacturing）",
+        "ゴム製品製造（工業製品製造業分野） Rubber product manufacturing（Industrial product manufacturing）": "ゴム製品製造（工業製品製造業分野） Rubber product manufacturing（Industrial product manufacturing）",
+        "かばん製造（工業製品製造業分野） Bag and Luggage Manufacturing（Industrial product manufacturing）": "かばん製造（工業製品製造業分野） Bag and Luggage Manufacturing（Industrial product manufacturing）",
+        "土木（建設分野） Civil engineering(Construction industry)": "土木（建設分野） Civil engineering(Construction industry)",
+        "建築（建設分野） Building(Construction industry)": "建築（建設分野） Building(Construction industry)",
+        "ライフライン・設備（建設分野） Infrastructure facilities & equipment(Construction industry)": "ライフライン・設備（建設分野） Infrastructure facilities & equipment(Construction industry)",
+        "造船（造船・舶用工業分野） Shipbuilding（Shipbuilding and ship machinery industries）": "造船（造船・舶用工業分野） Shipbuilding（Shipbuilding and ship machinery industries）",
+        "舶用機械（造船・舶用工業分野） Ship machinery（Shipbuilding and ship machinery industries）": "舶用機械（造船・舶用工業分野） Ship machinery（Shipbuilding and ship machinery industries）",
+        "舶用電気電子機器造船・舶用工業分野 Ship electrical and electronic equipmentShipbuilding and ship machinery industries": "舶用電気電子機器造船・舶用工業分野 Ship electrical and electronic equipmentShipbuilding and ship machinery industries",
+        "自動車の整備等（自動車整備分野） Automobile repair and maintenance(Automobile repair and maintenance)": "自動車の整備等（自動車整備分野） Automobile repair and maintenance(Automobile repair and maintenance)",
+        "空港グランドハンドリング（航空分野） Airport ground handling（Aviation industry）": "空港グランドハンドリング（航空分野） Airport ground handling（Aviation industry）",
+        "航空機整備（航空分野） Aircraft maintenance（Aviation industry）": "航空機整備（航空分野） Aircraft maintenance（Aviation industry）",
+        "宿泊（宿泊分野） Accommodation industry（Accommodation industry）": "宿泊（宿泊分野） Accommodation industry（Accommodation industry）",
+        "トラック運転者（自動車運送業分野） Motor truck drivers（Automobile transportation business）": "トラック運転者（自動車運送業分野） Motor truck drivers（Automobile transportation business）",
+        "タクシー運転者（自動車運送業分野） Taxi drivers（Automobile transportation business）": "タクシー運転者（自動車運送業分野） Taxi drivers（Automobile transportation business）",
+        "バス運転者（自動車運送業分野） Bus drivers（Automobile transportation business）": "バス運転者（自動車運送業分野） Bus drivers（Automobile transportation business）",
+        "軌道整備（鉄道分野） Track construction and maintenance（Railway）": "軌道整備（鉄道分野） Track construction and maintenance（Railway）",
+        "電気設備整備（鉄道分野） Electric facilities construction and maintenance（Railway）": "電気設備整備（鉄道分野） Electric facilities construction and maintenance（Railway）",
+        "車両整備（鉄道分野） Rolling stock maintenance（Railway）": "車両整備（鉄道分野） Rolling stock maintenance（Railway）",
+        "車両製造（鉄道分野） Rolling stock manufacturing（Railway）": "車両製造（鉄道分野） Rolling stock manufacturing（Railway）",
+        "運輸係員（鉄道分野） Train operation works （Railway）": "運輸係員（鉄道分野） Train operation works （Railway）",
+        "駅・車両清掃（鉄道分野） Station and rolling stock cleaning（Railway）": "駅・車両清掃（鉄道分野） Station and rolling stock cleaning（Railway）",
+        "物流倉庫（物流倉庫分野） Warehousing industry（Werehousing industry）": "物流倉庫（物流倉庫分野） Warehousing industry（Werehousing industry）",
+        "耕種農業（農業分野） General crop farming（Agriculture）": "耕種農業（農業分野） General crop farming（Agriculture）",
+        "畜産農業（農業分野） General livestock farming（Agriculture）": "畜産農業（農業分野） General livestock farming（Agriculture）",
+        "漁業（漁業分野） Fishery（Fishery）": "漁業（漁業分野） Fishery（Fishery）",
+        "養殖業（漁業分野） Aquaculture industry（Fishery）": "養殖業（漁業分野） Aquaculture industry（Fishery）",
+        "飲食料品製造業全般（飲食料品製造業分野） General food and beverage manufacturing（Manufacture of food and beverages）": "飲食料品製造業全般（飲食料品製造業分野） General food and beverage manufacturing（Manufacture of food and beverages）",
+        "外食業（外食業分野） General restaurant industry（Food service industry）": "外食業（外食業分野） General restaurant industry（Food service industry）",
+        "林業（林業分野） Forestry（Forestry）": "林業（林業分野） Forestry（Forestry）",
+        "木材産業（木材産業分野） Wood industry（Wood industry）": "木材産業（木材産業分野） Wood industry（Wood industry）",
+        "廃棄物処分業（資源循環分野） Waste treatment（Resource circulation industry）": "廃棄物処分業（資源循環分野） Waste treatment（Resource circulation industry）",
+        "耕種農業全般": "耕種農業（農業分野） General crop farming（Agriculture）"
+      }
+    },
+    {
+      "canonical_id": "specified_skilled_worker.contract.industry.2",
+      "value_path": "specified_skilled_worker.contract.industry.2",
+      "form_order": 162,
+      "display_no": "2.3",
+      "section": "特定技能雇用契約",
+      "label": "２.３　特定技能雇用契約　(2)従事すべき業務の内容　特定産業分野03",
+      "field_name": "item[178].selectData",
+      "field_id": "select_320443",
+      "input_type": "select",
+      "required": false,
+      "value_map": {
+        "介護分野 Long-term care": "介護分野 Long-term care",
+        "ビルクリーニング分野 Building cleaning management": "ビルクリーニング分野 Building cleaning management",
+        "リネンサプライ分野 Linen supply": "リネンサプライ分野 Linen supply",
+        "工業製品製造業分野 Industrial product manufacturing": "工業製品製造業分野 Industrial product manufacturing",
+        "建設分野 Construction industry": "建設分野 Construction industry",
+        "造船・舶用工業分野 Shipbuilding and ship machinery industries": "造船・舶用工業分野 Shipbuilding and ship machinery industries",
+        "自動車整備分野 Automobile repair and maintenance": "自動車整備分野 Automobile repair and maintenance",
+        "航空分野 Aviation industry": "航空分野 Aviation industry",
+        "宿泊分野 Accommodation industry": "宿泊分野 Accommodation industry",
+        "自動車運送業分野 Automobile transportation business": "自動車運送業分野 Automobile transportation business",
+        "鉄道分野 Railway": "鉄道分野 Railway",
+        "物流倉庫分野 Warehousing industry": "物流倉庫分野 Warehousing industry",
+        "農業分野 Agriculture": "農業分野 Agriculture",
+        "漁業分野 Fishery": "漁業分野 Fishery",
+        "飲食料品製造業分野 Manufacture of food and beverages": "飲食料品製造業分野 Manufacture of food and beverages",
+        "外食業分野 Food service industry": "外食業分野 Food service industry",
+        "林業分野 Forestry": "林業分野 Forestry",
+        "木材産業分野 Wood industry": "木材産業分野 Wood industry",
+        "資源循環分野 Resource circulation industry": "資源循環分野 Resource circulation industry",
+        "農業分野": "農業分野 Agriculture"
+      }
+    },
+    {
+      "canonical_id": "specified_skilled_worker.contract.business_category.2",
+      "value_path": "specified_skilled_worker.contract.business_category.2",
+      "form_order": 163,
+      "display_no": "2.4",
+      "section": "特定技能雇用契約",
+      "label": "２.４　特定技能雇用契約　(2)従事すべき業務の内容　業務区分03",
+      "field_name": "item[179].selectData",
+      "field_id": "select_320445",
+      "input_type": "select",
+      "required": false,
+      "value_map": {
+        "介護（介護分野） Long-term care（Long-term care）": "介護（介護分野） Long-term care（Long-term care）",
+        "ビルクリーニング（ビルクリーニング分野） Building cleaning management（Building cleaning management）": "ビルクリーニング（ビルクリーニング分野） Building cleaning management（Building cleaning management）",
+        "リネンサプライ（リネンサプライ分野） Linen supply（Linen supply）": "リネンサプライ（リネンサプライ分野） Linen supply（Linen supply）",
+        "機械金属加工（工業製品製造業分野） Machining and metal processing（Industrial product manufacturing）": "機械金属加工（工業製品製造業分野） Machining and metal processing（Industrial product manufacturing）",
+        "電気電子機器組立て（工業製品製造業分野） Electric and electronic equipment assembly（Industrial product manufacturing）": "電気電子機器組立て（工業製品製造業分野） Electric and electronic equipment assembly（Industrial product manufacturing）",
+        "金属表面処理（工業製品製造業分野） Metal surface treatment（Industrial product manufacturing）": "金属表面処理（工業製品製造業分野） Metal surface treatment（Industrial product manufacturing）",
+        "紙器・段ボール箱製造工業製品製造業分野 Carton box and corrugated card board box making Industrial product manufacturing": "紙器・段ボール箱製造工業製品製造業分野 Carton box and corrugated card board box making Industrial product manufacturing",
+        "コンクリート製品製造（工業製品製造業分野） Precast concrete product manufacturing（Industrial product manufacturing）": "コンクリート製品製造（工業製品製造業分野） Precast concrete product manufacturing（Industrial product manufacturing）",
+        "ＲＰＦ製造工業製品製造業分野 Refuse derived Paper & Plastics densified Fuel makingIndustrial product manufacturing": "ＲＰＦ製造工業製品製造業分野 Refuse derived Paper & Plastics densified Fuel makingIndustrial product manufacturing",
+        "陶磁器製品製造（工業製品製造業分野） Industrial manufacturing of pottery（Industrial product manufacturing）": "陶磁器製品製造（工業製品製造業分野） Industrial manufacturing of pottery（Industrial product manufacturing）",
+        "印刷・製本（工業製品製造業分野） Printing / Bookbinding（Industrial product manufacturing）": "印刷・製本（工業製品製造業分野） Printing / Bookbinding（Industrial product manufacturing）",
+        "紡織製品製造（工業製品製造業分野） Textiles manufacturing（Industrial product manufacturing）": "紡織製品製造（工業製品製造業分野） Textiles manufacturing（Industrial product manufacturing）",
+        "縫製（工業製品製造業分野） Sewing（Industrial product manufacturing）": "縫製（工業製品製造業分野） Sewing（Industrial product manufacturing）",
+        "電線・ケーブル製造（工業製品製造業分野） Electric wire and cable manufacturing（Industrial product manufacturing）": "電線・ケーブル製造（工業製品製造業分野） Electric wire and cable manufacturing（Industrial product manufacturing）",
+        "プレハブ住宅製品製造（工業製品製造業分野） Prefabricated housing product manufacturing（Industrial product manufacturing）": "プレハブ住宅製品製造（工業製品製造業分野） Prefabricated housing product manufacturing（Industrial product manufacturing）",
+        "家具製造（工業製品製造業分野） Furniture manufacturing（Industrial product manufacturing）": "家具製造（工業製品製造業分野） Furniture manufacturing（Industrial product manufacturing）",
+        "定形・不定形耐火物製造（工業製品製造業分野） Shaped and Monolithic Refractories（Industrial product manufacturing）": "定形・不定形耐火物製造（工業製品製造業分野） Shaped and Monolithic Refractories（Industrial product manufacturing）",
+        "生コンクリート製造（工業製品製造業分野） Ready-mixed concrete manufacturing（Industrial product manufacturing）": "生コンクリート製造（工業製品製造業分野） Ready-mixed concrete manufacturing（Industrial product manufacturing）",
+        "ゴム製品製造（工業製品製造業分野） Rubber product manufacturing（Industrial product manufacturing）": "ゴム製品製造（工業製品製造業分野） Rubber product manufacturing（Industrial product manufacturing）",
+        "かばん製造（工業製品製造業分野） Bag and Luggage Manufacturing（Industrial product manufacturing）": "かばん製造（工業製品製造業分野） Bag and Luggage Manufacturing（Industrial product manufacturing）",
+        "土木（建設分野） Civil engineering(Construction industry)": "土木（建設分野） Civil engineering(Construction industry)",
+        "建築（建設分野） Building(Construction industry)": "建築（建設分野） Building(Construction industry)",
+        "ライフライン・設備（建設分野） Infrastructure facilities & equipment(Construction industry)": "ライフライン・設備（建設分野） Infrastructure facilities & equipment(Construction industry)",
+        "造船（造船・舶用工業分野） Shipbuilding（Shipbuilding and ship machinery industries）": "造船（造船・舶用工業分野） Shipbuilding（Shipbuilding and ship machinery industries）",
+        "舶用機械（造船・舶用工業分野） Ship machinery（Shipbuilding and ship machinery industries）": "舶用機械（造船・舶用工業分野） Ship machinery（Shipbuilding and ship machinery industries）",
+        "舶用電気電子機器造船・舶用工業分野 Ship electrical and electronic equipmentShipbuilding and ship machinery industries": "舶用電気電子機器造船・舶用工業分野 Ship electrical and electronic equipmentShipbuilding and ship machinery industries",
+        "自動車の整備等（自動車整備分野） Automobile repair and maintenance(Automobile repair and maintenance)": "自動車の整備等（自動車整備分野） Automobile repair and maintenance(Automobile repair and maintenance)",
+        "空港グランドハンドリング（航空分野） Airport ground handling（Aviation industry）": "空港グランドハンドリング（航空分野） Airport ground handling（Aviation industry）",
+        "航空機整備（航空分野） Aircraft maintenance（Aviation industry）": "航空機整備（航空分野） Aircraft maintenance（Aviation industry）",
+        "宿泊（宿泊分野） Accommodation industry（Accommodation industry）": "宿泊（宿泊分野） Accommodation industry（Accommodation industry）",
+        "トラック運転者（自動車運送業分野） Motor truck drivers（Automobile transportation business）": "トラック運転者（自動車運送業分野） Motor truck drivers（Automobile transportation business）",
+        "タクシー運転者（自動車運送業分野） Taxi drivers（Automobile transportation business）": "タクシー運転者（自動車運送業分野） Taxi drivers（Automobile transportation business）",
+        "バス運転者（自動車運送業分野） Bus drivers（Automobile transportation business）": "バス運転者（自動車運送業分野） Bus drivers（Automobile transportation business）",
+        "軌道整備（鉄道分野） Track construction and maintenance（Railway）": "軌道整備（鉄道分野） Track construction and maintenance（Railway）",
+        "電気設備整備（鉄道分野） Electric facilities construction and maintenance（Railway）": "電気設備整備（鉄道分野） Electric facilities construction and maintenance（Railway）",
+        "車両整備（鉄道分野） Rolling stock maintenance（Railway）": "車両整備（鉄道分野） Rolling stock maintenance（Railway）",
+        "車両製造（鉄道分野） Rolling stock manufacturing（Railway）": "車両製造（鉄道分野） Rolling stock manufacturing（Railway）",
+        "運輸係員（鉄道分野） Train operation works （Railway）": "運輸係員（鉄道分野） Train operation works （Railway）",
+        "駅・車両清掃（鉄道分野） Station and rolling stock cleaning（Railway）": "駅・車両清掃（鉄道分野） Station and rolling stock cleaning（Railway）",
+        "物流倉庫（物流倉庫分野） Warehousing industry（Werehousing industry）": "物流倉庫（物流倉庫分野） Warehousing industry（Werehousing industry）",
+        "耕種農業（農業分野） General crop farming（Agriculture）": "耕種農業（農業分野） General crop farming（Agriculture）",
+        "畜産農業（農業分野） General livestock farming（Agriculture）": "畜産農業（農業分野） General livestock farming（Agriculture）",
+        "漁業（漁業分野） Fishery（Fishery）": "漁業（漁業分野） Fishery（Fishery）",
+        "養殖業（漁業分野） Aquaculture industry（Fishery）": "養殖業（漁業分野） Aquaculture industry（Fishery）",
+        "飲食料品製造業全般（飲食料品製造業分野） General food and beverage manufacturing（Manufacture of food and beverages）": "飲食料品製造業全般（飲食料品製造業分野） General food and beverage manufacturing（Manufacture of food and beverages）",
+        "外食業（外食業分野） General restaurant industry（Food service industry）": "外食業（外食業分野） General restaurant industry（Food service industry）",
+        "林業（林業分野） Forestry（Forestry）": "林業（林業分野） Forestry（Forestry）",
+        "木材産業（木材産業分野） Wood industry（Wood industry）": "木材産業（木材産業分野） Wood industry（Wood industry）",
+        "廃棄物処分業（資源循環分野） Waste treatment（Resource circulation industry）": "廃棄物処分業（資源循環分野） Waste treatment（Resource circulation industry）",
+        "耕種農業全般": "耕種農業（農業分野） General crop farming（Agriculture）"
+      }
+    },
+    {
+      "canonical_id": "employment.job_category_primary",
+      "value_path": "employment.job_category_primary",
+      "form_order": 164,
+      "display_no": "2.5",
+      "section": "特定技能雇用契約",
+      "label": "２.５　特定技能雇用契約　(2)従事すべき業務の内容　職種　主たる職種",
+      "field_name": "item[180].selectData",
+      "field_id": "select_320449",
+      "input_type": "select",
+      "required": true,
+      "manual_required": true
+    },
+    {
+      "canonical_id": "specified_skilled_worker.contract.job_category_other.0",
+      "value_path": "specified_skilled_worker.contract.job_category_other.0",
+      "form_order": 165,
+      "display_no": "2.6",
+      "section": "特定技能雇用契約",
+      "label": "２.６　特定技能雇用契約　(2)従事すべき業務の内容　職種　他職種01",
+      "field_name": "item[182].selectData",
+      "field_id": "select_320453",
+      "input_type": "select",
+      "required": false
+    },
+    {
+      "canonical_id": "specified_skilled_worker.contract.job_category_other.1",
+      "value_path": "specified_skilled_worker.contract.job_category_other.1",
+      "form_order": 166,
+      "display_no": "2.6",
+      "section": "特定技能雇用契約",
+      "label": "２.６　特定技能雇用契約　(2)従事すべき業務の内容　職種　他職種02",
+      "field_name": "item[183].selectData",
+      "field_id": "select_320457",
+      "input_type": "select",
+      "required": false
+    },
+    {
+      "canonical_id": "specified_skilled_worker.contract.job_category_other.2",
+      "value_path": "specified_skilled_worker.contract.job_category_other.2",
+      "form_order": 167,
+      "display_no": "2.6",
+      "section": "特定技能雇用契約",
+      "label": "２.６　特定技能雇用契約　(2)従事すべき業務の内容　職種　他職種03",
+      "field_name": "item[184].selectData",
+      "field_id": "select_320460",
+      "input_type": "select",
+      "required": false
+    },
+    {
+      "canonical_id": "specified_skilled_worker.contract.weekly_hours",
+      "value_path": "specified_skilled_worker.contract.weekly_hours",
+      "form_order": 168,
+      "display_no": "2.7",
+      "section": "特定技能雇用契約",
+      "label": "２.７　特定技能雇用契約　(3)所定労働時間(週平均）",
+      "field_name": "item[185].textData",
+      "field_id": "switch_320463",
+      "input_type": "text",
+      "required": true
+    },
+    {
+      "canonical_id": "specified_skilled_worker.contract.monthly_hours",
+      "value_path": "specified_skilled_worker.contract.monthly_hours",
+      "form_order": 169,
+      "display_no": "2.8",
+      "section": "特定技能雇用契約",
+      "label": "２.８　特定技能雇用契約　(3)所定労働時間(月平均）",
+      "field_name": "item[186].textData",
+      "field_id": "switch_320465",
+      "input_type": "text",
+      "required": true
+    },
+    {
+      "canonical_id": "specified_skilled_worker.contract.hours_equivalent_to_regular_worker",
+      "value_path": "specified_skilled_worker.contract.hours_equivalent_to_regular_worker",
+      "form_order": 170,
+      "display_no": "2.9",
+      "section": "特定技能雇用契約",
+      "label": "２.９　特定技能雇用契約　(3)所定労働時間が通常の労働者の所定労働時間と同等であることの有無",
+      "field_name": "item[187].selectData",
+      "field_id": "radioList_320468_1",
+      "input_type": "radio",
+      "required": true,
+      "value_map": {
+        "true": "有 Yes",
+        "false": "無 No"
+      },
+      "manual_required": true
+    },
+    {
+      "canonical_id": "employment.monthly_salary",
+      "value_path": "employment.monthly_salary",
+      "form_order": 171,
+      "display_no": "2.10",
+      "section": "特定技能雇用契約",
+      "label": "２.１０　特定技能雇用契約　(4)月額報酬",
+      "field_name": "item[188].textData",
+      "field_id": "switch_320470",
+      "input_type": "text",
+      "required": true
+    },
+    {
+      "canonical_id": "specified_skilled_worker.contract.hourly_base_pay",
+      "value_path": "specified_skilled_worker.contract.hourly_base_pay",
+      "form_order": 172,
+      "display_no": "2.11",
+      "section": "特定技能雇用契約",
+      "label": "２.１１　特定技能雇用契約　(4)基本給の時間換算額",
+      "field_name": "item[189].textData",
+      "field_id": "switch_320472",
+      "input_type": "text",
+      "required": true
+    },
+    {
+      "canonical_id": "specified_skilled_worker.contract.comparable_japanese_salary",
+      "value_path": "specified_skilled_worker.contract.comparable_japanese_salary",
+      "form_order": 173,
+      "display_no": "2.12",
+      "section": "特定技能雇用契約",
+      "label": "２.１２　特定技能雇用契約　(4)同等の業務に従事する日本人の月額報酬",
+      "field_name": "item[190].textData",
+      "field_id": "switch_320475",
+      "input_type": "text",
+      "required": false
+    },
+    {
+      "canonical_id": "specified_skilled_worker.contract.salary_at_least_japanese",
+      "value_path": "specified_skilled_worker.contract.salary_at_least_japanese",
+      "form_order": 174,
+      "display_no": "2.13",
+      "section": "特定技能雇用契約",
+      "label": "２.１３　特定技能雇用契約　(4)報酬の額が日本人が従事する場合の報酬の額と同等以上であることの有無",
+      "field_name": "item[191].selectData",
+      "field_id": "radioList_320477_1",
+      "input_type": "radio",
+      "required": true,
+      "value_map": {
+        "true": "有 Yes",
+        "false": "無 No"
+      },
+      "manual_required": true
+    },
+    {
+      "canonical_id": "specified_skilled_worker.contract.payment_method",
+      "value_path": "specified_skilled_worker.contract.payment_method",
+      "form_order": 175,
+      "display_no": "2.14",
+      "section": "特定技能雇用契約",
+      "label": "２.１４　特定技能雇用契約　(5)報酬の支払方法",
+      "field_name": "item[192].selectData",
+      "field_id": "radioList_320480_1",
+      "input_type": "radio",
+      "required": true,
+      "value_map": {
+        "通貨払 Paid in cash": "通貨払 Paid in cash",
+        "口座振込み Paid into a bank account": "口座振込み Paid into a bank account",
+        "通貨払": "通貨払 Paid in cash",
+        "口座振込": "口座振込み Paid into a bank account",
+        "口座振込み": "口座振込み Paid into a bank account"
+      },
+      "manual_required": true
+    },
+    {
+      "canonical_id": "specified_skilled_worker.contract.different_treatment",
+      "value_path": "specified_skilled_worker.contract.different_treatment",
+      "form_order": 176,
+      "display_no": "2.15",
+      "section": "特定技能雇用契約",
+      "label": "２.１５　特定技能雇用契約　(6)外国人であることを理由に日本人と異なった待遇としている事項の有無",
+      "field_name": "item[193].selectData",
+      "field_id": "radioList_320482_1",
+      "input_type": "radio",
+      "required": true,
+      "value_map": {
+        "true": "有 Yes",
+        "false": "無 No"
+      },
+      "manual_required": true
+    },
+    {
+      "canonical_id": "specified_skilled_worker.contract.home_leave_available",
+      "value_path": "specified_skilled_worker.contract.home_leave_available",
+      "form_order": 177,
+      "display_no": "2.16",
+      "section": "特定技能雇用契約",
+      "label": "２.１６　(7)一時帰国を希望した場合に必要な有給休暇を取得させるものとしていることの有無",
+      "field_name": "item[194].selectData",
+      "field_id": "radioList_320485_1",
+      "input_type": "radio",
+      "required": true,
+      "value_map": {
+        "true": "有 Yes",
+        "false": "無 No"
+      },
+      "manual_required": true
+    },
+    {
+      "canonical_id": "specified_skilled_worker.contract.employment_standard_met",
+      "value_path": "specified_skilled_worker.contract.employment_standard_met",
+      "form_order": 178,
+      "display_no": "2.17",
+      "section": "特定技能雇用契約",
+      "label": "２.１７　(8)雇用関係につき告示で定められる基準に適合していることの有無",
+      "field_name": "item[195].selectData",
+      "field_id": "radioList_320487_1",
+      "input_type": "radio",
+      "required": false,
+      "value_map": {
+        "true": "有 Yes",
+        "false": "無 No"
+      }
+    },
+    {
+      "canonical_id": "specified_skilled_worker.contract.return_travel_cost_covered",
+      "value_path": "specified_skilled_worker.contract.return_travel_cost_covered",
+      "form_order": 179,
+      "display_no": "2.18",
+      "section": "特定技能雇用契約",
+      "label": "２.１８　(9)外国人が帰国旅費を負担できないとき、旅費を負担し、その他必要な措置をすることの有無",
+      "field_name": "item[196].selectData",
+      "field_id": "radioList_320489_1",
+      "input_type": "radio",
+      "required": true,
+      "value_map": {
+        "true": "有 Yes",
+        "false": "無 No"
+      },
+      "manual_required": true
+    },
+    {
+      "canonical_id": "specified_skilled_worker.contract.health_and_life_support",
+      "value_path": "specified_skilled_worker.contract.health_and_life_support",
+      "form_order": 180,
+      "display_no": "2.19",
+      "section": "特定技能雇用契約",
+      "label": "２.１９　(10)外国人の健康の状況その他の生活の状況を把握するために必要な措置を講ずることの有無",
+      "field_name": "item[197].selectData",
+      "field_id": "radioList_320490_1",
+      "input_type": "radio",
+      "required": true,
+      "value_map": {
+        "true": "有 Yes",
+        "false": "無 No"
+      },
+      "manual_required": true
+    },
+    {
+      "canonical_id": "specified_skilled_worker.contract.industry_specific_standard_met",
+      "value_path": "specified_skilled_worker.contract.industry_specific_standard_met",
+      "form_order": 181,
+      "display_no": "2.20",
+      "section": "特定技能雇用契約",
+      "label": "２.２０　(11)特定産業分野に特有の事情に鑑みて告示で定められる基準に適合していることの有無",
+      "field_name": "item[198].selectData",
+      "field_id": "radioList_320492_1",
+      "input_type": "radio",
+      "required": false,
+      "value_map": {
+        "true": "有 Yes",
+        "false": "無 No"
+      }
+    },
+    {
+      "canonical_id": "specified_skilled_worker.dispatch_destination.name",
+      "value_path": "specified_skilled_worker.dispatch_destination.name",
+      "form_order": 182,
+      "display_no": "2.21",
+      "section": "特定技能雇用契約",
+      "label": "２.２１　特定技能雇用契約　(12)派遣先　氏名又は名称",
+      "field_name": "item[199].textData",
+      "field_id": "switch_320494",
+      "input_type": "text",
+      "required": false,
+      "visible_when": [
+        {
+          "path": "specified_skilled_worker.employment_type",
+          "value": "dispatch"
+        }
+      ]
+    },
+    {
+      "canonical_id": "specified_skilled_worker.dispatch_destination.has_corporate_number",
+      "value_path": "specified_skilled_worker.dispatch_destination.has_corporate_number",
+      "form_order": 183,
+      "display_no": "2.22",
+      "section": "特定技能雇用契約",
+      "label": "２.２２　特定技能雇用契約　(12)派遣先　法人番号の有無",
+      "field_name": "item[200].selectData",
+      "field_id": "radioList_320495_1",
+      "input_type": "radio",
+      "required": false,
+      "visible_when": [
+        {
+          "path": "specified_skilled_worker.employment_type",
+          "value": "dispatch"
+        }
+      ],
+      "value_map": {
+        "true": "有 Yes",
+        "false": "無 No"
+      }
+    },
+    {
+      "canonical_id": "specified_skilled_worker.dispatch_destination.corporate_number",
+      "value_path": "specified_skilled_worker.dispatch_destination.corporate_number",
+      "form_order": 184,
+      "display_no": "2.22",
+      "section": "特定技能雇用契約",
+      "label": "２.２２　特定技能雇用契約　(12)派遣先　法人番号",
+      "field_name": "item[201].textData",
+      "field_id": "switch_320497",
+      "input_type": "text",
+      "required": false,
+      "visible_when": [
+        {
+          "path": "specified_skilled_worker.employment_type",
+          "value": "dispatch"
+        },
+        {
+          "path": "specified_skilled_worker.dispatch_destination.has_corporate_number",
+          "value": true
+        }
+      ]
+    },
+    {
+      "canonical_id": "specified_skilled_worker.dispatch_destination.employment_insurance_office_number",
+      "value_path": "specified_skilled_worker.dispatch_destination.employment_insurance_office_number",
+      "form_order": 185,
+      "display_no": "2.23",
+      "section": "特定技能雇用契約",
+      "label": "２.２３　特定技能雇用契約　(12)派遣先　雇用保険適用事業所番号",
+      "field_name": "item[202].textData",
+      "field_id": "switch_320498",
+      "input_type": "text",
+      "required": false,
+      "visible_when": [
+        {
+          "path": "specified_skilled_worker.employment_type",
+          "value": "dispatch"
+        }
+      ]
+    },
+    {
+      "canonical_id": "specified_skilled_worker.dispatch_destination.postal_code",
+      "value_path": "specified_skilled_worker.dispatch_destination.postal_code",
+      "form_order": 186,
+      "display_no": "2.24",
+      "section": "特定技能雇用契約",
+      "label": "２.２４　特定技能雇用契約　(12)派遣先　住所（所在地）　郵便番号",
+      "field_name": "item[203].textData",
+      "field_id": "item_203_textData",
+      "input_type": "text",
+      "required": false,
+      "visible_when": [
+        {
+          "path": "specified_skilled_worker.employment_type",
+          "value": "dispatch"
+        }
+      ]
+    },
+    {
+      "canonical_id": "specified_skilled_worker.dispatch_destination.address",
+      "value_path": "specified_skilled_worker.dispatch_destination.address",
+      "form_order": 187,
+      "display_no": "2.25",
+      "section": "特定技能雇用契約",
+      "label": "２.２５　特定技能雇用契約　(12)派遣先　住所（所在地）",
+      "field_name": "item[204].textData",
+      "field_id": "address_320501",
+      "input_type": "text",
+      "required": false,
+      "visible_when": [
+        {
+          "path": "specified_skilled_worker.employment_type",
+          "value": "dispatch"
+        }
+      ]
+    },
+    {
+      "canonical_id": "specified_skilled_worker.dispatch_destination.phone",
+      "value_path": "specified_skilled_worker.dispatch_destination.phone",
+      "form_order": 188,
+      "display_no": "2.26",
+      "section": "特定技能雇用契約",
+      "label": "２.２６　特定技能雇用契約　(12)派遣先　電話番号",
+      "field_name": "item[205].textData",
+      "field_id": "switch_320503",
+      "input_type": "text",
+      "required": false,
+      "visible_when": [
+        {
+          "path": "specified_skilled_worker.employment_type",
+          "value": "dispatch"
+        }
+      ]
+    },
+    {
+      "canonical_id": "specified_skilled_worker.dispatch_destination.representative_name",
+      "value_path": "specified_skilled_worker.dispatch_destination.representative_name",
+      "form_order": 189,
+      "display_no": "2.27",
+      "section": "特定技能雇用契約",
+      "label": "２.２７　特定技能雇用契約　(12)派遣先　代表者の氏名",
+      "field_name": "item[206].textData",
+      "field_id": "switch_320504",
+      "input_type": "text",
+      "required": false,
+      "visible_when": [
+        {
+          "path": "specified_skilled_worker.employment_type",
+          "value": "dispatch"
+        }
+      ]
+    },
+    {
+      "canonical_id": "specified_skilled_worker.dispatch_destination.dispatch_start_date",
+      "value_path": "specified_skilled_worker.dispatch_destination.dispatch_start_date",
+      "form_order": 190,
+      "display_no": "2.28",
+      "section": "特定技能雇用契約",
+      "label": "２.２８　特定技能雇用契約　(12)派遣先　派遣期間(始期)",
+      "field_name": "item[207].textData",
+      "field_id": "switch_320506",
+      "input_type": "text",
+      "required": false,
+      "transform": "date_yyyymmdd",
+      "visible_when": [
+        {
+          "path": "specified_skilled_worker.employment_type",
+          "value": "dispatch"
+        }
+      ]
+    },
+    {
+      "canonical_id": "specified_skilled_worker.dispatch_destination.dispatch_end_date",
+      "value_path": "specified_skilled_worker.dispatch_destination.dispatch_end_date",
+      "form_order": 191,
+      "display_no": "2.29",
+      "section": "特定技能雇用契約",
+      "label": "２.２９　特定技能雇用契約　(12)派遣先　派遣期間(終期)",
+      "field_name": "item[208].textData",
+      "field_id": "switch_320507",
+      "input_type": "text",
+      "required": false,
+      "transform": "date_yyyymmdd",
+      "visible_when": [
+        {
+          "path": "specified_skilled_worker.employment_type",
+          "value": "dispatch"
+        }
+      ]
+    },
+    {
+      "canonical_id": "specified_skilled_worker.recruiter.name",
+      "value_path": "specified_skilled_worker.recruiter.name",
+      "form_order": 192,
+      "display_no": "2.30",
+      "section": "特定技能雇用契約",
+      "label": "２.３０　特定技能雇用契約　(13)職業紹介事業者　氏名又は名称",
+      "field_name": "item[209].textData",
+      "field_id": "switch_320509",
+      "input_type": "text",
+      "required": false
+    },
+    {
+      "canonical_id": "specified_skilled_worker.recruiter.has_corporate_number",
+      "value_path": "specified_skilled_worker.recruiter.has_corporate_number",
+      "form_order": 193,
+      "display_no": "2.31",
+      "section": "特定技能雇用契約",
+      "label": "２.３１　特定技能雇用契約　(13)職業紹介事業者　法人番号の有無",
+      "field_name": "item[210].selectData",
+      "field_id": "radioList_320510_1",
+      "input_type": "radio",
+      "required": false,
+      "value_map": {
+        "true": "有 Yes",
+        "false": "無 No"
+      }
+    },
+    {
+      "canonical_id": "specified_skilled_worker.recruiter.corporate_number",
+      "value_path": "specified_skilled_worker.recruiter.corporate_number",
+      "form_order": 194,
+      "display_no": "2.31",
+      "section": "特定技能雇用契約",
+      "label": "２.３１　特定技能雇用契約　(13)職業紹介事業者　法人番号",
+      "field_name": "item[211].textData",
+      "field_id": "switch_320511",
+      "input_type": "text",
+      "required": false,
+      "visible_when": [
+        {
+          "path": "specified_skilled_worker.recruiter.has_corporate_number",
+          "value": true
+        }
+      ]
+    },
+    {
+      "canonical_id": "specified_skilled_worker.recruiter.employment_insurance_office_number",
+      "value_path": "specified_skilled_worker.recruiter.employment_insurance_office_number",
+      "form_order": 195,
+      "display_no": "2.32",
+      "section": "特定技能雇用契約",
+      "label": "２.３２　特定技能雇用契約　(13)職業紹介事業者　雇用保険適用事業所番号",
+      "field_name": "item[212].textData",
+      "field_id": "switch_320512",
+      "input_type": "text",
+      "required": false
+    },
+    {
+      "canonical_id": "specified_skilled_worker.recruiter.postal_code",
+      "value_path": "specified_skilled_worker.recruiter.postal_code",
+      "form_order": 196,
+      "display_no": "2.33",
+      "section": "特定技能雇用契約",
+      "label": "２.３３　特定技能雇用契約　(13)職業紹介事業者　住所（所在地）　郵便番号",
+      "field_name": "item[213].textData",
+      "field_id": "item_213_textData",
+      "input_type": "text",
+      "required": false
+    },
+    {
+      "canonical_id": "specified_skilled_worker.recruiter.address",
+      "value_path": "specified_skilled_worker.recruiter.address",
+      "form_order": 197,
+      "display_no": "2.34",
+      "section": "特定技能雇用契約",
+      "label": "２.３４　特定技能雇用契約　(13)職業紹介事業者　住所（所在地）",
+      "field_name": "item[214].textData",
+      "field_id": "address_320515",
+      "input_type": "text",
+      "required": false
+    },
+    {
+      "canonical_id": "specified_skilled_worker.recruiter.phone",
+      "value_path": "specified_skilled_worker.recruiter.phone",
+      "form_order": 198,
+      "display_no": "2.35",
+      "section": "特定技能雇用契約",
+      "label": "２.３５　特定技能雇用契約　(13)職業紹介事業者　電話番号",
+      "field_name": "item[215].textData",
+      "field_id": "switch_320517",
+      "input_type": "text",
+      "required": false
+    },
+    {
+      "canonical_id": "specified_skilled_worker.recruiter.permit_number",
+      "value_path": "specified_skilled_worker.recruiter.permit_number",
+      "form_order": 199,
+      "display_no": "2.36",
+      "section": "特定技能雇用契約",
+      "label": "２.３６　特定技能雇用契約　(13)職業紹介事業者　許可・届出番号",
+      "field_name": "item[216].textData",
+      "field_id": "switch_320518",
+      "input_type": "text",
+      "required": false
+    },
+    {
+      "canonical_id": "specified_skilled_worker.recruiter.permit_accepted_date",
+      "value_path": "specified_skilled_worker.recruiter.permit_accepted_date",
+      "form_order": 200,
+      "display_no": "2.37",
+      "section": "特定技能雇用契約",
+      "label": "２.３７　特定技能雇用契約　(13)職業紹介事業者　受理年月日",
+      "field_name": "item[217].textData",
+      "field_id": "switch_320520",
+      "input_type": "text",
+      "required": false
+    },
+    {
+      "canonical_id": "specified_skilled_worker.overseas_intermediary.name",
+      "value_path": "specified_skilled_worker.overseas_intermediary.name",
+      "form_order": 201,
+      "display_no": "2.38",
+      "section": "特定技能雇用契約",
+      "label": "２.３８　特定技能雇用契約　(14)取次機関　氏名又は名称",
+      "field_name": "item[218].textData",
+      "field_id": "switch_320521",
+      "input_type": "text",
+      "required": false,
+      "manual_only": true
+    },
+    {
+      "canonical_id": "specified_skilled_worker.overseas_intermediary.country_region",
+      "value_path": "specified_skilled_worker.overseas_intermediary.country_region",
+      "form_order": 202,
+      "display_no": "2.39",
+      "section": "特定技能雇用契約",
+      "label": "２.３９　特定技能雇用契約　(14)取次機関　国・地域",
+      "field_name": "item[219].selectData",
+      "field_id": "select_320523",
+      "input_type": "select",
+      "required": false,
+      "manual_only": true
+    },
+    {
+      "canonical_id": "specified_skilled_worker.overseas_intermediary.postal_code",
+      "value_path": "specified_skilled_worker.overseas_intermediary.postal_code",
+      "form_order": 203,
+      "display_no": "2.40",
+      "section": "特定技能雇用契約",
+      "label": "２.４０　特定技能雇用契約　(14)取次機関　住所（所在地）　郵便番号",
+      "field_name": "item[220].textData",
+      "field_id": "item_220_textData",
+      "input_type": "text",
+      "required": false,
+      "manual_only": true
+    },
+    {
+      "canonical_id": "specified_skilled_worker.overseas_intermediary.address",
+      "value_path": "specified_skilled_worker.overseas_intermediary.address",
+      "form_order": 204,
+      "display_no": "2.41",
+      "section": "特定技能雇用契約",
+      "label": "２.４１　特定技能雇用契約　(14)取次機関　住所（所在地）",
+      "field_name": "item[221].textData",
+      "field_id": "address_320530",
+      "input_type": "text",
+      "required": false,
+      "manual_only": true
+    },
+    {
+      "canonical_id": "specified_skilled_worker.overseas_intermediary.phone",
+      "value_path": "specified_skilled_worker.overseas_intermediary.phone",
+      "form_order": 205,
+      "display_no": "2.42",
+      "section": "特定技能雇用契約",
+      "label": "２.４２　特定技能雇用契約　(14)取次機関　電話番号",
+      "field_name": "item[222].textData",
+      "field_id": "switch_320531",
+      "input_type": "text",
+      "required": false,
+      "manual_only": true
+    },
+    {
+      "canonical_id": "employer.name",
+      "value_path": "employer.name",
+      "form_order": 206,
+      "display_no": "3.1",
+      "section": "特定技能所属機関・支援",
+      "label": "３.１　特定技能所属機関　(1)氏名又は名称",
+      "field_name": "item[223].textData",
+      "field_id": "switch_320533",
+      "input_type": "text",
+      "required": true
+    },
+    {
+      "canonical_id": "employer.has_corporate_number",
+      "value_path": "employer.has_corporate_number",
+      "form_order": 207,
+      "display_no": "3.2",
+      "section": "特定技能所属機関・支援",
+      "label": "３.２　特定技能所属機関　(2)法人番号の有無",
+      "field_name": "item[224].selectData",
+      "field_id": "radioList_320534_1",
+      "input_type": "radio",
+      "required": true,
+      "value_map": {
+        "true": "有 Yes",
+        "false": "無 No"
+      }
+    },
+    {
+      "canonical_id": "employer.corporate_number",
+      "value_path": "employer.corporate_number",
+      "form_order": 208,
+      "display_no": "3.2",
+      "section": "特定技能所属機関・支援",
+      "label": "３.２　特定技能所属機関　(2)法人番号",
+      "field_name": "item[225].textData",
+      "field_id": "switch_320536",
+      "input_type": "text",
+      "required": true,
+      "visible_when": [
+        {
+          "path": "employer.has_corporate_number",
+          "value": true
+        }
+      ]
+    },
+    {
+      "canonical_id": "employer.employment_insurance_office_number",
+      "value_path": "employer.employment_insurance_office_number",
+      "form_order": 209,
+      "display_no": "3.3",
+      "section": "特定技能所属機関・支援",
+      "label": "３.３　特定技能所属機関　(3)雇用保険適用事業所番号",
+      "field_name": "item[226].textData",
+      "field_id": "switch_320538",
+      "input_type": "text",
+      "required": false
+    },
+    {
+      "canonical_id": "employer.industry_primary",
+      "value_path": "employer.industry_primary",
+      "form_order": 210,
+      "display_no": "3.4",
+      "section": "特定技能所属機関・支援",
+      "label": "３.４　特定技能所属機関　(4)業種　主たる業種",
+      "field_name": "item[227].selectData",
+      "field_id": "select_320539",
+      "input_type": "select",
+      "required": true,
+      "manual_required": true
+    },
+    {
+      "canonical_id": "employer.industry_other",
+      "value_path": "employer.industry_other",
+      "form_order": 211,
+      "display_no": "3.5",
+      "section": "特定技能所属機関・支援",
+      "label": "３.５　特定技能所属機関　(4)業種　主たる業種　その他",
+      "field_name": "item[228].textData",
+      "field_id": "switch_320541",
+      "input_type": "text",
+      "required": true,
+      "visible_when": [
+        {
+          "path": "employer.industry_primary",
+          "value": "その他 Others"
+        }
+      ]
+    },
+    {
+      "canonical_id": "employer.industry_secondary.0",
+      "value_path": "employer.industry_secondary.0",
+      "form_order": 212,
+      "display_no": "3.6",
+      "section": "特定技能所属機関・支援",
+      "label": "３.６　特定技能所属機関　(4)業種　他業種01",
+      "field_name": "item[230].selectData",
+      "field_id": "select_320544",
+      "input_type": "select",
+      "required": false
+    },
+    {
+      "canonical_id": "employer.industry_secondary_other.0",
+      "value_path": "employer.industry_secondary_other.0",
+      "form_order": 213,
+      "display_no": "3.7",
+      "section": "特定技能所属機関・支援",
+      "label": "３.７　特定技能所属機関　(4)業種　他業種　その他01",
+      "field_name": "item[231].textData",
+      "field_id": "switch_320546",
+      "input_type": "text",
+      "required": false,
+      "manual_only": true
+    },
+    {
+      "canonical_id": "employer.industry_secondary.1",
+      "value_path": "employer.industry_secondary.1",
+      "form_order": 214,
+      "display_no": "3.6",
+      "section": "特定技能所属機関・支援",
+      "label": "３.６　特定技能所属機関　(4)業種　他業種02",
+      "field_name": "item[232].selectData",
+      "field_id": "select_320548",
+      "input_type": "select",
+      "required": false
+    },
+    {
+      "canonical_id": "employer.industry_secondary_other.1",
+      "value_path": "employer.industry_secondary_other.1",
+      "form_order": 215,
+      "display_no": "3.7",
+      "section": "特定技能所属機関・支援",
+      "label": "３.７　特定技能所属機関　(4)業種　他業種　その他02",
+      "field_name": "item[233].textData",
+      "field_id": "switch_320550",
+      "input_type": "text",
+      "required": false,
+      "manual_only": true
+    },
+    {
+      "canonical_id": "employer.postal_code",
+      "value_path": "employer.postal_code",
+      "form_order": 216,
+      "display_no": "3.8",
+      "section": "特定技能所属機関・支援",
+      "label": "３.８　特定技能所属機関　(5)住所（所在地）　郵便番号",
+      "field_name": "item[234].textData",
+      "field_id": "item_234_textData",
+      "input_type": "text",
+      "required": true
+    },
+    {
+      "canonical_id": "employer.address",
+      "value_path": "employer.address",
+      "form_order": 217,
+      "display_no": "3.9",
+      "section": "特定技能所属機関・支援",
+      "label": "３.９　特定技能所属機関　(5)住所（所在地）",
+      "field_name": "item[235].textData",
+      "field_id": "address_320553",
+      "input_type": "text",
+      "required": true
+    },
+    {
+      "canonical_id": "employer.phone",
+      "value_path": "employer.phone",
+      "form_order": 218,
+      "display_no": "3.10",
+      "section": "特定技能所属機関・支援",
+      "label": "３.１０　特定技能所属機関　(5)電話番号",
+      "field_name": "item[236].textData",
+      "field_id": "switch_320554",
+      "input_type": "text",
+      "required": true
+    },
+    {
+      "canonical_id": "employer.capital_jpy",
+      "value_path": "employer.capital_jpy",
+      "form_order": 219,
+      "display_no": "3.11",
+      "section": "特定技能所属機関・支援",
+      "label": "３.１１　特定技能所属機関　(6)資本金",
+      "field_name": "item[237].textData",
+      "field_id": "switch_320555",
+      "input_type": "text",
+      "required": true
+    },
+    {
+      "canonical_id": "employer.annual_sales_jpy",
+      "value_path": "employer.annual_sales_jpy",
+      "form_order": 220,
+      "display_no": "3.12",
+      "section": "特定技能所属機関・支援",
+      "label": "３.１２　特定技能所属機関　(7)年間売上金額",
+      "field_name": "item[238].textData",
+      "field_id": "switch_320557",
+      "input_type": "text",
+      "required": true
+    },
+    {
+      "canonical_id": "employer.employee_count",
+      "value_path": "employer.employee_count",
+      "form_order": 221,
+      "display_no": "3.13",
+      "section": "特定技能所属機関・支援",
+      "label": "３.１３　特定技能所属機関　(8)常勤職員数",
+      "field_name": "item[239].textData",
+      "field_id": "switch_320559",
+      "input_type": "text",
+      "required": true
+    },
+    {
+      "canonical_id": "employer.representative_name",
+      "value_path": "employer.representative_name",
+      "form_order": 222,
+      "display_no": "3.14",
+      "section": "特定技能所属機関・支援",
+      "label": "３.１４　特定技能所属機関　(9)代表者の氏名",
+      "field_name": "item[240].textData",
+      "field_id": "switch_320560",
+      "input_type": "text",
+      "required": true
+    },
+    {
+      "canonical_id": "specified_skilled_worker.workplace.name",
+      "value_path": "specified_skilled_worker.workplace.name",
+      "form_order": 223,
+      "display_no": "3.15",
+      "section": "特定技能所属機関・支援",
+      "label": "３.１５　特定技能所属機関　(10)勤務させる事業所名",
+      "field_name": "item[241].textData",
+      "field_id": "switch_320562",
+      "input_type": "text",
+      "required": true
+    },
+    {
+      "canonical_id": "specified_skilled_worker.workplace.postal_code",
+      "value_path": "specified_skilled_worker.workplace.postal_code",
+      "form_order": 224,
+      "display_no": "3.16",
+      "section": "特定技能所属機関・支援",
+      "label": "３.１６　特定技能所属機関　(10)勤務させる事業所　所在地　郵便番号",
+      "field_name": "item[242].textData",
+      "field_id": "item_242_textData",
+      "input_type": "text",
+      "required": true
+    },
+    {
+      "canonical_id": "specified_skilled_worker.workplace.address",
+      "value_path": "specified_skilled_worker.workplace.address",
+      "form_order": 225,
+      "display_no": "3.17",
+      "section": "特定技能所属機関・支援",
+      "label": "３.１７　特定技能所属機関　(10)勤務させる事業所　所在地",
+      "field_name": "item[243].textData",
+      "field_id": "address_320565",
+      "input_type": "text",
+      "required": true
+    },
+    {
+      "canonical_id": "specified_skilled_worker.workplace.health_and_pension_covered",
+      "value_path": "specified_skilled_worker.workplace.health_and_pension_covered",
+      "form_order": 226,
+      "display_no": "3.18",
+      "section": "特定技能所属機関・支援",
+      "label": "３.１８　(10)勤務させる事業所が健康保険及び厚生年金保険の適用事業所であることの有無",
+      "field_name": "item[244].selectData",
+      "field_id": "radioList_320566_1",
+      "input_type": "radio",
+      "required": true,
+      "value_map": {
+        "true": "有 Yes",
+        "false": "無 No"
+      }
+    },
+    {
+      "canonical_id": "specified_skilled_worker.workplace.workers_comp_and_employment_covered",
+      "value_path": "specified_skilled_worker.workplace.workers_comp_and_employment_covered",
+      "form_order": 227,
+      "display_no": "3.19",
+      "section": "特定技能所属機関・支援",
+      "label": "３.１９　(10)勤務させる事業所が労災保険及び雇用保険の適用事業所であることの有無",
+      "field_name": "item[245].selectData",
+      "field_id": "radioList_320568_1",
+      "input_type": "radio",
+      "required": true,
+      "value_map": {
+        "true": "有 Yes",
+        "false": "無 No"
+      }
+    },
+    {
+      "canonical_id": "specified_skilled_worker.workplace.labor_insurance_number",
+      "value_path": "specified_skilled_worker.workplace.labor_insurance_number",
+      "form_order": 228,
+      "display_no": "3.20",
+      "section": "特定技能所属機関・支援",
+      "label": "３.２０　特定技能所属機関　(10)労働保険番号",
+      "field_name": "item[246].textData",
+      "field_id": "switch_320569",
+      "input_type": "text",
+      "required": true
+    },
+    {
+      "canonical_id": "specified_skilled_worker.organization.compliance.labor_social_tax_violation",
+      "value_path": "specified_skilled_worker.organization.compliance.labor_social_tax_violation",
+      "form_order": 229,
+      "display_no": "3.21",
+      "section": "特定技能所属機関・支援",
+      "label": "３.２１　特定技能所属機関　(11)労働、社会保険及び租税に関する法令の規定に違反したことの有無",
+      "field_name": "item[247].selectData",
+      "field_id": "radioList_320571_1",
+      "input_type": "radio",
+      "required": true,
+      "value_map": {
+        "true": "有 Yes",
+        "false": "無 No"
+      },
+      "manual_required": true
+    },
+    {
+      "canonical_id": "specified_skilled_worker.organization.compliance.involuntary_dismissal",
+      "value_path": "specified_skilled_worker.organization.compliance.involuntary_dismissal",
+      "form_order": 230,
+      "display_no": "3.22",
+      "section": "特定技能所属機関・支援",
+      "label": "３.２２　(12)契約締結日前1年以内又は以後に、同種の業務の労働者を非自発的に離職させたことの有無",
+      "field_name": "item[248].selectData",
+      "field_id": "radioList_320573_1",
+      "input_type": "radio",
+      "required": true,
+      "value_map": {
+        "true": "有 Yes",
+        "false": "無 No"
+      },
+      "manual_required": true
+    },
+    {
+      "canonical_id": "specified_skilled_worker.organization.compliance.missing_worker_due_to_employer",
+      "value_path": "specified_skilled_worker.organization.compliance.missing_worker_due_to_employer",
+      "form_order": 231,
+      "display_no": "3.23",
+      "section": "特定技能所属機関・支援",
+      "label": "３.２３　(13)特定技能所属機関の責めに帰すべき事由により外国人の行方不明者を発生させたことの有無",
+      "field_name": "item[249].selectData",
+      "field_id": "radioList_320574_1",
+      "input_type": "radio",
+      "required": true,
+      "value_map": {
+        "true": "有 Yes",
+        "false": "無 No"
+      },
+      "manual_required": true
+    },
+    {
+      "canonical_id": "specified_skilled_worker.organization.compliance.officers_criminal_conviction",
+      "value_path": "specified_skilled_worker.organization.compliance.officers_criminal_conviction",
+      "form_order": 232,
+      "display_no": "3.24",
+      "section": "特定技能所属機関・支援",
+      "label": "３.２４　(14)機関・役員・支援責任者等が法令に違反して刑に処せられたことの有無",
+      "field_name": "item[250].selectData",
+      "field_id": "radioList_320576_1",
+      "input_type": "radio",
+      "required": true,
+      "value_map": {
+        "true": "有 Yes",
+        "false": "無 No"
+      },
+      "manual_required": true
+    },
+    {
+      "canonical_id": "specified_skilled_worker.organization.compliance.officers_mental_incapacity",
+      "value_path": "specified_skilled_worker.organization.compliance.officers_mental_incapacity",
+      "form_order": 233,
+      "display_no": "3.25",
+      "section": "特定技能所属機関・支援",
+      "label": "３.２５　(15)機関・役員・支援責任者等が精神の機能の障害を有することの有無",
+      "field_name": "item[251].selectData",
+      "field_id": "radioList_320578_1",
+      "input_type": "radio",
+      "required": true,
+      "value_map": {
+        "true": "有 Yes",
+        "false": "無 No"
+      },
+      "manual_required": true
+    },
+    {
+      "canonical_id": "specified_skilled_worker.organization.compliance.officers_unrehabilitated_bankruptcy",
+      "value_path": "specified_skilled_worker.organization.compliance.officers_unrehabilitated_bankruptcy",
+      "form_order": 234,
+      "display_no": "3.26",
+      "section": "特定技能所属機関・支援",
+      "label": "３.２６　(16)機関・役員・支援責任者等が破産手続開始の決定を受けて復権を得ないことの有無",
+      "field_name": "item[252].selectData",
+      "field_id": "radioList_320579_1",
+      "input_type": "radio",
+      "required": true,
+      "value_map": {
+        "true": "有 Yes",
+        "false": "無 No"
+      },
+      "manual_required": true
+    },
+    {
+      "canonical_id": "specified_skilled_worker.organization.compliance.technical_intern_approval_revoked",
+      "value_path": "specified_skilled_worker.organization.compliance.technical_intern_approval_revoked",
+      "form_order": 235,
+      "display_no": "3.27",
+      "section": "特定技能所属機関・支援",
+      "label": "３.２７　(17)機関・役員等が技能実習法第16条第1項の規定により実習認定を取り消されたことの有無",
+      "field_name": "item[253].selectData",
+      "field_id": "radioList_320581_1",
+      "input_type": "radio",
+      "required": true,
+      "value_map": {
+        "true": "有 Yes",
+        "false": "無 No"
+      },
+      "manual_required": true
+    },
+    {
+      "canonical_id": "specified_skilled_worker.organization.compliance.officers_at_revoked_technical_intern_organization",
+      "value_path": "specified_skilled_worker.organization.compliance.officers_at_revoked_technical_intern_organization",
+      "form_order": 236,
+      "display_no": "3.28",
+      "section": "特定技能所属機関・支援",
+      "label": "３.２８　(18)機関・役員・支援責任者等が実習認定を取り消された法人の役員であったことの有無",
+      "field_name": "item[254].selectData",
+      "field_id": "radioList_320582_1",
+      "input_type": "radio",
+      "required": true,
+      "value_map": {
+        "true": "有 Yes",
+        "false": "無 No"
+      },
+      "manual_required": true
+    },
+    {
+      "canonical_id": "specified_skilled_worker.organization.compliance.immigration_law_misconduct",
+      "value_path": "specified_skilled_worker.organization.compliance.immigration_law_misconduct",
+      "form_order": 237,
+      "display_no": "3.29",
+      "section": "特定技能所属機関・支援",
+      "label": "３.２９　(19)機関・役員・支援責任者等が法令に関し不正又は著しく不当な行為をしたことの有無",
+      "field_name": "item[255].selectData",
+      "field_id": "radioList_320584_1",
+      "input_type": "radio",
+      "required": true,
+      "value_map": {
+        "true": "有 Yes",
+        "false": "無 No"
+      },
+      "manual_required": true
+    },
+    {
+      "canonical_id": "specified_skilled_worker.organization.compliance.organized_crime_member",
+      "value_path": "specified_skilled_worker.organization.compliance.organized_crime_member",
+      "form_order": 238,
+      "display_no": "3.30",
+      "section": "特定技能所属機関・支援",
+      "label": "３.３０　(20)役員・支援責任者等が暴力団員であること又は5年以内に暴力団員であったことの有無",
+      "field_name": "item[256].selectData",
+      "field_id": "radioList_320585_1",
+      "input_type": "radio",
+      "required": true,
+      "value_map": {
+        "true": "有 Yes",
+        "false": "無 No"
+      },
+      "manual_required": true
+    },
+    {
+      "canonical_id": "specified_skilled_worker.organization.compliance.legal_representative_disqualified",
+      "value_path": "specified_skilled_worker.organization.compliance.legal_representative_disqualified",
+      "form_order": 239,
+      "display_no": "3.31",
+      "section": "特定技能所属機関・支援",
+      "label": "３.３１　(21)機関・役員・支援責任者等の法定代理人が(14)から(20)に該当することの有無",
+      "field_name": "item[257].selectData",
+      "field_id": "radioList_320587_1",
+      "input_type": "radio",
+      "required": false,
+      "value_map": {
+        "true": "有 Yes",
+        "false": "無 No"
+      }
+    },
+    {
+      "canonical_id": "specified_skilled_worker.organization.compliance.organized_crime_control",
+      "value_path": "specified_skilled_worker.organization.compliance.organized_crime_control",
+      "form_order": 240,
+      "display_no": "3.32",
+      "section": "特定技能所属機関・支援",
+      "label": "３.３２　(22)暴力団員又は５年以内に暴力団員であった者がその事業活動を支配する者であることの有無",
+      "field_name": "item[258].selectData",
+      "field_id": "radioList_320588_1",
+      "input_type": "radio",
+      "required": true,
+      "value_map": {
+        "true": "有 Yes",
+        "false": "無 No"
+      },
+      "manual_required": true
+    },
+    {
+      "canonical_id": "specified_skilled_worker.organization.compliance.activity_records_retained",
+      "value_path": "specified_skilled_worker.organization.compliance.activity_records_retained",
+      "form_order": 241,
+      "display_no": "3.33",
+      "section": "特定技能所属機関・支援",
+      "label": "３.３３　(23)外国人の活動内容に関する文書を契約終了の日から１年以上備えて置くことの有無",
+      "field_name": "item[259].selectData",
+      "field_id": "radioList_320590_1",
+      "input_type": "radio",
+      "required": true,
+      "value_map": {
+        "true": "有 Yes",
+        "false": "無 No"
+      },
+      "manual_required": true
+    },
+    {
+      "canonical_id": "specified_skilled_worker.organization.compliance.guarantee_deposit_contract_known",
+      "value_path": "specified_skilled_worker.organization.compliance.guarantee_deposit_contract_known",
+      "form_order": 242,
+      "display_no": "3.34",
+      "section": "特定技能所属機関・支援",
+      "label": "３.３４　(24)契約に係る保証金の徴収その他財産管理又は違約金等の支払契約があることの認識の有無",
+      "field_name": "item[260].selectData",
+      "field_id": "radioList_320591_1",
+      "input_type": "radio",
+      "required": true,
+      "value_map": {
+        "true": "有 Yes",
+        "false": "無 No"
+      },
+      "manual_required": true
+    },
+    {
+      "canonical_id": "specified_skilled_worker.organization.compliance.employment_contract_penalty",
+      "value_path": "specified_skilled_worker.organization.compliance.employment_contract_penalty",
+      "form_order": 243,
+      "display_no": "3.35",
+      "section": "特定技能所属機関・支援",
+      "label": "３.３５　(25)特定技能雇用契約の不履行について違約金等の支払契約を締結していることの有無",
+      "field_name": "item[261].selectData",
+      "field_id": "radioList_320593_1",
+      "input_type": "radio",
+      "required": true,
+      "value_map": {
+        "true": "有 Yes",
+        "false": "無 No"
+      },
+      "manual_required": true
+    },
+    {
+      "canonical_id": "specified_skilled_worker.organization.compliance.no_support_cost_charged_to_worker",
+      "value_path": "specified_skilled_worker.organization.compliance.no_support_cost_charged_to_worker",
+      "form_order": 244,
+      "display_no": "3.36",
+      "section": "特定技能所属機関・支援",
+      "label": "３.３６　(26)１号特定技能外国人支援に要する費用について、外国人に負担させないことの有無",
+      "field_name": "item[262].selectData",
+      "field_id": "radioList_320594_1",
+      "input_type": "radio",
+      "required": false,
+      "value_map": {
+        "true": "有 Yes",
+        "false": "無 No"
+      }
+    },
+    {
+      "canonical_id": "specified_skilled_worker.organization.compliance.dispatch_qualifying_condition",
+      "value_path": "specified_skilled_worker.organization.compliance.dispatch_qualifying_condition",
+      "form_order": 245,
+      "display_no": "3.37",
+      "section": "特定技能所属機関・支援",
+      "label": "３.３７　特定技能所属機関　(27)次のいずれかに該当することの有無",
+      "field_name": "item[263].selectData",
+      "field_id": "radioList_320596_1",
+      "input_type": "radio",
+      "required": false,
+      "visible_when": [
+        {
+          "path": "specified_skilled_worker.employment_type",
+          "value": "dispatch"
+        }
+      ],
+      "value_map": {
+        "true": "有 Yes",
+        "false": "無 No"
+      }
+    },
+    {
+      "canonical_id": "specified_skilled_worker.organization.compliance.dispatch_condition_details",
+      "value_path": "specified_skilled_worker.organization.compliance.dispatch_condition_details",
+      "form_order": 246,
+      "display_no": "3.38",
+      "section": "特定技能所属機関・支援",
+      "label": "３.３８　(27)該当する事項",
+      "field_name": "item[264].choiceList[0].checkFlag",
+      "field_id": "checkList_320597_1",
+      "input_type": "checkbox",
+      "required": false,
+      "visible_when": [
+        {
+          "path": "specified_skilled_worker.employment_type",
+          "value": "dispatch"
+        }
+      ]
+    },
+    {
+      "canonical_id": "specified_skilled_worker.organization.compliance.dispatch_destination_qualifies",
+      "value_path": "specified_skilled_worker.organization.compliance.dispatch_destination_qualifies",
+      "form_order": 247,
+      "display_no": "3.39",
+      "section": "特定技能所属機関・支援",
+      "label": "３.３９　(28)労働者派遣をすることとしている派遣先が(11)から(22)に該当していることの有無",
+      "field_name": "item[265].selectData",
+      "field_id": "radioList_320599_1",
+      "input_type": "radio",
+      "required": false,
+      "visible_when": [
+        {
+          "path": "specified_skilled_worker.employment_type",
+          "value": "dispatch"
+        }
+      ],
+      "value_map": {
+        "true": "有 Yes",
+        "false": "無 No"
+      }
+    },
+    {
+      "canonical_id": "specified_skilled_worker.organization.compliance.workers_comp_measures",
+      "value_path": "specified_skilled_worker.organization.compliance.workers_comp_measures",
+      "form_order": 248,
+      "display_no": "3.40",
+      "section": "特定技能所属機関・支援",
+      "label": "３.４０　特定技能所属機関　(29)労災保険加入等の措置の有無",
+      "field_name": "item[266].selectData",
+      "field_id": "radioList_320601_1",
+      "input_type": "radio",
+      "required": true,
+      "value_map": {
+        "true": "有 Yes",
+        "false": "無 No"
+      },
+      "manual_required": true
+    },
+    {
+      "canonical_id": "specified_skilled_worker.organization.compliance.contract_performance_capacity",
+      "value_path": "specified_skilled_worker.organization.compliance.contract_performance_capacity",
+      "form_order": 249,
+      "display_no": "3.41",
+      "section": "特定技能所属機関・支援",
+      "label": "３.４１　(30)特定技能雇用契約を継続して履行する体制が適切に整備されていることの有無",
+      "field_name": "item[267].selectData",
+      "field_id": "radioList_320602_1",
+      "input_type": "radio",
+      "required": true,
+      "value_map": {
+        "true": "有 Yes",
+        "false": "無 No"
+      },
+      "manual_required": true
+    },
+    {
+      "canonical_id": "specified_skilled_worker.organization.compliance.traceable_salary_payment",
+      "value_path": "specified_skilled_worker.organization.compliance.traceable_salary_payment",
+      "form_order": 250,
+      "display_no": "3.42",
+      "section": "特定技能所属機関・支援",
+      "label": "３.４２　(31)外国人に現実に支払われた報酬額を振込又は確認できる方法で支払われていることの有無",
+      "field_name": "item[268].selectData",
+      "field_id": "radioList_320604_1",
+      "input_type": "radio",
+      "required": true,
+      "value_map": {
+        "true": "有 Yes",
+        "false": "無 No"
+      },
+      "manual_required": true
+    },
+    {
+      "canonical_id": "specified_skilled_worker.organization.compliance.industry_specific_compliance",
+      "value_path": "specified_skilled_worker.organization.compliance.industry_specific_compliance",
+      "form_order": 251,
+      "display_no": "3.43",
+      "section": "特定技能所属機関・支援",
+      "label": "３.４３　(32)特定技能雇用契約の適正な履行の確保につき告示で定められる基準に適合することの有無",
+      "field_name": "item[269].selectData",
+      "field_id": "radioList_320606_1",
+      "input_type": "radio",
+      "required": false,
+      "value_map": {
+        "true": "有 Yes",
+        "false": "無 No"
+      }
+    },
+    {
+      "canonical_id": "specified_skilled_worker.support_method",
+      "value_path": "specified_skilled_worker.support_method",
+      "form_order": 252,
+      "display_no": "",
+      "section": "申請人・その他",
+      "label": "特定技能1号での入国を希望し登録支援機関に1号特定技能外国人支援計画の全部の実施を委託することの有無",
+      "field_name": "item[270].selectData",
+      "field_id": "radioList_320607_1",
+      "input_type": "radio",
+      "required": false,
+      "visible_when": [
+        {
+          "path": "case.target_status_variant",
+          "value": "ssw_1"
+        }
+      ],
+      "value_map": {
+        "entrusted": "委託する Entrust",
+        "self": "委託しない Not entrust"
+      }
+    },
+    {
+      "canonical_id": "specified_skilled_worker.self_support.manager_name",
+      "value_path": "specified_skilled_worker.self_support.manager_name",
+      "form_order": 253,
+      "display_no": "3.44",
+      "section": "特定技能所属機関・支援",
+      "label": "３.４４　特定技能所属機関　(33)支援責任者名",
+      "field_name": "item[271].textData",
+      "field_id": "switch_320609",
+      "input_type": "text",
+      "required": false,
+      "visible_when": [
+        {
+          "path": "case.target_status_variant",
+          "value": "ssw_1"
+        },
+        {
+          "path": "specified_skilled_worker.support_method",
+          "value": "self"
+        }
+      ]
+    },
+    {
+      "canonical_id": "specified_skilled_worker.self_support.manager_position",
+      "value_path": "specified_skilled_worker.self_support.manager_position",
+      "form_order": 254,
+      "display_no": "3.45",
+      "section": "特定技能所属機関・支援",
+      "label": "３.４５　特定技能所属機関　(33)所属・役職",
+      "field_name": "item[272].textData",
+      "field_id": "switch_320610",
+      "input_type": "text",
+      "required": false,
+      "visible_when": [
+        {
+          "path": "case.target_status_variant",
+          "value": "ssw_1"
+        },
+        {
+          "path": "specified_skilled_worker.support_method",
+          "value": "self"
+        }
+      ]
+    },
+    {
+      "canonical_id": "specified_skilled_worker.self_support.manager_is_officer_or_employee",
+      "value_path": "specified_skilled_worker.self_support.manager_is_officer_or_employee",
+      "form_order": 255,
+      "display_no": "3.46",
+      "section": "特定技能所属機関・支援",
+      "label": "３.４６　特定技能所属機関　(33)役員又は職員の中から支援責任者を選任していることの有無",
+      "field_name": "item[273].selectData",
+      "field_id": "radioList_320612_1",
+      "input_type": "radio",
+      "required": false,
+      "visible_when": [
+        {
+          "path": "case.target_status_variant",
+          "value": "ssw_1"
+        },
+        {
+          "path": "specified_skilled_worker.support_method",
+          "value": "self"
+        }
+      ],
+      "value_map": {
+        "true": "有 Yes",
+        "false": "無 No"
+      }
+    },
+    {
+      "canonical_id": "specified_skilled_worker.self_support.staff_name",
+      "value_path": "specified_skilled_worker.self_support.staff_name",
+      "form_order": 256,
+      "display_no": "3.47",
+      "section": "特定技能所属機関・支援",
+      "label": "３.４７　特定技能所属機関(34)支援担当者名",
+      "field_name": "item[274].textData",
+      "field_id": "switch_320613",
+      "input_type": "text",
+      "required": false,
+      "visible_when": [
+        {
+          "path": "case.target_status_variant",
+          "value": "ssw_1"
+        },
+        {
+          "path": "specified_skilled_worker.support_method",
+          "value": "self"
+        }
+      ]
+    },
+    {
+      "canonical_id": "specified_skilled_worker.self_support.staff_position",
+      "value_path": "specified_skilled_worker.self_support.staff_position",
+      "form_order": 257,
+      "display_no": "3.48",
+      "section": "特定技能所属機関・支援",
+      "label": "３.４８　特定技能所属機関(34)所属・役職",
+      "field_name": "item[275].textData",
+      "field_id": "switch_320615",
+      "input_type": "text",
+      "required": false,
+      "visible_when": [
+        {
+          "path": "case.target_status_variant",
+          "value": "ssw_1"
+        },
+        {
+          "path": "specified_skilled_worker.support_method",
+          "value": "self"
+        }
+      ]
+    },
+    {
+      "canonical_id": "specified_skilled_worker.self_support.staff_assigned_per_workplace",
+      "value_path": "specified_skilled_worker.self_support.staff_assigned_per_workplace",
+      "form_order": 258,
+      "display_no": "3.49",
+      "section": "特定技能所属機関・支援",
+      "label": "３.４９　(34)役職員の中から業務に従事させる事業所ごとに1名以上の支援担当者を選任することの有無",
+      "field_name": "item[276].selectData",
+      "field_id": "radioList_320617_1",
+      "input_type": "radio",
+      "required": false,
+      "visible_when": [
+        {
+          "path": "case.target_status_variant",
+          "value": "ssw_1"
+        },
+        {
+          "path": "specified_skilled_worker.support_method",
+          "value": "self"
+        }
+      ],
+      "value_map": {
+        "true": "有 Yes",
+        "false": "無 No"
+      }
+    },
+    {
+      "canonical_id": "specified_skilled_worker.self_support.support_qualifying_condition",
+      "value_path": "specified_skilled_worker.self_support.support_qualifying_condition",
+      "form_order": 259,
+      "display_no": "3.50",
+      "section": "特定技能所属機関・支援",
+      "label": "３.５０　特定技能所属機関　(35)次のいずれかに該当することの有無",
+      "field_name": "item[277].selectData",
+      "field_id": "radioList_320618_1",
+      "input_type": "radio",
+      "required": false,
+      "visible_when": [
+        {
+          "path": "case.target_status_variant",
+          "value": "ssw_1"
+        },
+        {
+          "path": "specified_skilled_worker.support_method",
+          "value": "self"
+        }
+      ],
+      "value_map": {
+        "true": "有 Yes",
+        "false": "無 No"
+      }
+    },
+    {
+      "canonical_id": "specified_skilled_worker.self_support.support_condition_details",
+      "value_path": "specified_skilled_worker.self_support.support_condition_details",
+      "form_order": 260,
+      "display_no": "3.51",
+      "section": "特定技能所属機関・支援",
+      "label": "３.５１　(35)該当する事項",
+      "field_name": "item[278].choiceList[0].checkFlag",
+      "field_id": "checkList_320620_1",
+      "input_type": "checkbox",
+      "required": false,
+      "visible_when": [
+        {
+          "path": "case.target_status_variant",
+          "value": "ssw_1"
+        },
+        {
+          "path": "specified_skilled_worker.support_method",
+          "value": "self"
+        }
+      ]
+    },
+    {
+      "canonical_id": "specified_skilled_worker.self_support.multilingual_support_capacity",
+      "value_path": "specified_skilled_worker.self_support.multilingual_support_capacity",
+      "form_order": 261,
+      "display_no": "3.52",
+      "section": "特定技能所属機関・支援",
+      "label": "３.５２　(36)支援計画に基づく支援を、外国人が理解できる言語で行う体制を有することの有無",
+      "field_name": "item[279].selectData",
+      "field_id": "radioList_320622_1",
+      "input_type": "radio",
+      "required": false,
+      "visible_when": [
+        {
+          "path": "case.target_status_variant",
+          "value": "ssw_1"
+        },
+        {
+          "path": "specified_skilled_worker.support_method",
+          "value": "self"
+        }
+      ],
+      "value_map": {
+        "true": "有 Yes",
+        "false": "無 No"
+      }
+    },
+    {
+      "canonical_id": "specified_skilled_worker.self_support.support_records_retained",
+      "value_path": "specified_skilled_worker.self_support.support_records_retained",
+      "form_order": 262,
+      "display_no": "3.53",
+      "section": "特定技能所属機関・支援",
+      "label": "３.５３　(37)支援の状況に関する文書を作成し、契約終了の日から1年以上備えて置くことの有無",
+      "field_name": "item[280].selectData",
+      "field_id": "radioList_320623_1",
+      "input_type": "radio",
+      "required": false,
+      "visible_when": [
+        {
+          "path": "case.target_status_variant",
+          "value": "ssw_1"
+        },
+        {
+          "path": "specified_skilled_worker.support_method",
+          "value": "self"
+        }
+      ],
+      "value_map": {
+        "true": "有 Yes",
+        "false": "無 No"
+      }
+    },
+    {
+      "canonical_id": "specified_skilled_worker.self_support.support_staff_independence",
+      "value_path": "specified_skilled_worker.self_support.support_staff_independence",
+      "form_order": 263,
+      "display_no": "3.54",
+      "section": "特定技能所属機関・支援",
+      "label": "３.５４　(38)支援責任者等が支援計画の中立な実施を行える立場の者であることの有無",
+      "field_name": "item[281].selectData",
+      "field_id": "radioList_320625_1",
+      "input_type": "radio",
+      "required": false,
+      "visible_when": [
+        {
+          "path": "case.target_status_variant",
+          "value": "ssw_1"
+        },
+        {
+          "path": "specified_skilled_worker.support_method",
+          "value": "self"
+        }
+      ],
+      "value_map": {
+        "true": "有 Yes",
+        "false": "無 No"
+      }
+    },
+    {
+      "canonical_id": "specified_skilled_worker.self_support.prior_support_plan_failure",
+      "value_path": "specified_skilled_worker.self_support.prior_support_plan_failure",
+      "form_order": 264,
+      "display_no": "3.55",
+      "section": "特定技能所属機関・支援",
+      "label": "３.５５　(39)適合1号特定技能外国人支援計画に基づく1号特定技能外国人支援を怠ったことの有無",
+      "field_name": "item[282].selectData",
+      "field_id": "radioList_320627_1",
+      "input_type": "radio",
+      "required": false,
+      "visible_when": [
+        {
+          "path": "case.target_status_variant",
+          "value": "ssw_1"
+        },
+        {
+          "path": "specified_skilled_worker.support_method",
+          "value": "self"
+        }
+      ],
+      "value_map": {
+        "true": "有 Yes",
+        "false": "無 No"
+      }
+    },
+    {
+      "canonical_id": "specified_skilled_worker.self_support.regular_interview_capacity",
+      "value_path": "specified_skilled_worker.self_support.regular_interview_capacity",
+      "form_order": 265,
+      "display_no": "3.56",
+      "section": "特定技能所属機関・支援",
+      "label": "３.５６　(40)支援責任者等が外国人及びその監督者と定期的な面談を実施できる体制を有することの有無",
+      "field_name": "item[283].selectData",
+      "field_id": "radioList_320628_1",
+      "input_type": "radio",
+      "required": false,
+      "visible_when": [
+        {
+          "path": "case.target_status_variant",
+          "value": "ssw_1"
+        },
+        {
+          "path": "specified_skilled_worker.support_method",
+          "value": "self"
+        }
+      ],
+      "value_map": {
+        "true": "有 Yes",
+        "false": "無 No"
+      }
+    },
+    {
+      "canonical_id": "specified_skilled_worker.self_support.support_plan_compliance",
+      "value_path": "specified_skilled_worker.self_support.support_plan_compliance",
+      "form_order": 266,
+      "display_no": "3.57",
+      "section": "特定技能所属機関・支援",
+      "label": "３.５７　(41)支援計画の適正な実施の確保につき告示で定める基準に適合することの有無",
+      "field_name": "item[284].selectData",
+      "field_id": "radioList_320630_1",
+      "input_type": "radio",
+      "required": false,
+      "visible_when": [
+        {
+          "path": "case.target_status_variant",
+          "value": "ssw_1"
+        },
+        {
+          "path": "specified_skilled_worker.support_method",
+          "value": "self"
+        }
+      ],
+      "value_map": {
+        "true": "有 Yes",
+        "false": "無 No"
+      }
+    },
+    {
+      "canonical_id": "specified_skilled_worker.support_plan.contract_explanation_in_understood_language",
+      "value_path": "specified_skilled_worker.support_plan.contract_explanation_in_understood_language",
+      "form_order": 267,
+      "display_no": "4.1",
+      "section": "1号特定技能外国人支援計画",
+      "label": "４.１　(1)特定技能雇用契約の内容等を外国人が十分に理解できる言語による情報提供の実施の有無",
+      "field_name": "item[285].selectData",
+      "field_id": "radioList_320632_1",
+      "input_type": "radio",
+      "required": true,
+      "visible_when": [
+        {
+          "path": "case.target_status_variant",
+          "value": "ssw_1"
+        }
+      ],
+      "value_map": {
+        "true": "有 Yes",
+        "false": "無 No"
+      },
+      "manual_required": true
+    },
+    {
+      "canonical_id": "specified_skilled_worker.support_plan.explanation_in_person_or_video",
+      "value_path": "specified_skilled_worker.support_plan.explanation_in_person_or_video",
+      "form_order": 268,
+      "display_no": "4.2",
+      "section": "1号特定技能外国人支援計画",
+      "label": "４.２　(2)上記(1)について対面又はテレビ電話装置その他の方法により行うこととしていることの有無",
+      "field_name": "item[286].selectData",
+      "field_id": "radioList_320634_1",
+      "input_type": "radio",
+      "required": true,
+      "visible_when": [
+        {
+          "path": "case.target_status_variant",
+          "value": "ssw_1"
+        }
+      ],
+      "value_map": {
+        "true": "有 Yes",
+        "false": "無 No"
+      },
+      "manual_required": true
+    },
+    {
+      "canonical_id": "specified_skilled_worker.support_plan.airport_pickup",
+      "value_path": "specified_skilled_worker.support_plan.airport_pickup",
+      "form_order": 269,
+      "display_no": "4.3",
+      "section": "1号特定技能外国人支援計画",
+      "label": "４.３　(3)出入国時に港又は飛行場への送迎をすることとしていることの有無",
+      "field_name": "item[287].selectData",
+      "field_id": "radioList_320635_1",
+      "input_type": "radio",
+      "required": true,
+      "visible_when": [
+        {
+          "path": "case.target_status_variant",
+          "value": "ssw_1"
+        }
+      ],
+      "value_map": {
+        "true": "有 Yes",
+        "false": "無 No"
+      },
+      "manual_required": true
+    },
+    {
+      "canonical_id": "specified_skilled_worker.support_plan.housing_assistance",
+      "value_path": "specified_skilled_worker.support_plan.housing_assistance",
+      "form_order": 270,
+      "display_no": "4.4",
+      "section": "1号特定技能外国人支援計画",
+      "label": "４.４　1号特定技能外国人支援計画　(4)適切な住居の確保に係る支援をすることとしていることの有無",
+      "field_name": "item[288].selectData",
+      "field_id": "radioList_320637_1",
+      "input_type": "radio",
+      "required": true,
+      "visible_when": [
+        {
+          "path": "case.target_status_variant",
+          "value": "ssw_1"
+        }
+      ],
+      "value_map": {
+        "true": "有 Yes",
+        "false": "無 No"
+      },
+      "manual_required": true
+    },
+    {
+      "canonical_id": "specified_skilled_worker.support_plan.daily_contract_assistance",
+      "value_path": "specified_skilled_worker.support_plan.daily_contract_assistance",
+      "form_order": 271,
+      "display_no": "4.5",
+      "section": "1号特定技能外国人支援計画",
+      "label": "４.５　(5)金融機関における預金口座等の生活に必要な契約に係る支援をすることとしていることの有無",
+      "field_name": "item[289].selectData",
+      "field_id": "radioList_320638_1",
+      "input_type": "radio",
+      "required": true,
+      "visible_when": [
+        {
+          "path": "case.target_status_variant",
+          "value": "ssw_1"
+        }
+      ],
+      "value_map": {
+        "true": "有 Yes",
+        "false": "無 No"
+      },
+      "manual_required": true
+    },
+    {
+      "canonical_id": "specified_skilled_worker.support_plan.life_orientation",
+      "value_path": "specified_skilled_worker.support_plan.life_orientation",
+      "form_order": 272,
+      "display_no": "4.6",
+      "section": "1号特定技能外国人支援計画",
+      "label": "４.６　(6)本邦での生活一般に関する事項等を外国人が十分に理解できる言語により実施することの有無",
+      "field_name": "item[290].selectData",
+      "field_id": "radioList_320640_1",
+      "input_type": "radio",
+      "required": true,
+      "visible_when": [
+        {
+          "path": "case.target_status_variant",
+          "value": "ssw_1"
+        }
+      ],
+      "value_map": {
+        "true": "有 Yes",
+        "false": "無 No"
+      },
+      "manual_required": true
+    },
+    {
+      "canonical_id": "specified_skilled_worker.support_plan.administrative_procedure_accompaniment",
+      "value_path": "specified_skilled_worker.support_plan.administrative_procedure_accompaniment",
+      "form_order": 273,
+      "display_no": "4.7",
+      "section": "1号特定技能外国人支援計画",
+      "label": "４.７　(7)関係機関への同行その他の必要な措置を講ずることとしていることの有無",
+      "field_name": "item[291].selectData",
+      "field_id": "radioList_320642_1",
+      "input_type": "radio",
+      "required": true,
+      "visible_when": [
+        {
+          "path": "case.target_status_variant",
+          "value": "ssw_1"
+        }
+      ],
+      "value_map": {
+        "true": "有 Yes",
+        "false": "無 No"
+      },
+      "manual_required": true
+    },
+    {
+      "canonical_id": "specified_skilled_worker.support_plan.japanese_learning_opportunity",
+      "value_path": "specified_skilled_worker.support_plan.japanese_learning_opportunity",
+      "form_order": 274,
+      "display_no": "4.8",
+      "section": "1号特定技能外国人支援計画",
+      "label": "４.８　1号特定技能外国人支援計画　(8)日本語を学習する機会を提供することとしていることの有無",
+      "field_name": "item[292].selectData",
+      "field_id": "radioList_320644_1",
+      "input_type": "radio",
+      "required": true,
+      "visible_when": [
+        {
+          "path": "case.target_status_variant",
+          "value": "ssw_1"
+        }
+      ],
+      "value_map": {
+        "true": "有 Yes",
+        "false": "無 No"
+      },
+      "manual_required": true
+    },
+    {
+      "canonical_id": "specified_skilled_worker.support_plan.consultation_in_understood_language",
+      "value_path": "specified_skilled_worker.support_plan.consultation_in_understood_language",
+      "form_order": 275,
+      "display_no": "4.9",
+      "section": "1号特定技能外国人支援計画",
+      "label": "４.９　(9)外国人が理解できる言語により相談又は苦情の申出に対して必要な措置を講ずることの有無",
+      "field_name": "item[293].selectData",
+      "field_id": "radioList_320646_1",
+      "input_type": "radio",
+      "required": true,
+      "visible_when": [
+        {
+          "path": "case.target_status_variant",
+          "value": "ssw_1"
+        }
+      ],
+      "value_map": {
+        "true": "有 Yes",
+        "false": "無 No"
+      },
+      "manual_required": true
+    },
+    {
+      "canonical_id": "specified_skilled_worker.support_plan.community_exchange",
+      "value_path": "specified_skilled_worker.support_plan.community_exchange",
+      "form_order": 276,
+      "display_no": "4.10",
+      "section": "1号特定技能外国人支援計画",
+      "label": "４.１０　(10)外国人と日本人の交流の促進に係る支援をすることとしていることの有無",
+      "field_name": "item[294].selectData",
+      "field_id": "radioList_320648_1",
+      "input_type": "radio",
+      "required": true,
+      "visible_when": [
+        {
+          "path": "case.target_status_variant",
+          "value": "ssw_1"
+        }
+      ],
+      "value_map": {
+        "true": "有 Yes",
+        "false": "無 No"
+      },
+      "manual_required": true
+    },
+    {
+      "canonical_id": "specified_skilled_worker.support_plan.job_change_support",
+      "value_path": "specified_skilled_worker.support_plan.job_change_support",
+      "form_order": 277,
+      "display_no": "4.11",
+      "section": "1号特定技能外国人支援計画",
+      "label": "４.１１　(11)外国人が責めに帰すべき事由によらず契約を解除される場合は、転職支援をすることの有無",
+      "field_name": "item[295].selectData",
+      "field_id": "radioList_320649_1",
+      "input_type": "radio",
+      "required": true,
+      "visible_when": [
+        {
+          "path": "case.target_status_variant",
+          "value": "ssw_1"
+        }
+      ],
+      "value_map": {
+        "true": "有 Yes",
+        "false": "無 No"
+      },
+      "manual_required": true
+    },
+    {
+      "canonical_id": "specified_skilled_worker.support_plan.regular_interview_and_reporting",
+      "value_path": "specified_skilled_worker.support_plan.regular_interview_and_reporting",
+      "form_order": 278,
+      "display_no": "4.12",
+      "section": "1号特定技能外国人支援計画",
+      "label": "４.１２　(12)支援責任者等が定期面談を実施し、問題発生時は関係行政機関に通報することの有無",
+      "field_name": "item[296].selectData",
+      "field_id": "radioList_320650_1",
+      "input_type": "radio",
+      "required": true,
+      "visible_when": [
+        {
+          "path": "case.target_status_variant",
+          "value": "ssw_1"
+        }
+      ],
+      "value_map": {
+        "true": "有 Yes",
+        "false": "無 No"
+      },
+      "manual_required": true
+    },
+    {
+      "canonical_id": "specified_skilled_worker.support_plan.plan_copy_provided",
+      "value_path": "specified_skilled_worker.support_plan.plan_copy_provided",
+      "form_order": 279,
+      "display_no": "4.13",
+      "section": "1号特定技能外国人支援計画",
+      "label": "４.１３　(13)支援計画を作成し、当該外国人にその写しを交付することとしていることの有無",
+      "field_name": "item[297].selectData",
+      "field_id": "radioList_320651_1",
+      "input_type": "radio",
+      "required": true,
+      "visible_when": [
+        {
+          "path": "case.target_status_variant",
+          "value": "ssw_1"
+        }
+      ],
+      "value_map": {
+        "true": "有 Yes",
+        "false": "無 No"
+      },
+      "manual_required": true
+    },
+    {
+      "canonical_id": "specified_skilled_worker.support_plan.industry_specific_plan_items",
+      "value_path": "specified_skilled_worker.support_plan.industry_specific_plan_items",
+      "form_order": 280,
+      "display_no": "4.14",
+      "section": "1号特定技能外国人支援計画",
+      "label": "４.１４　(14)特定産業分野に特有の事情に鑑みて告示で定められる事項を支援計画に記載することの有無",
+      "field_name": "item[298].selectData",
+      "field_id": "radioList_320652_1",
+      "input_type": "radio",
+      "required": false,
+      "visible_when": [
+        {
+          "path": "case.target_status_variant",
+          "value": "ssw_1"
+        }
+      ],
+      "value_map": {
+        "true": "有 Yes",
+        "false": "無 No"
+      }
+    },
+    {
+      "canonical_id": "specified_skilled_worker.support_plan.appropriate_support_delivery",
+      "value_path": "specified_skilled_worker.support_plan.appropriate_support_delivery",
+      "form_order": 281,
+      "display_no": "4.15",
+      "section": "1号特定技能外国人支援計画",
+      "label": "４.１５　(15)支援の内容が外国人の適正な在留に資するものであって、かつ適切に実施できることの有無",
+      "field_name": "item[299].selectData",
+      "field_id": "radioList_320653_1",
+      "input_type": "radio",
+      "required": true,
+      "visible_when": [
+        {
+          "path": "case.target_status_variant",
+          "value": "ssw_1"
+        }
+      ],
+      "value_map": {
+        "true": "有 Yes",
+        "false": "無 No"
+      },
+      "manual_required": true
+    },
+    {
+      "canonical_id": "specified_skilled_worker.support_plan.support_plan_standard_met",
+      "value_path": "specified_skilled_worker.support_plan.support_plan_standard_met",
+      "form_order": 282,
+      "display_no": "4.16",
+      "section": "1号特定技能外国人支援計画",
+      "label": "４.１６　(16)支援計画の内容につき告示で定められる基準に適合していることの有無",
+      "field_name": "item[300].selectData",
+      "field_id": "radioList_320655_1",
+      "input_type": "radio",
+      "required": false,
+      "visible_when": [
+        {
+          "path": "case.target_status_variant",
+          "value": "ssw_1"
+        }
+      ],
+      "value_map": {
+        "true": "有 Yes",
+        "false": "無 No"
+      }
+    },
+    {
+      "canonical_id": "specified_skilled_worker.support_organization.name",
+      "value_path": "specified_skilled_worker.support_organization.name",
+      "form_order": 283,
+      "display_no": "5.1",
+      "section": "登録支援機関",
+      "label": "５.１　登録支援機関　(1)氏名又は名称",
+      "field_name": "item[301].textData",
+      "field_id": "switch_320656",
+      "input_type": "text",
+      "required": false,
+      "visible_when": [
+        {
+          "path": "case.target_status_variant",
+          "value": "ssw_1"
+        },
+        {
+          "path": "specified_skilled_worker.support_method",
+          "value": "entrusted"
+        }
+      ]
+    },
+    {
+      "canonical_id": "specified_skilled_worker.support_organization.has_corporate_number",
+      "value_path": "specified_skilled_worker.support_organization.has_corporate_number",
+      "form_order": 284,
+      "display_no": "5.2",
+      "section": "登録支援機関",
+      "label": "５.２　登録支援機関　(2)法人番号の有無",
+      "field_name": "item[302].selectData",
+      "field_id": "radioList_320657_1",
+      "input_type": "radio",
+      "required": false,
+      "visible_when": [
+        {
+          "path": "case.target_status_variant",
+          "value": "ssw_1"
+        },
+        {
+          "path": "specified_skilled_worker.support_method",
+          "value": "entrusted"
+        }
+      ],
+      "value_map": {
+        "true": "有 Yes",
+        "false": "無 No"
+      }
+    },
+    {
+      "canonical_id": "specified_skilled_worker.support_organization.corporate_number",
+      "value_path": "specified_skilled_worker.support_organization.corporate_number",
+      "form_order": 285,
+      "display_no": "5.2",
+      "section": "登録支援機関",
+      "label": "５.２　登録支援機関　(2)法人番号",
+      "field_name": "item[303].textData",
+      "field_id": "switch_320658",
+      "input_type": "text",
+      "required": false,
+      "visible_when": [
+        {
+          "path": "case.target_status_variant",
+          "value": "ssw_1"
+        },
+        {
+          "path": "specified_skilled_worker.support_method",
+          "value": "entrusted"
+        },
+        {
+          "path": "specified_skilled_worker.support_organization.has_corporate_number",
+          "value": true
+        }
+      ]
+    },
+    {
+      "canonical_id": "specified_skilled_worker.support_organization.employment_insurance_office_number",
+      "value_path": "specified_skilled_worker.support_organization.employment_insurance_office_number",
+      "form_order": 286,
+      "display_no": "5.3",
+      "section": "登録支援機関",
+      "label": "５.３　登録支援機関　(3)雇用保険適用事業所番号",
+      "field_name": "item[304].textData",
+      "field_id": "switch_320659",
+      "input_type": "text",
+      "required": false,
+      "visible_when": [
+        {
+          "path": "case.target_status_variant",
+          "value": "ssw_1"
+        },
+        {
+          "path": "specified_skilled_worker.support_method",
+          "value": "entrusted"
+        }
+      ]
+    },
+    {
+      "canonical_id": "specified_skilled_worker.support_organization.postal_code",
+      "value_path": "specified_skilled_worker.support_organization.postal_code",
+      "form_order": 287,
+      "display_no": "5.4",
+      "section": "登録支援機関",
+      "label": "５.４　登録支援機関　(4)郵便番号",
+      "field_name": "item[305].textData",
+      "field_id": "item_305_textData",
+      "input_type": "text",
+      "required": false,
+      "visible_when": [
+        {
+          "path": "case.target_status_variant",
+          "value": "ssw_1"
+        },
+        {
+          "path": "specified_skilled_worker.support_method",
+          "value": "entrusted"
+        }
+      ]
+    },
+    {
+      "canonical_id": "specified_skilled_worker.support_organization.address",
+      "value_path": "specified_skilled_worker.support_organization.address",
+      "form_order": 288,
+      "display_no": "5.5",
+      "section": "登録支援機関",
+      "label": "５.５　登録支援機関　(4)所在地",
+      "field_name": "item[306].textData",
+      "field_id": "address_320661",
+      "input_type": "text",
+      "required": false,
+      "visible_when": [
+        {
+          "path": "case.target_status_variant",
+          "value": "ssw_1"
+        },
+        {
+          "path": "specified_skilled_worker.support_method",
+          "value": "entrusted"
+        }
+      ]
+    },
+    {
+      "canonical_id": "specified_skilled_worker.support_organization.phone",
+      "value_path": "specified_skilled_worker.support_organization.phone",
+      "form_order": 289,
+      "display_no": "5.6",
+      "section": "登録支援機関",
+      "label": "５.６　登録支援機関　(4)電話番号",
+      "field_name": "item[307].textData",
+      "field_id": "switch_320662",
+      "input_type": "text",
+      "required": false,
+      "visible_when": [
+        {
+          "path": "case.target_status_variant",
+          "value": "ssw_1"
+        },
+        {
+          "path": "specified_skilled_worker.support_method",
+          "value": "entrusted"
+        }
+      ]
+    },
+    {
+      "canonical_id": "specified_skilled_worker.support_organization.representative_name",
+      "value_path": "specified_skilled_worker.support_organization.representative_name",
+      "form_order": 290,
+      "display_no": "5.7",
+      "section": "登録支援機関",
+      "label": "５.７　登録支援機関　(5)代表者の氏名",
+      "field_name": "item[308].textData",
+      "field_id": "switch_320663",
+      "input_type": "text",
+      "required": false,
+      "visible_when": [
+        {
+          "path": "case.target_status_variant",
+          "value": "ssw_1"
+        },
+        {
+          "path": "specified_skilled_worker.support_method",
+          "value": "entrusted"
+        }
+      ]
+    },
+    {
+      "canonical_id": "specified_skilled_worker.support_organization.registration_number",
+      "value_path": "specified_skilled_worker.support_organization.registration_number",
+      "form_order": 291,
+      "display_no": "5.8",
+      "section": "登録支援機関",
+      "label": "５.８　登録支援機関　(6)登録番号",
+      "field_name": "item[309].textData",
+      "field_id": "switch_320664",
+      "input_type": "text",
+      "required": false,
+      "visible_when": [
+        {
+          "path": "case.target_status_variant",
+          "value": "ssw_1"
+        },
+        {
+          "path": "specified_skilled_worker.support_method",
+          "value": "entrusted"
+        }
+      ]
+    },
+    {
+      "canonical_id": "specified_skilled_worker.support_organization.registration_date",
+      "value_path": "specified_skilled_worker.support_organization.registration_date",
+      "form_order": 292,
+      "display_no": "5.9",
+      "section": "登録支援機関",
+      "label": "５.９　登録支援機関　(7)登録年月日",
+      "field_name": "item[310].textData",
+      "field_id": "switch_320665",
+      "input_type": "text",
+      "required": false,
+      "transform": "date_yyyymmdd",
+      "visible_when": [
+        {
+          "path": "case.target_status_variant",
+          "value": "ssw_1"
+        },
+        {
+          "path": "specified_skilled_worker.support_method",
+          "value": "entrusted"
+        }
+      ]
+    },
+    {
+      "canonical_id": "specified_skilled_worker.support_organization.office_name",
+      "value_path": "specified_skilled_worker.support_organization.office_name",
+      "form_order": 293,
+      "display_no": "5.10",
+      "section": "登録支援機関",
+      "label": "５.１０　登録支援機関　(8)支援を行う事業所の名称",
+      "field_name": "item[311].textData",
+      "field_id": "switch_320666",
+      "input_type": "text",
+      "required": false,
+      "visible_when": [
+        {
+          "path": "case.target_status_variant",
+          "value": "ssw_1"
+        },
+        {
+          "path": "specified_skilled_worker.support_method",
+          "value": "entrusted"
+        }
+      ]
+    },
+    {
+      "canonical_id": "specified_skilled_worker.support_organization.office_postal_code",
+      "value_path": "specified_skilled_worker.support_organization.office_postal_code",
+      "form_order": 294,
+      "display_no": "5.11",
+      "section": "登録支援機関",
+      "label": "５.１１　登録支援機関　(9)郵便番号",
+      "field_name": "item[312].textData",
+      "field_id": "item_312_textData",
+      "input_type": "text",
+      "required": false,
+      "visible_when": [
+        {
+          "path": "case.target_status_variant",
+          "value": "ssw_1"
+        },
+        {
+          "path": "specified_skilled_worker.support_method",
+          "value": "entrusted"
+        }
+      ]
+    },
+    {
+      "canonical_id": "specified_skilled_worker.support_organization.office_address",
+      "value_path": "specified_skilled_worker.support_organization.office_address",
+      "form_order": 295,
+      "display_no": "5.12",
+      "section": "登録支援機関",
+      "label": "５.１２　登録支援機関　(9)所在地",
+      "field_name": "item[313].textData",
+      "field_id": "address_320668",
+      "input_type": "text",
+      "required": false,
+      "visible_when": [
+        {
+          "path": "case.target_status_variant",
+          "value": "ssw_1"
+        },
+        {
+          "path": "specified_skilled_worker.support_method",
+          "value": "entrusted"
+        }
+      ]
+    },
+    {
+      "canonical_id": "specified_skilled_worker.support_organization.support_manager_name",
+      "value_path": "specified_skilled_worker.support_organization.support_manager_name",
+      "form_order": 296,
+      "display_no": "5.13",
+      "section": "登録支援機関",
+      "label": "５.１３　登録支援機関　(10)支援責任者名",
+      "field_name": "item[314].textData",
+      "field_id": "switch_320669",
+      "input_type": "text",
+      "required": false,
+      "visible_when": [
+        {
+          "path": "case.target_status_variant",
+          "value": "ssw_1"
+        },
+        {
+          "path": "specified_skilled_worker.support_method",
+          "value": "entrusted"
+        }
+      ]
+    },
+    {
+      "canonical_id": "specified_skilled_worker.support_organization.support_staff_name",
+      "value_path": "specified_skilled_worker.support_organization.support_staff_name",
+      "form_order": 297,
+      "display_no": "5.14",
+      "section": "登録支援機関",
+      "label": "５.１４　登録支援機関　(11)支援担当者名",
+      "field_name": "item[315].textData",
+      "field_id": "switch_320670",
+      "input_type": "text",
+      "required": false,
+      "visible_when": [
+        {
+          "path": "case.target_status_variant",
+          "value": "ssw_1"
+        },
+        {
+          "path": "specified_skilled_worker.support_method",
+          "value": "entrusted"
+        }
+      ]
+    },
+    {
+      "canonical_id": "specified_skilled_worker.support_organization.available_languages",
+      "value_path": "specified_skilled_worker.support_organization.available_languages",
+      "form_order": 298,
+      "display_no": "5.15",
+      "section": "登録支援機関",
+      "label": "５.１５　登録支援機関　(12)対応可能言語",
+      "field_name": "item[316].textData",
+      "field_id": "switch_320671",
+      "input_type": "text",
+      "required": false,
+      "visible_when": [
+        {
+          "path": "case.target_status_variant",
+          "value": "ssw_1"
+        },
+        {
+          "path": "specified_skilled_worker.support_method",
+          "value": "entrusted"
+        }
+      ]
+    },
+    {
+      "canonical_id": "specified_skilled_worker.support_organization.monthly_fee",
+      "value_path": "specified_skilled_worker.support_organization.monthly_fee",
+      "form_order": 299,
+      "display_no": "5.16",
+      "section": "登録支援機関",
+      "label": "５.１６　登録支援機関　(13)支援委託手数料(月額/人)",
+      "field_name": "item[317].textData",
+      "field_id": "switch_320672",
+      "input_type": "text",
+      "required": false,
+      "visible_when": [
+        {
+          "path": "case.target_status_variant",
+          "value": "ssw_1"
+        },
+        {
+          "path": "specified_skilled_worker.support_method",
+          "value": "entrusted"
+        }
+      ]
+    },
+    {
+      "canonical_id": "settings.receiving_method.method",
+      "value_path": "settings.receiving_method.method",
+      "form_order": 320,
+      "display_no": "",
+      "section": "受領方法",
+      "label": "在留資格認定証明書の受領方法",
+      "field_name": "item[379].selectData",
+      "field_id": "radioList_320743_1",
+      "input_type": "radio",
+      "required": true
+    },
+    {
+      "canonical_id": "settings.receiving_method.notification_email",
+      "value_path": "settings.receiving_method.notification_email",
+      "form_order": 321,
+      "display_no": "",
+      "section": "受領方法",
+      "label": "通知送信用メールアドレス",
+      "field_name": "item[380].textData",
+      "field_id": "mailAddress_320744",
+      "input_type": "text",
+      "required": true
+    },
+    {
+      "canonical_id": "settings.receiving_method.notification_email_confirmation",
+      "value_path": "settings.receiving_method.notification_email_confirmation",
+      "form_order": 322,
+      "display_no": "",
+      "section": "受領方法",
+      "label": "通知送信用メールアドレス再入力",
+      "field_name": "item[381].textData",
+      "field_id": "mailAddress_320745",
+      "input_type": "text",
+      "required": true
+    },
+    {
+      "canonical_id": "specified_skilled_worker.application.applicant_intent_confirmed",
+      "value_path": "specified_skilled_worker.application.applicant_intent_confirmed",
+      "form_order": 323,
+      "display_no": "",
+      "section": "申請人・その他",
+      "label": "申請に先立ち、申請者本人に申請の意思を確認してください。",
+      "field_name": "item[384].choiceList[0].checkFlag",
+      "field_id": "checkList_320748_1",
+      "input_type": "checkbox",
+      "required": true,
+      "manual_only": true
+    },
+    {
+      "canonical_id": "specified_skilled_worker.application.content_confirmed",
+      "value_path": "specified_skilled_worker.application.content_confirmed",
+      "form_order": 324,
+      "display_no": "",
+      "section": "申請人・その他",
+      "label": "申請内容の確認",
+      "field_name": "item[385].choiceList[0].checkFlag",
+      "field_id": "checkList_320749_1",
+      "input_type": "checkbox",
+      "required": true,
+      "manual_only": true
+    },
+    {
+      "canonical_id": "specified_skilled_worker.application.photo_file",
+      "value_path": "specified_skilled_worker.application.photo_file",
+      "form_order": 326,
+      "display_no": "",
+      "section": "申請人・その他",
+      "label": "顔写真",
+      "field_name": "item[387].file",
+      "field_id": "fileNew_320751",
+      "input_type": "file",
+      "required": true,
+      "manual_only": true
+    }
+  ]
+}

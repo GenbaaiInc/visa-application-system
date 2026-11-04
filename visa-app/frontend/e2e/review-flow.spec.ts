@@ -1,4 +1,31 @@
 import { test, expect } from '@playwright/test'
+import type { Page } from '@playwright/test'
+
+async function openCreateCaseDialog(page: Page) {
+  await page.goto('/?demo=true')
+  await page.getByRole('button', { name: '+ 新規案件' }).click()
+  await expect(page.getByRole('dialog', { name: '新規案件' })).toBeVisible()
+}
+
+async function createSpecifiedSkilledWorkerCase(
+  page: Page,
+  applicationType: '認定・COE' | '変更' | '更新',
+  variant: '1号' | '2号' = '1号',
+) {
+  const applicationTypeValue = {
+    '認定・COE': 'certificate_of_eligibility',
+    '変更': 'change_of_status',
+    '更新': 'extension_of_stay',
+  }[applicationType]
+  const variantValue = variant === '1号' ? 'ssw_1' : 'ssw_2'
+
+  await openCreateCaseDialog(page)
+  await page.locator(`input[name="application-type"][value="${applicationTypeValue}"]`).check({ force: true })
+  await page.locator('input[name="target-status"][value="specified_skilled_worker"]').check({ force: true })
+  await page.locator(`input[name="target-status-variant"][value="${variantValue}"]`).check({ force: true })
+  await page.getByRole('button', { name: '作成' }).click()
+  await expect(page).toHaveURL(/\/cases\/demo-gijinkoku-001\/upload\?demo=true/)
+}
 
 test.describe('CaseListPage', () => {
   test('displays heading and new case button in Japanese', async ({ page }) => {
@@ -19,6 +46,75 @@ test.describe('CaseListPage', () => {
     await expect(page).toHaveURL(/\?demo=true/)
     await expect(page.getByText('コピー済')).toBeVisible()
     await expect.poll(() => page.evaluate(() => navigator.clipboard.readText())).toBe('demo-gijinkoku-001')
+  })
+})
+
+test.describe('CreateCaseDialog application workflows', () => {
+  for (const [applicationType, expectedLabel] of [
+    ['認定・COE', '在留資格認定証明書交付申請'],
+    ['変更', '在留資格変更許可申請'],
+    ['更新', '在留期間更新許可申請'],
+  ] as const) {
+    test(`creates specified skilled worker ${applicationType} case`, async ({ page }) => {
+      await createSpecifiedSkilledWorkerCase(page, applicationType)
+      await expect(page.getByText(`手続き: ${expectedLabel}`)).toBeVisible()
+      await expect(page.getByText('対象の在留資格: 特定技能1号')).toBeVisible()
+    })
+  }
+
+  test('creates engineer/humanities COE case', async ({ page }) => {
+    await openCreateCaseDialog(page)
+    await page.locator('input[name="application-type"][value="certificate_of_eligibility"]').check({ force: true })
+    await page.locator('input[name="target-status"][value="engineer_humanities_international"]').check({ force: true })
+    await page.getByRole('button', { name: '作成' }).click()
+
+    await expect(page).toHaveURL(/\/cases\/demo-gijinkoku-001\/upload\?demo=true/)
+    await expect(page.getByText('手続き: 在留資格認定証明書交付申請')).toBeVisible()
+    await expect(page.getByText('対象の在留資格: 技術・人文知識・国際業務')).toBeVisible()
+  })
+
+  for (const applicationType of ['変更', '更新'] as const) {
+    test(`keeps engineer/humanities ${applicationType} creation disabled`, async ({ page }) => {
+      await openCreateCaseDialog(page)
+      const applicationTypeValue = applicationType === '変更' ? 'change_of_status' : 'extension_of_stay'
+      await page.locator(`input[name="application-type"][value="${applicationTypeValue}"]`).check({ force: true })
+      await page.locator('input[name="target-status"][value="engineer_humanities_international"]').check({ force: true })
+
+      await expect(page.getByText('技人国の変更・更新はまだ未対応です。まずはCOEを選択してください。')).toBeVisible()
+      await expect(page.getByRole('button', { name: '作成' })).toBeDisabled()
+    })
+  }
+})
+
+test.describe('Specified skilled worker review fields', () => {
+  test('required review fields can be edited and are refreshed after save', async ({ page }) => {
+    await createSpecifiedSkilledWorkerCase(page, '認定・COE')
+    await page.getByRole('button', { name: '抽出開始' }).click()
+    await expect(page).toHaveURL(/\/cases\/demo-gijinkoku-001\/review/)
+
+    await expect(page.getByText('対象の在留資格: 特定技能1号')).toBeVisible()
+    await expect(page.getByText('「人確認」は、資料からAIだけで確定せず')).toBeVisible()
+    await expect(page.getByText('特定技能では雇用形態の確認が必要です。')).toBeVisible()
+    await expect(page.getByText('1号の場合は支援方法の確認が必要です。')).toBeVisible()
+
+    const employmentRow = page.locator('[data-field-row]').filter({ hasText: '雇用形態' })
+    await employmentRow.dblclick()
+    await employmentRow.locator('select').selectOption('direct')
+    await employmentRow.getByRole('button', { name: '保存' }).click()
+    await expect(employmentRow).toContainText('直接雇用')
+
+    const supportRow = page.locator('[data-field-row]').filter({ hasText: '支援方法' })
+    await supportRow.dblclick()
+    await supportRow.locator('select').selectOption('entrusted')
+    await supportRow.getByRole('button', { name: '保存' }).click()
+    await expect(supportRow).toContainText('登録支援機関へ委託')
+
+    await page.locator('.border-t').getByRole('button', { name: '保存' }).click()
+
+    await expect(page.getByText('保存しました')).toBeVisible()
+    await expect(page.getByText('特定技能では雇用形態の確認が必要です。')).not.toBeVisible()
+    await expect(page.getByText('1号の場合は支援方法の確認が必要です。')).not.toBeVisible()
+    await expect(page.getByText('支援計画の最終確認')).toBeVisible()
   })
 })
 
@@ -106,10 +202,13 @@ test.describe('ReviewPage demo mode', () => {
 
   test('organization settings are displayed as fixed and cannot be edited', async ({ page }) => {
     const fixedSettingRows = page.locator('[data-field-row][data-read-only="true"]')
-    await expect(fixedSettingRows).toHaveCount(8)
-    await expect(fixedSettingRows.getByText('固定設定')).toHaveCount(8)
+    const organizationSettingRows = fixedSettingRows.filter({
+      hasText: /取次者|受領方法|通知送信用メールアドレス/,
+    })
+    await expect(organizationSettingRows).toHaveCount(8)
+    await expect(organizationSettingRows.getByText('固定設定')).toHaveCount(8)
 
-    const nameRow = fixedSettingRows.filter({ hasText: '取次者 氏名' })
+    const nameRow = organizationSettingRows.filter({ hasText: '取次者 氏名' })
     await expect(nameRow).toBeVisible()
 
     await nameRow.dblclick()

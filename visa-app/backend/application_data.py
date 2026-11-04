@@ -386,6 +386,12 @@ def apply_application_defaults(source_data: dict[str, Any]) -> None:
     for path in BOOLEAN_PATHS:
         normalize_bool_path(source_data, path)
 
+    if source_data.get("case", {}).get("target_status") == "specified_skilled_worker":
+        employer = source_data.get("employer", {})
+        if employer.get("corporate_number") and is_empty_value(employer.get("has_corporate_number")):
+            employer["has_corporate_number"] = True
+        return
+
     set_default(source_data, "entry_plan.planned_port", infer_planned_port(source_data))
     set_default(source_data, "entry_plan.planned_period_years", "5")
     set_default(source_data, "entry_plan.planned_period_months", "0")
@@ -553,6 +559,7 @@ def _field_controls(
                 "label": field.get("label", ""),
                 "required": field.get("required", False),
                 "input_type": control.get("input_type", ""),
+                "options": control.get("options", []),
             }
     if fields:
         return controls
@@ -593,7 +600,7 @@ def build_rows(
     rows: list[dict[str, Any]] = []
 
     for item in mapping.get("mappings", []):
-        if not visible(case_data, item):
+        if item.get("manual_only") or not visible(case_data, item):
             continue
 
         value_path = item.get("value_path", "")
@@ -601,7 +608,7 @@ def build_rows(
             continue
 
         raw_value = get_path(case_data, value_path) if value_path else item.get("fixed_value")
-        fill_value = transform_value(raw_value, item.get("transform", ""))
+        fill_value = mapped_value(raw_value, item)
         if fill_value == "":
             continue
 
@@ -621,13 +628,93 @@ def build_rows(
                 "fill_value": fill_value,
                 "source_page": item.get("source_page", "case_data"),
                 "confidence": item.get("confidence", "generated"),
-                "required": info["required"],
+                "required": bool(item.get("required", info.get("required", False))),
                 "manual_required": item.get("manual_required", False),
                 "notes": item.get("notes", ""),
             }
         )
 
     return rows
+
+
+def mapped_value(raw_value: Any, item: dict[str, Any]) -> str:
+    if is_empty_value(raw_value):
+        return ""
+    if "value_map" in item:
+        key = str(raw_value).lower() if isinstance(raw_value, bool) else str(raw_value)
+        return str(item["value_map"].get(key, ""))
+    return transform_value(raw_value, item.get("transform", ""))
+
+
+def review_options(item: dict[str, Any], info: dict[str, Any]) -> list[dict[str, str]]:
+    if item.get("value_map"):
+        return [{"value": key, "text": value} for key, value in item["value_map"].items()]
+    if item.get("transform") == "sex_ja":
+        return [{"value": "male", "text": "男 Male"}, {"value": "female", "text": "女 Female"}]
+    if item.get("transform") == "marital_yes_no":
+        return [{"value": "married", "text": "有 Married"}, {"value": "single", "text": "無 Single"}]
+    return [
+        {"value": option["text"], "text": option["text"]}
+        for option in info.get("options", [])
+        if option.get("text", "").strip() and "選択してください" not in option["text"]
+    ]
+
+
+def specified_skilled_worker_review(
+    data: dict[str, Any], mapping: dict[str, Any], form_definitions: dict[str, Any], field_metadata: Any,
+) -> tuple[list[dict], list[dict], list[dict]]:
+    """Use the observed required labels for the applicable form, including empty values."""
+    controls = _field_controls(form_definitions, mapping)
+    fields: dict[str, dict] = {}
+    missing: dict[str, dict] = {}
+    manual: list[dict] = []
+    selectors = [
+        ("specified_skilled_worker.employment_type", "雇用形態", [
+            {"value": "direct", "text": "直接雇用"}, {"value": "dispatch", "text": "派遣"}]),
+    ]
+    if data.get("case", {}).get("target_status_variant") == "ssw_1":
+        selectors.append(("specified_skilled_worker.support_method", "支援方法", [
+            {"value": "entrusted", "text": "登録支援機関へ委託"}, {"value": "self", "text": "自社支援"}]))
+    for path, label, options in selectors:
+        field = {"canonical_path": path, "label": label, "section": "申請条件", "input_type": "select", "options": options, "required": True}
+        fields[path] = field
+        if not has_path(data, path) or get_path(data, path) not in [option["value"] for option in options]:
+            missing[path] = {**field, "reason": "選択してください"}
+    for item in mapping.get("mappings", []):
+        if not visible(data, item):
+            continue
+        info = _field_info(item, controls)
+        path = item.get("value_path", "")
+        required = bool(item.get("required", info.get("required", False)))
+        field = {
+            "canonical_path": path, "label": item.get("label") or info["label"],
+            "section": info["section"], "input_type": info["input_type"],
+            "options": review_options(item, info), "required": required,
+            "manual_required": bool(item.get("manual_required")),
+        }
+        if item.get("manual_only"):
+            if required or (path and has_path(data, path) and not is_empty_value(get_path(data, path))):
+                manual.append(field)
+            continue
+        if path and not path.startswith(("case.", "settings.")):
+            fields.setdefault(path, field)
+        raw_value = (get_path(data, path) if has_path(data, path) else None) if path else item.get("fixed_value")
+        value = mapped_value(raw_value, item)
+        key = path or item.get("canonical_id", info["label"])
+        allowed_values = {
+            option["text"].strip()
+            for option in info.get("options", [])
+            if option.get("text", "").strip() and "選択してください" not in option["text"]
+        }
+        if item.get("value_map") and not is_empty_value(raw_value) and not value:
+            missing[key] = {**field, "reason": "画面の選択肢から選び直してください"}
+        elif required and not value:
+            missing[key] = {**field, "reason": "必須項目が未入力です"}
+        elif value and info["input_type"] in {"select", "radio"} and allowed_values and value not in allowed_values:
+            missing[key] = {**field, "reason": "画面の選択肢から選び直してください"}
+        elif value and item.get("manual_required") and not metadata_entry(field_metadata, path).get("human_edited"):
+            missing[key] = {**field, "reason": "担当者による確認が必要です"}
+    return list(fields.values()), list(missing.values()), manual
 
 
 def build_application_data(
@@ -646,6 +733,11 @@ def build_application_data(
     apply_metadata_derived_values(source_data, case_doc.get("field_metadata"))
     workflow_state = case_doc.get("workflow_state") or case_data.get("case", {}).get("workflow_state", "")
     rows = build_rows(source_data, mapping, form_definitions)
+    is_ssw = case_data.get("case", {}).get("target_status") == "specified_skilled_worker"
+    review_fields, missing_required_fields, pending_manual_fields = (
+        specified_skilled_worker_review(source_data, mapping, form_definitions, case_doc.get("field_metadata"))
+        if is_ssw else ([], [], [])
+    )
     workflow_fillable = is_fillable_workflow_state(workflow_state)
     requires_intermediary = any(
         str(item.get("value_path", "")).startswith("settings.intermediary.")
@@ -661,7 +753,7 @@ def build_application_data(
         (intermediary_configured or not requires_intermediary)
         and (receiving_configured or not requires_receiving)
     )
-    fillable = workflow_fillable and settings_configured
+    fillable = workflow_fillable and settings_configured and not missing_required_fields
     warnings = (
         []
         if workflow_fillable
@@ -671,6 +763,8 @@ def build_application_data(
         warnings.append("取次者の組織設定5件が揃っていないため、自動入力できません")
     if requires_receiving and not receiving_configured:
         warnings.append("通知送信用メールアドレスが組織設定にないため、自動入力できません")
+    if missing_required_fields:
+        warnings.append(f"未入力・未確認の必須項目が{len(missing_required_fields)}件あります")
     intermediary_gate = {
         "status": "verified" if intermediary_configured or not requires_intermediary else "blocked",
         "blocked_fields": [] if intermediary_configured or not requires_intermediary else list(INTERMEDIARY_PATHS),
@@ -693,6 +787,9 @@ def build_application_data(
         "warnings": warnings,
         "intermediary_gate": intermediary_gate,
         "settings_gate": settings_gate,
+        "review_fields": review_fields,
+        "missing_required_fields": missing_required_fields,
+        "pending_manual_fields": pending_manual_fields,
         "summary": {
             "rows_total": len(rows),
             "rows_fillable": len([row for row in rows if row["fill_value"]]),

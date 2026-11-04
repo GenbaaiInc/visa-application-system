@@ -18,6 +18,8 @@
   - [AIエージェント要件.md](shared/002_mvp_design/AIエージェント要件.md)
 - `006_ai_agent_infrastructure/`: 汎用AIエージェント基盤の調査
   - [README.md](shared/006_ai_agent_infrastructure/README.md)
+- [申請手続きと在留資格の整理](shared/019_application_workflows/README.md): 新規入国（COE）・変更・更新を上位に置く今後の設計方針
+  - [RASENS実画面調査と残る確認](shared/019_application_workflows/RASENS調査.md)
 - [chrome_devtools_mcp_qa.md](shared/chrome_devtools_mcp_qa.md): Chrome DevTools MCPでの実画面QA手順
 
 ### visa-eval/docs/

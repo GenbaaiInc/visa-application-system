@@ -19,7 +19,7 @@ rasens-autofill/
     popup.html/js/css  # 拡張ポップアップUI
     api_client.js      # visa-app API通信クライアント
   docs/
-  reference/
+  reference/         # RASENS画面の元MHTML（ローカルのみ・Git管理外）
   QA_POLICY.md
 ```
 

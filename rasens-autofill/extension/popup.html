@@ -37,7 +37,15 @@
       </div>
       <section id="firestoreSection">
         <div class="fieldGroup">
-          <label for="caseSelect">案件一覧</label>
+          <label for="statusFilter">在留資格</label>
+          <select id="statusFilter">
+            <option value="">すべて</option>
+            <option value="engineer_humanities_international">技人国</option>
+            <option value="specified_skilled_worker">特定技能</option>
+          </select>
+        </div>
+        <div class="fieldGroup">
+          <label for="caseSelect">案件</label>
           <div class="inlineControls">
             <select id="caseSelect" aria-label="案件一覧">
               <option value="">案件一覧を読み込み中...</option>

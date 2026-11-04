@@ -1,5 +1,7 @@
 # 特定技能対応の全体設計
 
+> この文書には、COE固定を前提にした当時の実装計画も残している。今後の「新規入国（COE）・変更・更新 → 技人国・特定技能」という分類と、過度に共通化しない実装方針は[新しい整理](../019_application_workflows/README.md)を参照。過去の調査・実装記録はそのまま保持する。
+
 ## 結論
 
 特定技能を追加しても、現在の基本フローは変えない。
@@ -20,13 +22,37 @@
 
 Chrome拡張、workflow state、保存層を作り直す必要はない。特定技能の多数の確認事項を一つの巨大な共通schemaへ混ぜたり、技人国版のアプリを丸ごと複製したりもしない。
 
+## 実装状況（2026-09-03）
+
+Sprint 1の安全な土台は実装済み。
+
+実装済み:
+
+- 新規案件作成時にCOE固定の3択（技人国 / 特定技能1号 / 特定技能2号）を選択できる
+- `case_data.case.target_status_variant` に選択値を保存し、画面上で表示できる
+- application profile resolver により、在留資格種別ごとの処理対象を解決できる
+- 未対応の特定技能AI抽出 / application-data 生成は、技人国へ誤フォールバックせず `409` で明示停止する
+- `application_data` に `form_profile_id` / `form_definition_version` を持たせる
+- 特定技能案件はアップロード可能だが、抽出UIは未対応として停止する
+- 既存技人国の回帰なし（backend 285 tests全通過、frontend lint/build通過、Desktop/390px UI確認、console errorsなし）
+
+未実装:
+
+- 特定技能固有schema
+- 特定技能AI抽出
+- 特定技能form definition
+- 特定技能RASENS mapping
+- 特定技能自動入力
+
 ## 今回確認した範囲
 
-対象MHTML:
+対象MHTML（ローカル保存・Git管理外）:
 
-`/Users/yohei/Downloads/【在留申請オンラインシステム及び電子届出システム】手続き申込：申込.mhtml`
+- COE: `rasens-autofill/reference/rasens-ssw-2026-09-13/ssw_coe_2026-09-02.mhtml`
+- 在留資格変更: `rasens-autofill/reference/rasens-ssw-2026-09-13/ssw_change_2026-09-13.mhtml`
+- 在留期間更新: `rasens-autofill/reference/rasens-ssw-2026-09-13/ssw_renewal_2026-09-13.mhtml`
 
-保存されていた画面は、次の組合せだった。
+以下の詳細分析に使ったCOE画面は、次の組合せだった。
 
 - 手続き: 在留資格認定証明書交付申請
 - RASENS区分: 区分V
@@ -36,7 +62,7 @@ MHTMLには入力系control（input/select/textarea）が691個、buttonを含�
 
 また、特定技能とは無関係な「高度専門職ポイント表」も非表示状態で同梱されていた。したがって、MHTML内の全項目を特定技能の入力対象としてコピーしてはいけない。フォーム台帳では「この申請プロファイルで有効か」と「どの条件で表示されるか」を持つ必要がある。
 
-今回のMHTMLだけから確定できるのは、上記の在留資格認定証明書交付申請の構造である。在留資格変更許可申請と在留期間更新許可申請は、別の画面保存を取得してから別プロファイルとして確認する。
+変更・更新も特定技能の未入力画面を保存済みで、どちらもRASENS区分Vである。これらの項目と条件分岐は、COEとは別プロファイルとして今後確認する。保存画面だけで1号/2号、雇用形態、支援方法ごとの表示・必須条件まで確定したわけではない。
 
 ## 技人国と特定技能で何が違うか
 
@@ -174,7 +200,7 @@ backendは `case.application_type + case.target_status` からプロファイル
 - employment
 - review
 
-特定技能用は、初めから4つのGemini呼出しへ分割せず、まず `specified_skilled_worker` scopeを1つだけ追加する。そのschema内部を `eligibility / contract / organization / support` に分ける。データ量や精度に問題があることを計測してから分割する。
+当初は `specified_skilled_worker` scopeを1つ追加する計画だったが、実際のGemini APIでschema上限による400を確認したため、本人情報と用途別の小さなscopeへ分割した。最終的な案件データの形は変えず、1号は9scope、2号は1号固有の支援scopeを除く7scopeを使う。
 
 プロンプトのレビュー観点は在留資格ごとに切り替える。現在の技人国向け「学歴・専攻と職務のつながり」「単純労働に見えないか」を、特定技能へそのまま適用しない。特定技能では、資料に明示された技能・日本語要件、契約、分野・業務区分、支援情報の抽出と、未確認事項の洗い出しを担当させる。
 
@@ -184,11 +210,13 @@ AIが出した値は従来どおり `field_metadata` の根拠と一緒にレビ
 
 ### 1. 案件作成
 
-「新規案件」で次を選ぶ。
+案件作成では、申請種別はCOE固定とし、在留資格は次の3択から選ぶ。
 
-1. 申請手続き
-2. 在留資格
-3. 特定技能の場合だけ1号/2号
+- 技人国
+- 特定技能1号
+- 特定技能2号
+
+選択値は案件の基本属性として保存し、以降の画面表示、抽出可否、application-data生成可否、RASENS変換可否の判定に使う。特定技能はSprint 1時点ではアップロードまで可能とし、未対応のAI抽出やRASENS変換には進ませない。
 
 直接雇用/派遣、支援委託の有無まで最初に強制入力しない。分かっていれば入力できるが、資料抽出後にレビュー先頭で確認できるようにする。
 
@@ -255,11 +283,44 @@ RASENS変換の評価
 3. 特定技能1号・派遣
 4. 特定技能2号
 
-今回のMHTMLだけでは全分岐の表示状態を確定できないため、それぞれの保存画面を取得して台帳とmappingを検証する。実資料fixtureはrestricted test dataのままとし、Gitには入れない。
+COE・変更・更新の未入力画面は保存済み。ただし、1号/2号、雇用形態、支援方法などの全分岐はまだ確認できないため、各分岐の表示を確かめてから台帳とmappingを検証する。実資料fixtureはrestricted test dataのままとし、Gitには入れない。
 
-## 実装作業計画
+## 今後の実装作業計画
 
-まだ実装しない。実装時は次の順に進める。
+Sprint 1の安全な土台は実装済み。以降は、特定技能固有schema、AI抽出、form definition、RASENS mapping、自動入力の順に、小さく検証しながら追加する。
+
+### Sprint 1: 案件種別の入口と未対応ガード
+
+実装済み。
+
+- 新規案件作成時に、技人国、特定技能1号、特定技能2号を選択できるようにした。
+- 特定技能案件では `case.target_status = specified_skilled_worker` と `case.target_status_variant = ssw_1 / ssw_2` を保存する。
+- 案件一覧とアップロード画面で、選択した在留資格と1号/2号を表示する。
+- 特定技能案件でも資料アップロードと保存はできる。
+- 特定技能案件のAI抽出、streaming抽出、RASENS用 `application-data` 生成は、技人国へfallbackせず409で止める。
+- 既存の技人国COEだけを、現時点の対応済みRASENS profileとして扱う。
+
+このSprintでは、特定技能のschema、Gemini scope、form definition、mappingはまだ追加しない。入口とガードだけを先に入れることで、既存の技人国処理を壊さず、未対応の特定技能を誤って技人国フォームへ流さない状態にした。
+
+確認済み:
+
+- backend全テスト: 285 passed
+- frontend lint: passed
+- frontend build: passed
+- ブラウザQA: デスクトップ幅と390px幅で、案件作成、特定技能表示、未対応表示、抽出ボタン無効化、console errorなしを確認
+
+### Sprint 2: 資料確認導線（実装済み）
+
+- Review上部に在留資格と特定技能1号/2号を表示し、特定技能ではAI抽出/RASENS連携が未対応であることを明示する
+- Uploadから「資料を確認」でDocumentViewerへ進める
+- 特定技能schema未実装の間は、技人国向けの空欄placeholderを出さない
+- 申請種別、在留資格、特定技能1号/2号はレビューで固定表示する
+- demo新規案件は既存技人国値を引き継がず、空の状態で開始する
+- 検証: backend 285 tests全通過、frontend lint/build通過、Desktop/390px確認、特定技能1号/2号・技人国回帰確認、QA P0/P1/P2なし
+
+次はMHTML/実画面の分岐資料を増やし、根拠を確認してから特定技能schema/mappingへ進む。
+
+以降は次の順に進める。
 
 ### Phase 0: 対応範囲の確定
 
@@ -281,7 +342,7 @@ RASENS変換の評価
 ### Phase 2: データ抽出とレビュー
 
 - `case.target_status_variant` と `specified_skilled_worker` の4群を追加する。
-- 特定技能用Gemini scopeを1つ追加する。
+- 特定技能用Gemini scopeは、実APIで通る用途別の小さな単位に分ける。
 - 項目ごとに「資料から読む / 人が確認する / 設定・計算」を割り当てる。
 - レビュー画面を共通群と特定技能4群に分ける。
 - 人確認項目を抽出schemaのrequiredに入れず、未記載から自動でfalseにしないテストを入れる。
@@ -311,7 +372,7 @@ RASENS変換の評価
 | 対象 | 予定する変更 |
 |---|---|
 | 案件作成UI/API | 申請手続き・在留資格・1号/2号を選べるようにする |
-| Gemini schema/prompt | 共通scopeを再利用し、特定技能scopeを1つ追加する |
+| Gemini schema/prompt | 本人情報だけ共通利用し、特定技能は用途別の小さなscopeに分ける |
 | レビューUI | 特定技能4群の順序、ラベル、人確認状態を追加する |
 | `application_data.py` | 固定ファイル読込をprofile選択へ置き換える |
 | `rasens-autofill/data/` | 特定技能COEの台帳、mapping、profile対応表を追加する |

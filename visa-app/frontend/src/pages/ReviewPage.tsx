@@ -9,6 +9,7 @@ import type {
   CaseDocument,
   FieldMetadataMap,
   FieldOrigin,
+  ApplicationData,
   SourceLocation,
   SourceRef,
 } from '../types/caseData'
@@ -89,6 +90,7 @@ export default function ReviewPage() {
   const { caseId } = useParams<{ caseId: string }>()
   const navigate = useNavigate()
   const [caseDoc, setCaseDoc] = useState<CaseDocument | null>(null)
+  const [applicationData, setApplicationData] = useState<ApplicationData | null>(null)
   const [loading, setLoading] = useState(true)
   const [saving, setSaving] = useState(false)
   const [saveMessage, setSaveMessage] = useState<string | null>(null)
@@ -100,6 +102,7 @@ export default function ReviewPage() {
 
   useEffect(() => {
     if (!caseId) return
+    setApplicationData(null)
     apiClient.getCase(caseId).then((doc) => {
       doc.field_metadata = normalizeFieldMetadata(doc.field_metadata)
       doc.canonical_case_data ??= structuredClone(doc.case_data)
@@ -107,6 +110,9 @@ export default function ReviewPage() {
       if (doc.document_manifest?.documents) {
         setDocuments(doc.document_manifest.documents)
       }
+      void apiClient.getApplicationData(caseId)
+        .then(setApplicationData)
+        .catch(() => setApplicationData(null))
     }).finally(() => setLoading(false))
   }, [caseId, setDocuments])
 
@@ -145,6 +151,8 @@ export default function ReviewPage() {
         case_data: caseData,
         field_metadata: caseDoc.field_metadata,
       })
+      const nextApplicationData = await apiClient.getApplicationData(caseId)
+      setApplicationData(nextApplicationData)
       setSaveMessage('保存しました')
     } catch {
       setSaveFailed(true)
@@ -207,6 +215,9 @@ export default function ReviewPage() {
       <ReviewBanner
         caseId={caseDoc.case_id}
         workflowState={caseDoc.workflow_state}
+        applicationType={caseDoc.case_data.case.application_type}
+        targetStatus={caseDoc.case_data.case.target_status}
+        targetStatusVariant={caseDoc.case_data.case.target_status_variant}
       />
 
       <div ref={containerRef} className="flex flex-1 overflow-hidden relative">
@@ -217,8 +228,12 @@ export default function ReviewPage() {
         >
           <FieldPanel
             caseData={caseDoc.case_data}
+            targetStatus={caseDoc.case_data.case.target_status}
             fieldMetadata={caseDoc.field_metadata}
             review={caseDoc.review}
+            reviewFields={applicationData?.review_fields}
+            missingRequiredFields={applicationData?.missing_required_fields}
+            pendingManualFields={applicationData?.pending_manual_fields}
             onFieldUpdate={handleFieldUpdate}
           />
         </div>

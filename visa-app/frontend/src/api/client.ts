@@ -1,4 +1,10 @@
-import type { CaseDocument, CaseSummary, DocumentEntry } from '../types/caseData'
+import type {
+  ApplicationData,
+  CaseDocument,
+  CaseSummary,
+  CreateCaseParams,
+  DocumentEntry,
+} from '../types/caseData'
 import { authHeaders } from '../auth/firebase'
 import { mockApi } from './mockData'
 
@@ -100,7 +106,7 @@ export const apiClient = {
   },
 
   // Cases
-  createCase(params: { application_type: string; target_status: string }) {
+  createCase(params: CreateCaseParams) {
     if (isDemoMode()) return mockApi.createCase(params)
     return request<{ case_id: string; workflow_state: string; created_at: string }>(
       '/cases',
@@ -188,6 +194,11 @@ export const apiClient = {
     return request<{ status: string; session_id?: string }>(`/cases/${caseId}/extraction-status`)
   },
 
+  getApplicationData(caseId: string): Promise<ApplicationData> {
+    if (isDemoMode()) return mockApi.getApplicationData(caseId)
+    return request<ApplicationData>(`/cases/${caseId}/application-data`)
+  },
+
   /** SSE で抽出進捗をストリーム受信する（Gemini用） */
   startExtractionStream(
     caseId: string,
@@ -198,6 +209,22 @@ export const apiClient = {
       onError: (error: string) => void
     },
   ): { abort: () => void } {
+    if (isDemoMode()) {
+      const progressTimer = window.setTimeout(() => {
+        callbacks.onProgress({ phase: 'extract', message: 'デモ抽出中...' })
+      }, 120)
+      const completeTimer = window.setTimeout(async () => {
+        await mockApi.startExtraction(caseId)
+        callbacks.onComplete({ workflow_state: 'extracted' })
+      }, 360)
+      return {
+        abort: () => {
+          window.clearTimeout(progressTimer)
+          window.clearTimeout(completeTimer)
+        },
+      }
+    }
+
     const controller = new AbortController()
     const startedAt = performance.now()
 
